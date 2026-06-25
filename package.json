@@ -1,0 +1,17 @@
+{
+  "name": "harusoso-board",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev-server.js",
+    "build": "node scripts/generate-sitemap.js",
+    "seed": "node scripts/generate-seed-posts.js",
+    "crawl:plan": "node scripts/crawl-curation.js --dry-run",
+    "image:fetch": "node scripts/fetch-r2-image.js",
+    "image:upload": "node scripts/upload-r2-image.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}

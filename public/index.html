@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>하루소소 - 오늘의 유머와 공감 베스트</title>
+    <meta
+      name="description"
+      content="국내 커뮤니티에서 화제가 된 유머, 공감, 일상 이야기를 하루 단위로 정리해 보여주는 큐레이션 보드입니다."
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="하루소소 홈">
+          <span class="brand-mark">하루</span>
+          <span>
+            <strong>하루소소</strong>
+            <small>오늘의 유머 큐레이션</small>
+          </span>
+        </a>
+        <nav class="top-nav" aria-label="주요 메뉴">
+          <button class="nav-tab is-active" data-filter="all">전체</button>
+          <button class="nav-tab" data-filter="funny">유머</button>
+          <button class="nav-tab" data-filter="empathy">공감</button>
+          <button class="nav-tab" data-filter="issue">이슈</button>
+          <button class="nav-tab" data-filter="life">생활</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="board-main" aria-labelledby="board-title">
+        <div class="board-toolbar">
+          <div>
+            <p class="eyebrow">CURATED BOARD</p>
+            <h1 id="board-title">오늘 올라온 소소한 화제</h1>
+          </div>
+          <label class="search-box">
+            <span>검색</span>
+            <input id="searchInput" type="search" placeholder="제목, 요약, 태그 검색" />
+          </label>
+        </div>
+
+        <div class="rank-strip" aria-label="주요 랭킹 바로가기">
+          <button class="rank-button is-active" data-rank="latest">최신글</button>
+          <button class="rank-button" data-rank="daily">일일 베스트 10</button>
+          <button class="rank-button" data-rank="weekly">주간 베스트 10</button>
+        </div>
+
+        <div class="board-head" aria-hidden="true">
+          <span>번호</span>
+          <span>제목</span>
+          <span>출처</span>
+          <span>조회</span>
+          <span>추천</span>
+        </div>
+        <ol id="postList" class="post-list"></ol>
+      </section>
+
+      <aside class="side-panel" aria-label="인기 콘텐츠">
+        <section class="side-section">
+          <div class="side-title">
+            <h2>오늘의 베스트</h2>
+            <span id="dailyCount">0</span>
+          </div>
+          <ol id="dailyBest" class="mini-rank"></ol>
+        </section>
+        <section class="side-section">
+          <div class="side-title">
+            <h2>주간 베스트</h2>
+            <span id="weeklyCount">0</span>
+          </div>
+          <ol id="weeklyBest" class="mini-rank"></ol>
+        </section>
+        <section class="notice-box">
+          <h2>운영 원칙</h2>
+          <p>수집 글은 요약, 코멘트, 출처 링크 중심으로 발행하며 권리자 요청 시 검토 후 조치합니다.</p>
+        </section>
+      </aside>
+    </main>
+
+    <dialog id="postDialog" class="post-dialog">
+      <article class="dialog-card">
+        <button id="closeDialog" class="icon-button" aria-label="닫기">×</button>
+        <img id="dialogImage" alt="" />
+        <p id="dialogMeta" class="dialog-meta"></p>
+        <h2 id="dialogTitle"></h2>
+        <p id="dialogSummary"></p>
+        <p id="dialogComment" class="curator-comment"></p>
+        <div class="dialog-actions">
+          <a id="dialogSource" href="#" target="_blank" rel="noopener noreferrer">원문 보기</a>
+          <span id="dialogTags"></span>
+        </div>
+      </article>
+    </dialog>
+
+    <footer class="site-footer">
+      <a href="/policy/privacy.html">개인정보처리방침</a>
+      <a href="/policy/terms.html">이용약관</a>
+      <a href="/contact.html">문의 및 삭제 요청</a>
+    </footer>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
