@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://harusoso.pages.dev/sitemap.xml
+Sitemap: https://sosotime.com/sitemap.xml

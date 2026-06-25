@@ -9,10 +9,13 @@ const categoryLabels = {
   funny: "유머",
   empathy: "공감",
   issue: "이슈",
-  life: "생활"
+  life: "생활",
+  info: "정보"
 };
 
 const els = {
+  totalCount: document.querySelector("#totalCount"),
+  featuredPost: document.querySelector("#featuredPost"),
   postList: document.querySelector("#postList"),
   dailyBest: document.querySelector("#dailyBest"),
   weeklyBest: document.querySelector("#weeklyBest"),
@@ -31,6 +34,12 @@ const els = {
 };
 
 const numberFormat = new Intl.NumberFormat("ko-KR");
+const dateFormat = new Intl.DateTimeFormat("ko-KR", {
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit"
+});
 
 async function boot() {
   const response = await fetch("/data/posts.json");
@@ -83,7 +92,7 @@ function filteredPosts() {
 
   if (state.query) {
     posts = posts.filter((post) => {
-      const haystack = `${post.title} ${post.summary} ${post.tags.join(" ")}`.toLowerCase();
+      const haystack = `${post.title} ${post.summary} ${post.curatorComment} ${post.tags.join(" ")}`.toLowerCase();
       return haystack.includes(state.query);
     });
   }
@@ -101,14 +110,30 @@ function filteredPosts() {
 
 function render() {
   const posts = filteredPosts();
+  els.totalCount.textContent = numberFormat.format(state.posts.length);
+  renderFeatured(state.posts[0]);
   els.postList.replaceChildren(...posts.map((post, index) => createPostRow(post, index)));
 
-  const daily = state.posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 10);
+  const daily = state.posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 8);
   const weekly = state.posts.filter((post) => post.weeklyRank).sort((a, b) => a.weeklyRank - b.weeklyRank).slice(0, 10);
   els.dailyCount.textContent = daily.length;
   els.weeklyCount.textContent = weekly.length;
   els.dailyBest.replaceChildren(...daily.map((post) => createMiniRank(post, post.dailyRank)));
   els.weeklyBest.replaceChildren(...weekly.map((post) => createMiniRank(post, post.weeklyRank)));
+}
+
+function renderFeatured(post) {
+  if (!post) return;
+  els.featuredPost.innerHTML = `
+    <img src="${post.image}" alt="" loading="lazy">
+    <div>
+      <p class="eyebrow">EDITOR'S PICK</p>
+      <h2>${escapeHtml(post.title)}</h2>
+      <p>${escapeHtml(post.summary)}</p>
+      <button type="button">글 자세히 보기</button>
+    </div>
+  `;
+  els.featuredPost.querySelector("button").addEventListener("click", () => openPost(post));
 }
 
 function createPostRow(post, index) {
@@ -126,7 +151,7 @@ function createPostRow(post, index) {
         <small>${escapeHtml(post.summary)}</small>
       </span>
     </span>
-    <span class="source">${escapeHtml(post.sourceName)}</span>
+    <span class="source">${escapeHtml(categoryLabels[post.category])}</span>
     <span class="metric">${numberFormat.format(post.views)}</span>
     <span class="metric">${numberFormat.format(post.likes)}</span>
   `;
@@ -141,7 +166,7 @@ function createMiniRank(post, rank) {
   button.addEventListener("click", () => openPost(post));
   button.innerHTML = `
     <strong>${rank}. ${escapeHtml(post.title)}</strong>
-    <small>${escapeHtml(categoryLabels[post.category])} · ${numberFormat.format(post.likes)} 추천</small>
+    <small>${escapeHtml(categoryLabels[post.category])} · 추천 ${numberFormat.format(post.likes)}</small>
   `;
   item.append(button);
   return item;
@@ -154,7 +179,7 @@ function openPost(post) {
 
   els.dialogImage.src = post.image;
   els.dialogImage.alt = post.title;
-  els.dialogMeta.textContent = `${categoryLabels[post.category]} · ${post.sourceName} · 조회 ${numberFormat.format(post.views)}`;
+  els.dialogMeta.textContent = `${categoryLabels[post.category]} · ${post.sourceName} · 조회 ${numberFormat.format(post.views)} · ${dateFormat.format(new Date(post.publishedAt))}`;
   els.dialogTitle.textContent = post.title;
   els.dialogSummary.textContent = post.summary;
   els.dialogComment.textContent = post.curatorComment;

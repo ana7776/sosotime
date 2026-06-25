@@ -3,82 +3,117 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>하루소소 - 오늘의 유머와 공감 베스트</title>
+    <title>소소타임 - 오늘의 커뮤니티 이슈와 생활 공감 큐레이션</title>
     <meta
       name="description"
-      content="국내 커뮤니티에서 화제가 된 유머, 공감, 일상 이야기를 하루 단위로 정리해 보여주는 큐레이션 보드입니다."
+      content="국내 커뮤니티에서 화제가 된 유머, 생활 공감, 정보성 이슈를 복제 없이 요약하고 해설하는 큐레이션 보드입니다."
     />
+    <link rel="canonical" href="https://sosotime.com/" />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <header class="site-header">
       <div class="header-inner">
-        <a class="brand" href="/" aria-label="하루소소 홈">
-          <span class="brand-mark">하루</span>
+        <a class="brand" href="/" aria-label="소소타임 홈">
+          <span class="brand-mark">소소</span>
           <span>
-            <strong>하루소소</strong>
-            <small>오늘의 유머 큐레이션</small>
+            <strong>소소타임</strong>
+            <small>커뮤니티 이슈 큐레이션</small>
           </span>
         </a>
-        <nav class="top-nav" aria-label="주요 메뉴">
+        <nav class="top-nav" aria-label="주요 분류">
           <button class="nav-tab is-active" data-filter="all">전체</button>
           <button class="nav-tab" data-filter="funny">유머</button>
           <button class="nav-tab" data-filter="empathy">공감</button>
           <button class="nav-tab" data-filter="issue">이슈</button>
           <button class="nav-tab" data-filter="life">생활</button>
+          <button class="nav-tab" data-filter="info">정보</button>
         </nav>
       </div>
     </header>
 
     <main class="page-shell">
-      <section class="board-main" aria-labelledby="board-title">
-        <div class="board-toolbar">
-          <div>
-            <p class="eyebrow">CURATED BOARD</p>
-            <h1 id="board-title">오늘 올라온 소소한 화제</h1>
-          </div>
-          <label class="search-box">
-            <span>검색</span>
-            <input id="searchInput" type="search" placeholder="제목, 요약, 태그 검색" />
-          </label>
+      <section class="lead-panel" aria-labelledby="lead-title">
+        <div>
+          <p class="eyebrow">TODAY'S CURATION</p>
+          <h1 id="lead-title">오늘 커뮤니티에서 오래 읽힌 이야기</h1>
+          <p>
+            빠르게 지나가는 게시판 글을 그대로 옮기지 않고, 독자가 이해하기 쉬운 맥락과
+            운영자의 짧은 해설을 더해 정리합니다.
+          </p>
         </div>
-
-        <div class="rank-strip" aria-label="주요 랭킹 바로가기">
-          <button class="rank-button is-active" data-rank="latest">최신글</button>
-          <button class="rank-button" data-rank="daily">일일 베스트 10</button>
-          <button class="rank-button" data-rank="weekly">주간 베스트 10</button>
+        <div class="lead-stats" aria-label="사이트 요약">
+          <strong id="totalCount">0</strong>
+          <span>정리된 글</span>
         </div>
-
-        <div class="board-head" aria-hidden="true">
-          <span>번호</span>
-          <span>제목</span>
-          <span>출처</span>
-          <span>조회</span>
-          <span>추천</span>
-        </div>
-        <ol id="postList" class="post-list"></ol>
       </section>
 
-      <aside class="side-panel" aria-label="인기 콘텐츠">
-        <section class="side-section">
-          <div class="side-title">
-            <h2>오늘의 베스트</h2>
-            <span id="dailyCount">0</span>
-          </div>
-          <ol id="dailyBest" class="mini-rank"></ol>
-        </section>
-        <section class="side-section">
-          <div class="side-title">
-            <h2>주간 베스트</h2>
-            <span id="weeklyCount">0</span>
-          </div>
-          <ol id="weeklyBest" class="mini-rank"></ol>
-        </section>
-        <section class="notice-box">
+      <section class="featured-grid" aria-label="오늘의 주요 글">
+        <article id="featuredPost" class="featured-card"></article>
+        <aside class="principle-card">
           <h2>운영 원칙</h2>
-          <p>수집 글은 요약, 코멘트, 출처 링크 중심으로 발행하며 권리자 요청 시 검토 후 조치합니다.</p>
+          <ul>
+            <li>원문 복제가 아닌 자체 요약과 해설 중심</li>
+            <li>민감한 이슈는 확인 가능한 맥락만 정리</li>
+            <li>권리 요청과 수정 요청은 문의 페이지에서 접수</li>
+          </ul>
+          <a href="/contact.html">문의 및 정정 요청</a>
+        </aside>
+      </section>
+
+      <section class="content-grid">
+        <section class="board-main" aria-labelledby="board-title">
+          <div class="board-toolbar">
+            <div>
+              <p class="eyebrow">BOARD</p>
+              <h2 id="board-title">전체 큐레이션 목록</h2>
+            </div>
+            <label class="search-box">
+              <span>검색</span>
+              <input id="searchInput" type="search" placeholder="제목, 요약, 태그 검색" />
+            </label>
+          </div>
+
+          <div class="rank-strip" aria-label="목록 정렬">
+            <button class="rank-button is-active" data-rank="latest">최신순</button>
+            <button class="rank-button" data-rank="daily">오늘 많이 본 글</button>
+            <button class="rank-button" data-rank="weekly">주간 추천 글</button>
+          </div>
+
+          <div class="board-head" aria-hidden="true">
+            <span>번호</span>
+            <span>제목</span>
+            <span>분류</span>
+            <span>조회</span>
+            <span>추천</span>
+          </div>
+          <ol id="postList" class="post-list"></ol>
         </section>
-      </aside>
+
+        <aside class="side-panel" aria-label="인기 콘텐츠">
+          <section class="side-section">
+            <div class="side-title">
+              <h2>오늘의 인기</h2>
+              <span id="dailyCount">0</span>
+            </div>
+            <ol id="dailyBest" class="mini-rank"></ol>
+          </section>
+          <section class="side-section">
+            <div class="side-title">
+              <h2>주간 추천</h2>
+              <span id="weeklyCount">0</span>
+            </div>
+            <ol id="weeklyBest" class="mini-rank"></ol>
+          </section>
+          <section class="notice-box">
+            <h2>콘텐츠 안내</h2>
+            <p>
+              소소타임은 커뮤니티 게시판의 흐름을 참고해 독립적인 요약문과 해설을 작성합니다.
+              원문 확인이 필요한 경우 각 글의 출처 버튼을 이용해 주세요.
+            </p>
+          </section>
+        </aside>
+      </section>
     </main>
 
     <dialog id="postDialog" class="post-dialog">
@@ -90,7 +125,7 @@
         <p id="dialogSummary"></p>
         <p id="dialogComment" class="curator-comment"></p>
         <div class="dialog-actions">
-          <a id="dialogSource" href="#" target="_blank" rel="noopener noreferrer">원문 보기</a>
+          <a id="dialogSource" href="#" target="_blank" rel="noopener noreferrer">참고 출처 보기</a>
           <span id="dialogTags"></span>
         </div>
       </article>
@@ -99,7 +134,7 @@
     <footer class="site-footer">
       <a href="/policy/privacy.html">개인정보처리방침</a>
       <a href="/policy/terms.html">이용약관</a>
-      <a href="/contact.html">문의 및 삭제 요청</a>
+      <a href="/contact.html">문의 및 정정 요청</a>
     </footer>
 
     <script type="module" src="/app.js"></script>

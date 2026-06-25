@@ -1,6 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
 
-const siteUrl = process.env.SITE_URL || "https://harusoso.pages.dev";
+const siteUrl = process.env.SITE_URL || "https://sosotime.com";
 const posts = JSON.parse(await readFile("public/data/posts.json", "utf8"));
 const staticPaths = ["/", "/contact.html", "/policy/privacy.html", "/policy/terms.html"];
 
