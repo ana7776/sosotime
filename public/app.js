@@ -21,6 +21,8 @@ const els = {
   weeklyBest: document.querySelector("#weeklyBest"),
   dailyCount: document.querySelector("#dailyCount"),
   weeklyCount: document.querySelector("#weeklyCount"),
+  categoryCount: document.querySelector("#categoryCount"),
+  categoryLinks: document.querySelector("#categoryLinks"),
   searchInput: document.querySelector("#searchInput"),
   dialog: document.querySelector("#postDialog"),
   closeDialog: document.querySelector("#closeDialog"),
@@ -44,6 +46,7 @@ const dateFormat = new Intl.DateTimeFormat("ko-KR", {
 async function boot() {
   const response = await fetch("/data/posts.json");
   state.posts = await response.json();
+  applyStateFromUrl();
   bindEvents();
   render();
   openPostFromUrl();
@@ -54,6 +57,7 @@ function bindEvents() {
     button.addEventListener("click", () => {
       state.category = button.dataset.filter;
       setActive(".nav-tab", button);
+      updateListUrl();
       render();
     });
   });
@@ -62,6 +66,7 @@ function bindEvents() {
     button.addEventListener("click", () => {
       state.rank = button.dataset.rank;
       setActive(".rank-button", button);
+      updateListUrl();
       render();
     });
   });
@@ -81,6 +86,44 @@ function setActive(selector, selected) {
   document.querySelectorAll(selector).forEach((button) => {
     button.classList.toggle("is-active", button === selected);
   });
+}
+
+function applyStateFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const category = params.get("category");
+  const rank = params.get("rank");
+
+  if (category === "all" || categoryLabels[category]) {
+    state.category = category;
+  }
+
+  if (["latest", "daily", "weekly"].includes(rank)) {
+    state.rank = rank;
+  }
+
+  const selectedCategory = document.querySelector(`.nav-tab[data-filter="${state.category}"]`);
+  const selectedRank = document.querySelector(`.rank-button[data-rank="${state.rank}"]`);
+  if (selectedCategory) setActive(".nav-tab", selectedCategory);
+  if (selectedRank) setActive(".rank-button", selectedRank);
+}
+
+function updateListUrl() {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("post");
+
+  if (state.category === "all") {
+    url.searchParams.delete("category");
+  } else {
+    url.searchParams.set("category", state.category);
+  }
+
+  if (state.rank === "latest") {
+    url.searchParams.delete("rank");
+  } else {
+    url.searchParams.set("rank", state.rank);
+  }
+
+  history.replaceState({}, "", url);
 }
 
 function filteredPosts() {
@@ -114,12 +157,13 @@ function render() {
   renderFeatured(state.posts[0]);
   els.postList.replaceChildren(...posts.map((post, index) => createPostRow(post, index)));
 
-  const daily = state.posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 8);
+  const daily = state.posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 10);
   const weekly = state.posts.filter((post) => post.weeklyRank).sort((a, b) => a.weeklyRank - b.weeklyRank).slice(0, 10);
   els.dailyCount.textContent = daily.length;
   els.weeklyCount.textContent = weekly.length;
   els.dailyBest.replaceChildren(...daily.map((post) => createMiniRank(post, post.dailyRank)));
   els.weeklyBest.replaceChildren(...weekly.map((post) => createMiniRank(post, post.weeklyRank)));
+  renderCategoryLinks();
 }
 
 function renderFeatured(post) {
@@ -170,6 +214,33 @@ function createMiniRank(post, rank) {
   `;
   item.append(button);
   return item;
+}
+
+function renderCategoryLinks() {
+  const entries = Object.entries(categoryLabels).map(([category, label]) => {
+    const count = state.posts.filter((post) => post.category === category).length;
+    return { category, label, count };
+  });
+
+  els.categoryCount.textContent = entries.length;
+  els.categoryLinks.replaceChildren(
+    ...entries.map(({ category, label, count }) => {
+      const link = document.createElement("a");
+      link.href = `/?category=${category}`;
+      link.className = "category-link";
+      link.classList.toggle("is-active", state.category === category);
+      link.innerHTML = `<strong>${escapeHtml(label)}</strong><span>${numberFormat.format(count)}개</span>`;
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        state.category = category;
+        const selected = document.querySelector(`.nav-tab[data-filter="${category}"]`);
+        if (selected) setActive(".nav-tab", selected);
+        updateListUrl();
+        render();
+      });
+      return link;
+    })
+  );
 }
 
 function openPost(post) {
