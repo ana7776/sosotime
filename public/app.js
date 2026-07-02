@@ -5,57 +5,38 @@ const state = {
   query: ""
 };
 
-const categoryLabels = {
-  funny: "유머",
-  empathy: "공감",
-  issue: "이슈",
-  life: "생활",
-  info: "정보"
+const categoryMeta = {
+  funny: { label: "유머", tone: "yellow" },
+  empathy: { label: "공감", tone: "pink" },
+  issue: { label: "이슈", tone: "blue" },
+  life: { label: "생활", tone: "orange" },
+  info: { label: "정보", tone: "green" }
 };
 
 const els = {
-  totalCount: document.querySelector("#totalCount"),
-  featuredPost: document.querySelector("#featuredPost"),
   postList: document.querySelector("#postList"),
   dailyBest: document.querySelector("#dailyBest"),
   weeklyBest: document.querySelector("#weeklyBest"),
   dailyCount: document.querySelector("#dailyCount"),
   weeklyCount: document.querySelector("#weeklyCount"),
-  categoryCount: document.querySelector("#categoryCount"),
-  categoryLinks: document.querySelector("#categoryLinks"),
-  searchInput: document.querySelector("#searchInput"),
-  dialog: document.querySelector("#postDialog"),
-  closeDialog: document.querySelector("#closeDialog"),
-  dialogImage: document.querySelector("#dialogImage"),
-  dialogMeta: document.querySelector("#dialogMeta"),
-  dialogTitle: document.querySelector("#dialogTitle"),
-  dialogSummary: document.querySelector("#dialogSummary"),
-  dialogComment: document.querySelector("#dialogComment"),
-  dialogSource: document.querySelector("#dialogSource"),
-  dialogTags: document.querySelector("#dialogTags")
+  topCards: document.querySelector("#topCards"),
+  searchInput: document.querySelector("#searchInput")
 };
 
 const numberFormat = new Intl.NumberFormat("ko-KR");
-const dateFormat = new Intl.DateTimeFormat("ko-KR", {
-  month: "2-digit",
-  day: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit"
-});
 
 async function boot() {
   const response = await fetch("/data/posts.json");
-  state.posts = await response.json();
+  state.posts = (await response.json()).filter((post) => post.status === "published");
   applyStateFromUrl();
   bindEvents();
   render();
-  openPostFromUrl();
 }
 
 function bindEvents() {
   document.querySelectorAll(".nav-tab").forEach((button) => {
     button.addEventListener("click", () => {
-      state.category = button.dataset.filter;
+      state.category = button.dataset.filter || "all";
       setActive(".nav-tab", button);
       updateListUrl();
       render();
@@ -64,21 +45,17 @@ function bindEvents() {
 
   document.querySelectorAll(".rank-button").forEach((button) => {
     button.addEventListener("click", () => {
-      state.rank = button.dataset.rank;
+      state.rank = button.dataset.rank || "latest";
       setActive(".rank-button", button);
       updateListUrl();
       render();
     });
   });
 
-  els.searchInput.addEventListener("input", (event) => {
+  els.searchInput?.addEventListener("input", (event) => {
     state.query = event.target.value.trim().toLowerCase();
+    updateListUrl();
     render();
-  });
-
-  els.closeDialog.addEventListener("click", closePost);
-  els.dialog.addEventListener("click", (event) => {
-    if (event.target === els.dialog) closePost();
   });
 }
 
@@ -92,13 +69,19 @@ function applyStateFromUrl() {
   const params = new URLSearchParams(window.location.search);
   const category = params.get("category");
   const rank = params.get("rank");
+  const query = params.get("q") || "";
 
-  if (category === "all" || categoryLabels[category]) {
+  if (category === "all" || categoryMeta[category]) {
     state.category = category;
   }
 
   if (["latest", "daily", "weekly"].includes(rank)) {
     state.rank = rank;
+  }
+
+  if (query) {
+    state.query = query.trim().toLowerCase();
+    if (els.searchInput) els.searchInput.value = query;
   }
 
   const selectedCategory = document.querySelector(`.nav-tab[data-filter="${state.category}"]`);
@@ -109,19 +92,15 @@ function applyStateFromUrl() {
 
 function updateListUrl() {
   const url = new URL(window.location.href);
-  url.searchParams.delete("post");
 
-  if (state.category === "all") {
-    url.searchParams.delete("category");
-  } else {
-    url.searchParams.set("category", state.category);
-  }
+  if (state.category === "all") url.searchParams.delete("category");
+  else url.searchParams.set("category", state.category);
 
-  if (state.rank === "latest") {
-    url.searchParams.delete("rank");
-  } else {
-    url.searchParams.set("rank", state.rank);
-  }
+  if (state.rank === "latest") url.searchParams.delete("rank");
+  else url.searchParams.set("rank", state.rank);
+
+  if (state.query) url.searchParams.set("q", state.query);
+  else url.searchParams.delete("q");
 
   history.replaceState({}, "", url);
 }
@@ -153,127 +132,92 @@ function filteredPosts() {
 
 function render() {
   const posts = filteredPosts();
-  els.totalCount.textContent = numberFormat.format(state.posts.length);
-  renderFeatured(state.posts[0]);
-  els.postList.replaceChildren(...posts.map((post, index) => createPostRow(post, index)));
+  renderTopCards();
+  renderPostList(posts);
+  renderDailyBest();
+  renderWeeklyBest();
+}
 
+function renderTopCards() {
+  if (!els.topCards) return;
+  const daily = state.posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 6);
+  els.topCards.replaceChildren(...daily.map(createStoryCard));
+}
+
+function renderPostList(posts) {
+  if (!els.postList) return;
+
+  if (!posts.length) {
+    const empty = document.createElement("li");
+    empty.className = "empty-row";
+    empty.textContent = "조건에 맞는 글이 없습니다.";
+    els.postList.replaceChildren(empty);
+    return;
+  }
+
+  els.postList.replaceChildren(...posts.map(createLatestRow));
+}
+
+function renderDailyBest() {
   const daily = state.posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 10);
+  if (els.dailyCount) els.dailyCount.textContent = daily.length;
+  if (els.dailyBest) els.dailyBest.replaceChildren(...daily.map((post) => createRankItem(post, post.dailyRank)));
+}
+
+function renderWeeklyBest() {
   const weekly = state.posts.filter((post) => post.weeklyRank).sort((a, b) => a.weeklyRank - b.weeklyRank).slice(0, 10);
-  els.dailyCount.textContent = daily.length;
-  els.weeklyCount.textContent = weekly.length;
-  els.dailyBest.replaceChildren(...daily.map((post) => createMiniRank(post, post.dailyRank)));
-  els.weeklyBest.replaceChildren(...weekly.map((post) => createMiniRank(post, post.weeklyRank)));
-  renderCategoryLinks();
+  if (els.weeklyCount) els.weeklyCount.textContent = weekly.length;
+  if (els.weeklyBest) els.weeklyBest.replaceChildren(...weekly.map((post) => createRankItem(post, post.weeklyRank)));
 }
 
-function renderFeatured(post) {
-  if (!post) return;
-  els.featuredPost.innerHTML = `
-    <img src="${post.image}" alt="" loading="lazy">
-    <div>
-      <p class="eyebrow">EDITOR'S PICK</p>
-      <h2>${escapeHtml(post.title)}</h2>
-      <p>${escapeHtml(post.summary)}</p>
-      <button type="button">글 자세히 보기</button>
-    </div>
+function createStoryCard(post) {
+  const meta = categoryMeta[post.category];
+  const item = document.createElement("article");
+  item.className = "story-card humor-story-card";
+  item.innerHTML = `
+    <a href="${post.path}">
+      <span class="category-pill ${meta.tone}">${escapeHtml(meta.label)}</span>
+      <img src="${post.image}" alt="${escapeHtml(post.title)}" loading="lazy">
+      <strong>${escapeHtml(post.title)}</strong>
+      <small>조회 ${numberFormat.format(post.views)} · 추천 ${numberFormat.format(post.likes)} · 댓글 ${numberFormat.format(post.comments)}</small>
+    </a>
   `;
-  els.featuredPost.querySelector("button").addEventListener("click", () => openPost(post));
-}
-
-function createPostRow(post, index) {
-  const item = document.createElement("li");
-  const button = document.createElement("button");
-  button.className = "post-row";
-  button.type = "button";
-  button.addEventListener("click", () => openPost(post));
-  button.innerHTML = `
-    <span class="post-no">${numberFormat.format(index + 1)}</span>
-    <span class="post-title">
-      <img class="thumb" src="${post.image}" alt="" loading="lazy">
-      <span class="title-lines">
-        <strong>${escapeHtml(post.title)}</strong>
-        <small>${escapeHtml(post.summary)}</small>
-      </span>
-    </span>
-    <span class="source">${escapeHtml(categoryLabels[post.category])}</span>
-    <span class="metric">${numberFormat.format(post.views)}</span>
-    <span class="metric">${numberFormat.format(post.likes)}</span>
-  `;
-  item.append(button);
   return item;
 }
 
-function createMiniRank(post, rank) {
+function createLatestRow(post) {
+  const meta = categoryMeta[post.category];
   const item = document.createElement("li");
-  const button = document.createElement("button");
-  button.type = "button";
-  button.addEventListener("click", () => openPost(post));
-  button.innerHTML = `
-    <strong>${rank}. ${escapeHtml(post.title)}</strong>
-    <small>${escapeHtml(categoryLabels[post.category])} · 추천 ${numberFormat.format(post.likes)}</small>
+  item.innerHTML = `
+    <article class="collection-row">
+      <a class="collection-thumb" href="${post.path}" aria-label="${escapeHtml(post.title)} 게시글 보기">
+        <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="lazy">
+      </a>
+      <div class="collection-copy">
+        <p>${escapeHtml(meta.label)} · ${escapeHtml(post.sourceName)} · 조회 ${numberFormat.format(post.views)} · 추천 ${numberFormat.format(post.likes)}</p>
+        <h3><a href="${post.path}">${escapeHtml(post.title)}</a></h3>
+        <p>${escapeHtml(post.summary)}</p>
+      </div>
+      <a class="collection-open" href="${post.path}" aria-label="${escapeHtml(post.title)} 게시글로 이동">↗</a>
+    </article>
   `;
-  item.append(button);
   return item;
 }
 
-function renderCategoryLinks() {
-  const entries = Object.entries(categoryLabels).map(([category, label]) => {
-    const count = state.posts.filter((post) => post.category === category).length;
-    return { category, label, count };
-  });
-
-  els.categoryCount.textContent = entries.length;
-  els.categoryLinks.replaceChildren(
-    ...entries.map(({ category, label, count }) => {
-      const link = document.createElement("a");
-      link.href = `/?category=${category}`;
-      link.className = "category-link";
-      link.classList.toggle("is-active", state.category === category);
-      link.innerHTML = `<strong>${escapeHtml(label)}</strong><span>${numberFormat.format(count)}개</span>`;
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        state.category = category;
-        const selected = document.querySelector(`.nav-tab[data-filter="${category}"]`);
-        if (selected) setActive(".nav-tab", selected);
-        updateListUrl();
-        render();
-      });
-      return link;
-    })
-  );
-}
-
-function openPost(post) {
-  const url = new URL(window.location.href);
-  url.searchParams.set("post", post.slug);
-  history.replaceState({}, "", url);
-
-  els.dialogImage.src = post.image;
-  els.dialogImage.alt = post.title;
-  els.dialogMeta.textContent = `${categoryLabels[post.category]} · ${post.sourceName} · 조회 ${numberFormat.format(post.views)} · ${dateFormat.format(new Date(post.publishedAt))}`;
-  els.dialogTitle.textContent = post.title;
-  els.dialogSummary.textContent = post.summary;
-  els.dialogComment.textContent = post.curatorComment;
-  els.dialogSource.href = post.sourceUrl;
-  els.dialogTags.textContent = post.tags.map((tag) => `#${tag}`).join(" ");
-  els.dialog.showModal();
-}
-
-function closePost() {
-  els.dialog.close();
-  const url = new URL(window.location.href);
-  url.searchParams.delete("post");
-  history.replaceState({}, "", url);
-}
-
-function openPostFromUrl() {
-  const slug = new URLSearchParams(window.location.search).get("post");
-  const post = state.posts.find((item) => item.slug === slug);
-  if (post) openPost(post);
+function createRankItem(post, rank) {
+  const item = document.createElement("li");
+  item.innerHTML = `
+    <a href="${post.path}">
+      <span class="best-rank">${rank}</span>
+      <strong>${escapeHtml(post.title)}</strong>
+      <em>${numberFormat.format(post.score)}</em>
+    </a>
+  `;
+  return item;
 }
 
 function escapeHtml(value) {
-  return value
+  return String(value)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")

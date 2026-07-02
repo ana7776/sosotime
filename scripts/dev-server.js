@@ -19,11 +19,22 @@ const types = {
 
 createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
-  const safePath = normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, "");
-  let filePath = join(root, safePath === "/" ? "index.html" : safePath);
+  const safePath = normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, "").replace(/^[/\\]/, "");
+  let filePath = join(root, safePath === "" ? "index.html" : safePath);
 
   try {
-    if (!existsSync(filePath) || (await stat(filePath)).isDirectory()) {
+    if (!existsSync(filePath) && !extname(filePath)) {
+      const htmlPath = `${filePath}.html`;
+      if (existsSync(htmlPath)) {
+        filePath = htmlPath;
+      }
+    }
+
+    if (existsSync(filePath) && (await stat(filePath)).isDirectory()) {
+      filePath = join(filePath, "index.html");
+    }
+
+    if (!existsSync(filePath)) {
       filePath = join(root, "index.html");
     }
 
@@ -37,5 +48,5 @@ createServer(async (request, response) => {
     response.end("Internal Server Error");
   }
 }).listen(port, host, () => {
-  console.log(`하루소소 dev server: http://${host}:${port}`);
+  console.log(`소소타임 dev server: http://${host}:${port}`);
 });
