@@ -6,8 +6,11 @@
 
 ```text
 sosotime/
+├─ .env.example
+├─ package.json
 ├─ public/
 │  ├─ data/posts.json
+│  ├─ assets/posts/
 │  ├─ posts/
 │  ├─ robots.txt
 │  └─ sitemap.xml
@@ -21,8 +24,6 @@ sosotime/
 ├─ docs/
 │  ├─ deployment-and-adsense-guide.md
 │  └─ r2-image-automation.md
-├─ .env.example
-├─ package.json
 └─ wrangler.toml
 ```
 
@@ -67,6 +68,23 @@ npm run image:fetch -- "https://example.com/source.jpg" "테스트 이미지" --
 4. `sharp`로 EXIF 회전 보정, 1200x675 리사이즈, WebP 품질 80 변환을 수행합니다.
 5. `PutObjectCommand`로 R2에 업로드합니다.
 6. 공개 URL, R2 key, 변환 크기 정보를 JSON으로 출력합니다.
+
+핵심 구현 파일:
+
+```text
+scripts/fetch-r2-image.js      외부 URL 다운로드 → WebP 변환 → R2 업로드
+scripts/upload-r2-image.js     로컬 이미지 파일 → WebP 변환 → R2 업로드
+scripts/lib/r2-images.js       공통 함수: fetch, sharp, S3 PutObjectCommand, publicUrl 생성
+```
+
+`scripts/lib/r2-images.js`의 주요 로직은 아래 조건을 만족합니다.
+
+- `fetch`로 원본 URL 이미지를 다운로드합니다.
+- `content-type`이 `jpeg`, `png`, `webp`, `gif`, `avif`, `heic`, `heif` 등 지원 이미지인지 확인합니다.
+- `sharp(...).rotate().resize({ width: 1200, height: 675, fit: "cover" }).webp({ quality: 80 })`로 WebP 변환과 압축을 수행합니다.
+- `@aws-sdk/client-s3`의 `S3Client`와 `PutObjectCommand`를 사용해 Cloudflare R2 S3 호환 엔드포인트에 업로드합니다.
+- `ContentType: "image/webp"`와 장기 캐시 헤더를 지정합니다.
+- 업로드 후 `R2_PUBLIC_BASE_URL + key` 형태의 최종 공개 이미지 URL을 JSON으로 반환합니다.
 
 ## 로컬 이미지 업로드
 
