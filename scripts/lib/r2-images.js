@@ -1,5 +1,6 @@
 import { mkdir, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { basename, extname, join, resolve } from "node:path";
+import { createHash } from "node:crypto";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import sharp from "sharp";
 
@@ -189,19 +190,25 @@ export function makeR2Key(slug, date = new Date()) {
 }
 
 export function makeSlug(value) {
-  const slug = String(value)
+  const source = String(value).normalize("NFC").trim();
+  const slug = source
     .normalize("NFC")
     .toLowerCase()
-    .replace(/[^0-9a-z가-힣\s-]/g, "")
+    .replace(/[^0-9a-z\s-]/g, "")
     .trim()
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-");
 
-  if (!slug) {
+  if (slug) {
+    return slug;
+  }
+
+  if (!source) {
     throw new Error("Post title or slug must contain at least one valid character.");
   }
 
-  return slug;
+  const hash = createHash("sha1").update(source).digest("hex").slice(0, 12);
+  return `image-${hash}`;
 }
 
 export async function writeImageArtifacts({ slug, webpBuffer, result }) {

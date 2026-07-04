@@ -189,16 +189,15 @@ function createLatestRow(post) {
   const meta = categoryMeta[post.category];
   const item = document.createElement("li");
   item.innerHTML = `
-    <article class="collection-row">
-      <a class="collection-thumb" href="${post.path}" aria-label="${escapeHtml(post.title)} 게시글 보기">
+    <article class="latest-row">
+      <span class="category-pill ${meta.tone}">${escapeHtml(meta.label)}</span>
+      <div class="latest-copy">
+        <strong><a href="${post.path}">${escapeHtml(post.title)}</a></strong>
+        <small>${escapeHtml(post.sourceName)} · 조회 ${numberFormat.format(post.views)} · 추천 ${numberFormat.format(post.likes)}</small>
+      </div>
+      <a href="${post.path}" aria-label="${escapeHtml(post.title)} 게시글 보기">
         <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="lazy">
       </a>
-      <div class="collection-copy">
-        <p>${escapeHtml(meta.label)} · ${escapeHtml(post.sourceName)} · 조회 ${numberFormat.format(post.views)} · 추천 ${numberFormat.format(post.likes)}</p>
-        <h3><a href="${post.path}">${escapeHtml(post.title)}</a></h3>
-        <p>${escapeHtml(post.summary)}</p>
-      </div>
-      <a class="collection-open" href="${post.path}" aria-label="${escapeHtml(post.title)} 게시글로 이동">↗</a>
     </article>
   `;
   return item;

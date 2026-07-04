@@ -1,8 +1,9 @@
 const rawArgs = process.argv.slice(2);
 const args = new Set(rawArgs);
+
 const sourceUrl = readArg("--source") || readArg("--url") || "https://example.com/post/123";
 const sourceImageUrl = readArg("--image") || "https://example.com/image.jpg";
-const title = readArg("--title") || "수집한 원문 제목";
+const title = readArg("--title") || "오늘 커뮤니티에서 반응이 좋았던 생활 유머";
 const slug = readArg("--slug") || "today-humor-best-sample";
 
 const sourcePolicy = {
@@ -17,7 +18,7 @@ const sourcePolicy = {
 };
 
 const sampleQueueItem = {
-  sourceName: "크롤링 후보",
+  sourceName: "수동 검토 후보",
   sourceUrl,
   originalTitle: title,
   extractedSignals: {
@@ -26,30 +27,30 @@ const sampleQueueItem = {
     comments: 57
   },
   draft: {
-    board: "오늘의 유머베스트",
-    title: "오늘 커뮤니티에서 반응 좋았던 유머 글",
-    summary: "원문 전체를 복제하지 않고 상황, 반응 포인트, 읽고 남는 점을 자체 문장으로 정리합니다.",
+    board: "오늘의 유머 큐레이션",
+    title: "오늘 커뮤니티에서 반응이 좋았던 생활 유머",
+    summary: "원문 전체를 복제하지 않고 상황, 반응, 확인할 지점을 자체 문장으로 정리합니다.",
     curatorComment: "왜 사람들이 웃거나 공감했는지 독자 기준으로 짧게 붙입니다."
   },
   imageReview: {
     status: "needs-review",
-    reason: "원본 사이트 이미지 사용 가능 여부 확인 후 approved로 변경",
+    reason: "원본 사이트 이미지 사용 가능 여부를 확인한 뒤 approved로 변경합니다.",
     sourceImageUrl,
     targetFormat: "webp",
     uploadTarget: "r2",
     r2Bucket: "sosotime-images",
     r2KeyExample: `curated/2026/07/${slug}.webp`,
     publicUrlExample: `https://images.sosotime.com/curated/2026/07/${slug}.webp`,
-    commandExample: `npm run image:fetch -- "${sourceImageUrl}" "${slug}"`
+    dryRunCommand: `npm run image:fetch -- "${sourceImageUrl}" "${slug}" --dry-run`,
+    uploadCommand: `npm run image:fetch -- "${sourceImageUrl}" "${slug}"`
   },
   status: "review"
 };
 
-if (args.has("--dry-run")) {
-  console.log(JSON.stringify({ sourcePolicy, sampleQueueItem }, null, 2));
-} else {
-  console.log(JSON.stringify({ sourcePolicy, sampleQueueItem }, null, 2));
-  console.log("\nNext: review the source and image rights, then run the commandExample to convert to WebP and upload to R2.");
+console.log(JSON.stringify({ sourcePolicy, sampleQueueItem }, null, 2));
+
+if (!args.has("--dry-run")) {
+  console.log("\nNext: review the source and image rights, then run imageReview.uploadCommand.");
 }
 
 function readArg(name) {

@@ -18,7 +18,7 @@ await mkdir(outputDir, { recursive: true });
 let changed = false;
 for (const post of posts) {
   const style = categoryStyles[post.category] || categoryStyles.info;
-  const imagePath = `/assets/posts/${post.slug}.webp`;
+  const imagePath = `/assets/posts/post-${String(post.id).padStart(2, "0")}.webp`;
   const svg = renderSvg(post, style);
   await sharp(Buffer.from(svg)).webp({ quality: 86 }).toFile(`public${imagePath}`);
 
