@@ -2,622 +2,562 @@
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>소소타임 - 웃음과 공감이 있는 커뮤니티</title>
-    <meta name="description" content="소소타임은 커뮤니티에서 반응이 좋은 생활 유머, 공감 이야기, 이슈 글을 처음 보는 독자도 편하게 읽을 수 있도록 핵심 장면과 확인 포인트로 정리합니다." />
+    <title>소소타임 - 유머 커뮤니티</title>
+    <meta name="description" content="소소타임은 공개 커뮤니티 유머글을 원문 복제 없이 제목, 반응, 핵심 맥락 중심으로 정리하는 Bootstrap 게시판형 큐레이션 사이트입니다." />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <meta name="naver-site-verification" content="39233df2c0bc4eae9016d16a8866f9f7131b6b60" />
     <link rel="canonical" href="https://sosotime.com/" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/styles.css" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="소소타임" />
-    <meta property="og:title" content="소소타임 - 웃음과 공감이 있는 커뮤니티" />
-    <meta property="og:description" content="소소타임은 커뮤니티에서 반응이 좋은 생활 유머, 공감 이야기, 이슈 글을 처음 보는 독자도 편하게 읽을 수 있도록 핵심 장면과 확인 포인트로 정리합니다." />
+    <meta property="og:title" content="소소타임 - 유머 커뮤니티" />
+    <meta property="og:description" content="소소타임은 공개 커뮤니티 유머글을 원문 복제 없이 제목, 반응, 핵심 맥락 중심으로 정리하는 Bootstrap 게시판형 큐레이션 사이트입니다." />
     <meta property="og:url" content="https://sosotime.com/" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="소소타임 - 웃음과 공감이 있는 커뮤니티" />
-    <meta name="twitter:description" content="소소타임은 커뮤니티에서 반응이 좋은 생활 유머, 공감 이야기, 이슈 글을 처음 보는 독자도 편하게 읽을 수 있도록 핵심 장면과 확인 포인트로 정리합니다." />
+    <meta name="twitter:title" content="소소타임 - 유머 커뮤니티" />
+    <meta name="twitter:description" content="소소타임은 공개 커뮤니티 유머글을 원문 복제 없이 제목, 반응, 핵심 맥락 중심으로 정리하는 Bootstrap 게시판형 큐레이션 사이트입니다." />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5804969457082424" crossorigin="anonymous"></script>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"소소타임","url":"https://sosotime.com","inLanguage":"ko-KR","description":"소소타임은 커뮤니티에서 반응이 좋은 생활 유머, 공감 이야기, 이슈 글을 처음 보는 독자도 편하게 읽을 수 있도록 핵심 장면과 확인 포인트로 정리합니다.","publisher":{"@type":"Organization","name":"소소타임","url":"https://sosotime.com"},"potentialAction":{"@type":"SearchAction","target":"https://sosotime.com/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"소소타임","url":"https://sosotime.com","inLanguage":"ko-KR","description":"소소타임은 공개 커뮤니티 유머글을 원문 복제 없이 제목, 반응, 핵심 맥락 중심으로 정리하는 Bootstrap 게시판형 큐레이션 사이트입니다.","publisher":{"@type":"Organization","name":"소소타임","url":"https://sosotime.com"},"potentialAction":{"@type":"SearchAction","target":"https://sosotime.com/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
   </head>
-  <body class="humor-home-body">
-    <header class="humor-header">
-      <div class="humor-header-top">
-        <a class="humor-logo" href="/" aria-label="소소타임 홈">
-          <strong>SOSO TIME</strong>
-          <small>웃음과 공감이 있는 커뮤니티</small>
-        </a>
-        <form class="humor-search" action="/" role="search">
-          <label class="visually-hidden" for="searchInput">검색어 입력</label>
-          <input id="searchInput" name="q" type="search" placeholder="검색어를 입력하세요" />
-        </form>
-        <nav class="humor-actions" aria-label="바로가기">
-          <a href="/?rank=daily" class="rank-button" data-rank="daily">인기글</a>
-          <a class="submit-action" href="/upload">제보하기</a>
-          <a href="/policy/editorial">운영안내</a>
-        </nav>
+  <body class="bootstrap-board-body">
+    <div class="board-topbar">
+      <div class="container">
+        <ul class="list-inline pull-left">
+          <li><a href="/">즐겨찾기</a></li>
+          <li>07. 11. (토)</li>
+        </ul>
+        <ul class="list-inline pull-right">
+          <li><a href="/upload">글쓰기</a></li>
+          <li><a href="/report">신고/삭제요청</a></li>
+          <li><a href="/policy/editorial">운영원칙</a></li>
+        </ul>
       </div>
-      <nav class="humor-nav" aria-label="카테고리">
-        <div class="humor-nav-inner">
-          <a class="nav-tab is-active" href="/" data-filter="all">전체</a>
-          <a class="nav-tab" href="/?category=funny" data-filter="funny">유머</a>
-          <a class="nav-tab" href="/?category=empathy" data-filter="empathy">공감</a>
-          <a class="nav-tab" href="/?category=issue" data-filter="issue">이슈</a>
-          <a class="nav-tab" href="/?category=life" data-filter="life">생활</a>
-          <a class="nav-tab" href="/?category=info" data-filter="info">정보</a>
-          <a href="/policy/editorial">베스트</a>
-          <a href="/report">커뮤니티</a>
-          <span class="menu-mark" aria-hidden="true">☰</span>
+    </div>
+
+    <header class="board-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5">
+            <a class="board-brand" href="/" aria-label="소소타임 홈">
+              <strong>SOSO TIME</strong>
+              <span>유머 커뮤니티</span>
+            </a>
+          </div>
+          <div class="col-sm-7">
+            <form class="board-search input-group" action="/" role="search">
+              <label class="sr-only" for="searchInput">검색어 입력</label>
+              <input id="searchInput" name="q" class="form-control" type="search" placeholder="제목, 요약, 태그 검색" />
+              <span class="input-group-btn"><button class="btn btn-danger" type="submit">검색</button></span>
+            </form>
+          </div>
         </div>
-      </nav>
+      </div>
     </header>
 
-    <main class="humor-shell">
-      <div class="humor-layout">
-        <div class="humor-main">
-          <section class="home-hero-card humor-hero" aria-labelledby="home-title">
-            <img class="home-hero-image" src="/assets/site/hero-community.webp" alt="휴대폰을 보며 웃는 소소타임 캐릭터" loading="eager" />
-            <button class="hero-arrow left" type="button" aria-label="이전 추천">‹</button>
-            <button class="hero-arrow right" type="button" aria-label="다음 추천">›</button>
-            <div class="home-hero-copy">
-              <p class="eyebrow">오늘의 웃음 큐레이션</p>
-              <h1 id="home-title">오늘, 당신을 웃게 할<br /><span>한 편의 이야기</span></h1>
-              <p>생활 유머, 공감 사연, 이슈 글을 처음 보는 사람도 빠르게 이해할 수 있도록 장면과 반응 중심으로 정리합니다.</p>
-              <a class="hero-action" href="/?rank=daily">오늘의 인기글 보러가기</a>
-              <div class="hero-dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-            </div>
-          </section>
+    <nav class="navbar navbar-default board-nav" role="navigation" aria-label="게시판 메뉴">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li class="active"><a class="nav-tab" href="/" data-filter="all">전체</a></li>
+          <li><a class="nav-tab" href="/?category=funny" data-filter="funny">유머</a></li>
+          <li><a class="nav-tab" href="/?category=empathy" data-filter="empathy">웃썰</a></li>
+          <li><a class="nav-tab" href="/?category=issue" data-filter="issue">사건</a></li>
+          <li><a class="nav-tab" href="/?category=life" data-filter="life">자유</a></li>
+          <li><a class="nav-tab" href="/?category=info" data-filter="info">정보</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="rank-button" href="/?rank=daily" data-rank="daily">일일 베스트</a></li>
+          <li><a class="rank-button" href="/?rank=weekly" data-rank="weekly">주간 베스트</a></li>
+        </ul>
+      </div>
+    </nav>
 
-          <section class="humor-card-section" aria-labelledby="top-title">
-            <div class="section-heading section-title-row">
-              <h2 id="top-title">오늘의 인기글</h2>
-              <a href="/?rank=daily">더보기</a>
+    <main class="container board-shell">
+      <div class="row">
+        <section class="col-md-8 board-main" aria-labelledby="latest-title">
+          <div class="panel panel-default board-panel">
+            <div class="panel-heading">
+              <h1 id="latest-title" class="panel-title">실시간 수집 보드</h1>
+              <div class="btn-group btn-group-xs pull-right" role="group" aria-label="정렬">
+                <a class="btn btn-default rank-button is-active" href="/" data-rank="latest">최신</a>
+                <a class="btn btn-default rank-button" href="/?rank=daily" data-rank="daily">인기</a>
+                <a class="btn btn-default rank-button" href="/?rank=weekly" data-rank="weekly">주간</a>
+              </div>
             </div>
-            <div id="topCards" class="story-card-grid humor-story-grid">
-              <article class="story-card humor-story-card">
-                <a href="/posts/cafe-order-mistake/">
-                  <span class="category-pill yellow">유머</span>
-                  <img src="/assets/posts/post-23.webp" alt="카페에서 들린 주문 실수에 모두가 웃은 이유" loading="lazy" />
-                  <strong>카페에서 들린 주문 실수에 모두가 웃은 이유</strong>
-                  <small>조회 7,420 · 추천 238 · 댓글 41</small>
-                </a>
-              </article>
-              <article class="story-card humor-story-card">
-                <a href="/posts/cat-box-takeover/">
-                  <span class="category-pill pink">공감</span>
-                  <img src="/assets/posts/post-24.webp" alt="고양이가 박스 하나로 하루를 장악한 순간" loading="lazy" />
-                  <strong>고양이가 박스 하나로 하루를 장악한 순간</strong>
-                  <small>조회 6,810 · 추천 221 · 댓글 58</small>
-                </a>
-              </article>
-              <article class="story-card humor-story-card">
-                <a href="/posts/subway-door-timing/">
-                  <span class="category-pill orange">생활</span>
-                  <img src="/assets/posts/post-25.webp" alt="지하철 문 앞에서 모두가 눈치 본 작은 상황" loading="lazy" />
-                  <strong>지하철 문 앞에서 모두가 눈치 본 작은 상황</strong>
-                  <small>조회 6,230 · 추천 196 · 댓글 47</small>
-                </a>
-              </article>
-              <article class="story-card humor-story-card">
-                <a href="/posts/group-chat-emoticon/">
-                  <span class="category-pill blue">이슈</span>
-                  <img src="/assets/posts/post-26.webp" alt="단체방에서 이모티콘 하나가 분위기를 바꾼 이유" loading="lazy" />
-                  <strong>단체방에서 이모티콘 하나가 분위기를 바꾼 이유</strong>
-                  <small>조회 5,960 · 추천 183 · 댓글 52</small>
-                </a>
-              </article>
-              <article class="story-card humor-story-card">
-                <a href="/posts/convenience-store-new-review/">
-                  <span class="category-pill green">정보</span>
-                  <img src="/assets/posts/post-27.webp" alt="편의점 신상품 후기에서 사람들이 먼저 보는 것" loading="lazy" />
-                  <strong>편의점 신상품 후기에서 사람들이 먼저 보는 것</strong>
-                  <small>조회 5,480 · 추천 169 · 댓글 34</small>
-                </a>
-              </article>
-              <article class="story-card humor-story-card">
-                <a href="/posts/스포츠-장면-하나가-유머-글로-번지는-이유/">
-                  <span class="category-pill blue">이슈</span>
-                  <img src="/assets/posts/post-21.webp" alt="스포츠 장면 하나가 유머 글로 번지는 이유" loading="lazy" />
-                  <strong>스포츠 장면 하나가 유머 글로 번지는 이유</strong>
-                  <small>조회 6,840 · 추천 214 · 댓글 36</small>
-                </a>
-              </article>
+            <div class="table-responsive">
+              <table class="table table-hover board-table">
+                <caption class="sr-only">소소타임 최신 게시글 목록</caption>
+                <colgroup>
+                  <col class="col-num" />
+                  <col />
+                  <col class="col-author" />
+                  <col class="col-date" />
+                  <col class="col-hit" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">출처</th>
+                    <th scope="col">날짜</th>
+                    <th scope="col">조회</th>
+                  </tr>
+                </thead>
+                <tbody id="postList">
+                  <tr data-category="funny" data-rank-daily="1" data-rank-weekly="">
+                    <td class="text-center board-number">27</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/cafe-order-mistake/"><span class="label label-warning">유머</span> 카페에서 들린 주문 실수에 모두가 웃은 이유</a>
+                      <span class="comment-count">[41]</span>
+                      <p>카페처럼 낯선 사람과 짧게 대화하는 공간에서는 작은 말실수 하나도 주변 분위기를 바꿀 수 있습니다. 중요한 건 누군가를 놀리는 장면이 아니라, 모두가 한 번쯤 겪어본 어색함과 웃음의 타이밍입니다.</p>
+                    </td>
+                    <td class="text-center board-author">생활 유머 관찰</td>
+                    <td class="text-center">07. 04</td>
+                    <td class="text-center">7,420</td>
+                  </tr>
+                  <tr data-category="empathy" data-rank-daily="2" data-rank-weekly="">
+                    <td class="text-center board-number">26</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/cat-box-takeover/"><span class="label label-danger">웃썰</span> 고양이가 박스 하나로 하루를 장악한 순간</a>
+                      <span class="comment-count">[58]</span>
+                      <p>반려동물 사진은 설명이 길지 않아도 상황이 바로 전달됩니다. 특히 고양이가 새 장난감보다 빈 박스를 더 좋아하는 장면은 많은 사람이 알고 있는 반려동물의 엉뚱함을 정확히 건드립니다.</p>
+                    </td>
+                    <td class="text-center board-author">커뮤니티 공감 반응</td>
+                    <td class="text-center">07. 04</td>
+                    <td class="text-center">6,810</td>
+                  </tr>
+                  <tr data-category="life" data-rank-daily="3" data-rank-weekly="">
+                    <td class="text-center board-number">25</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/subway-door-timing/"><span class="label label-success">자유</span> 지하철 문 앞에서 모두가 눈치 본 작은 상황</a>
+                      <span class="comment-count">[47]</span>
+                      <p>지하철 문 앞은 짧은 시간에 많은 사람이 움직이는 공간입니다. 내릴 사람, 탈 사람, 비켜서야 하는 사람이 한순간 겹치면 누구도 크게 말하지 않았는데도 묘한 눈치가 생깁니다.</p>
+                    </td>
+                    <td class="text-center board-author">생활 게시판 메모</td>
+                    <td class="text-center">07. 04</td>
+                    <td class="text-center">6,230</td>
+                  </tr>
+                  <tr data-category="issue" data-rank-daily="4" data-rank-weekly="">
+                    <td class="text-center board-number">24</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/group-chat-emoticon/"><span class="label label-primary">사건</span> 단체방에서 이모티콘 하나가 분위기를 바꾼 이유</a>
+                      <span class="comment-count">[52]</span>
+                      <p>단체방에서는 짧은 이모티콘 하나도 맥락에 따라 농담, 동의, 무안함, 분위기 전환으로 다르게 읽힙니다. 같은 그림이어도 앞뒤 대화와 보낸 타이밍에 따라 반응이 갈릴 수 있습니다.</p>
+                    </td>
+                    <td class="text-center board-author">게시판 이슈 관찰</td>
+                    <td class="text-center">07. 04</td>
+                    <td class="text-center">5,960</td>
+                  </tr>
+                  <tr data-category="info" data-rank-daily="5" data-rank-weekly="">
+                    <td class="text-center board-number">23</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/convenience-store-new-review/"><span class="label label-info">정보</span> 편의점 신상품 후기에서 사람들이 먼저 보는 것</a>
+                      <span class="comment-count">[34]</span>
+                      <p>편의점 신상품 후기는 사진만큼이나 가격, 용량, 맛의 기준, 재구매 의사가 중요합니다. 독자는 “맛있다”는 감상보다 자신이 살지 말지 판단할 수 있는 정보를 먼저 찾습니다.</p>
+                    </td>
+                    <td class="text-center board-author">정보 글 큐레이션</td>
+                    <td class="text-center">07. 04</td>
+                    <td class="text-center">5,480</td>
+                  </tr>
+                  <tr data-category="issue" data-rank-daily="6" data-rank-weekly="">
+                    <td class="text-center board-number">22</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/스포츠-장면-하나가-유머-글로-번지는-이유/"><span class="label label-primary">사건</span> 스포츠 장면 하나가 유머 글로 번지는 이유</a>
+                      <span class="comment-count">[36]</span>
+                      <p>스포츠 장면은 결과를 이미 아는 사람과 뒤늦게 보는 사람이 함께 반응하기 때문에 유머 글로 빠르게 번질 수 있습니다. 중요한 것은 특정 선수나 팬덤을 조롱하는 것이 아니라, 한 장면이 왜 과장된 농담과 감탄으로 동시에 읽히는지 맥락을 나누어 보는 일입니다.</p>
+                    </td>
+                    <td class="text-center board-author">에펨코리아 유머 인기 흐름</td>
+                    <td class="text-center">07. 04</td>
+                    <td class="text-center">6,840</td>
+                  </tr>
+                  <tr data-category="empathy" data-rank-daily="7" data-rank-weekly="">
+                    <td class="text-center board-number">21</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/출근길-목격담이-댓글을-빠르게-모으는-이유/"><span class="label label-danger">웃썰</span> 출근길 목격담이 댓글을 빠르게 모으는 이유</a>
+                      <span class="comment-count">[42]</span>
+                      <p>출근길 목격담은 특별한 사건보다 모두가 겪어본 피곤함과 예민함을 건드릴 때 반응이 빨라집니다. 짧은 상황 설명만 있어도 독자는 자기 경험을 떠올리며 웃거나 공감할 수 있습니다.</p>
+                    </td>
+                    <td class="text-center board-author">뽐뿌 유머/감동 인기 흐름</td>
+                    <td class="text-center">07. 04</td>
+                    <td class="text-center">5,930</td>
+                  </tr>
+                  <tr data-category="empathy" data-rank-daily="8" data-rank-weekly="">
+                    <td class="text-center board-number">20</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/퇴근길-지하철에서-모두가-조용해진-순간/"><span class="label label-danger">웃썰</span> 퇴근길 지하철에서 모두가 조용해진 순간</a>
+                      <span class="comment-count">[11]</span>
+                      <p>퇴근길처럼 모두가 지친 시간대에는 작은 소리나 움직임도 크게 느껴질 수 있습니다. 그래서 이 주제는 누가 더 예민했는지보다, 사람들이 같은 공간에서 어떤 신호를 예의로 받아들이는지 살펴볼 때 읽을 가치가 생깁니다.</p>
+                    </td>
+                    <td class="text-center board-author">커뮤니티 공감 반응</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">1,559</td>
+                  </tr>
+                  <tr data-category="funny" data-rank-daily="9" data-rank-weekly="">
+                    <td class="text-center board-number">19</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/마트-계산대-앞에서-생긴-작은-오해/"><span class="label label-warning">유머</span> 마트 계산대 앞에서 생긴 작은 오해</a>
+                      <span class="comment-count">[18]</span>
+                      <p>마트 계산대는 줄의 방향, 바구니 위치, 결제 순서가 짧은 시간 안에 겹치는 공간입니다. 작은 행동이 의도와 다르게 보일 수 있어 유머로 퍼지더라도 상황 설명이 함께 있어야 독자가 부담 없이 이해할 수 있습니다.</p>
+                    </td>
+                    <td class="text-center board-author">생활 유머 관찰</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">2,298</td>
+                  </tr>
+                  <tr data-category="info" data-rank-daily="10" data-rank-weekly="">
+                    <td class="text-center board-number">18</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/질문-글이-답변을-많이-받는-방식/"><span class="label label-info">정보</span> 질문 글이 답변을 많이 받는 방식</a>
+                      <span class="comment-count">[25]</span>
+                      <p>질문 글은 막연한 호소보다 현재 상황, 시도해 본 방법, 원하는 답변 범위가 분명할수록 반응을 얻기 쉽습니다. 커뮤니티 독자는 질문자의 맥락을 빠르게 파악할 수 있을 때 자신의 경험을 덧붙입니다.</p>
+                    </td>
+                    <td class="text-center board-author">정보 글 큐레이션</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">3,037</td>
+                  </tr>
+                  <tr data-category="issue" data-rank-daily="" data-rank-weekly="">
+                    <td class="text-center board-number">17</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/사진-한-장이-설명보다-빠르게-퍼지는-이유/"><span class="label label-primary">사건</span> 사진 한 장이 설명보다 빠르게 퍼지는 이유</a>
+                      <span class="comment-count">[32]</span>
+                      <p>사진 한 장은 긴 설명보다 빠르게 주목을 끌지만, 화면 밖의 조건은 함께 전달하지 못합니다. 그래서 이미지 중심 이슈는 무엇이 실제로 보이는지와 사람들이 덧붙인 해석이 무엇인지 나누어 읽어야 합니다.</p>
+                    </td>
+                    <td class="text-center board-author">게시판 이슈 관찰</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">3,776</td>
+                  </tr>
+                  <tr data-category="empathy" data-rank-daily="" data-rank-weekly="">
+                    <td class="text-center board-number">16</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/배달-도착-알림-하나로-하루-기분이-바뀌는-이유/"><span class="label label-danger">웃썰</span> 배달 도착 알림 하나로 하루 기분이 바뀌는 이유</a>
+                      <span class="comment-count">[39]</span>
+                      <p>배달 도착 알림은 단순한 알림음이 아니라 기다림이 끝났다는 신호로 받아들여집니다. 특히 지친 하루 끝에서는 작은 편의가 크게 느껴져 공감 댓글이 빠르게 붙기 쉽습니다.</p>
+                    </td>
+                    <td class="text-center board-author">커뮤니티 공감 반응</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">4,515</td>
+                  </tr>
+                  <tr data-category="funny" data-rank-daily="" data-rank-weekly="">
+                    <td class="text-center board-number">15</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/편의점-앞에서-생긴-작은-착각/"><span class="label label-warning">유머</span> 편의점 앞에서 생긴 작은 착각</a>
+                      <span class="comment-count">[46]</span>
+                      <p>편의점 앞에서는 영수증, 봉투, 음료 컵, 택배 상자처럼 비슷하게 생긴 물건이 한꺼번에 오가다 보니 작은 착각이 자주 생깁니다. 누군가를 탓하기보다 순간적으로 헷갈린 장면을 떠올리면 부담 없이 웃을 수 있는 생활 유머가 됩니다.</p>
+                    </td>
+                    <td class="text-center board-author">생활 유머 관찰</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">5,254</td>
+                  </tr>
+                  <tr data-category="life" data-rank-daily="" data-rank-weekly="">
+                    <td class="text-center board-number">14</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/직장-탕비실에서-입장이-갈리는-사소한-기준/"><span class="label label-success">자유</span> 직장 탕비실에서 입장이 갈리는 사소한 기준</a>
+                      <span class="comment-count">[53]</span>
+                      <p>직장 탕비실은 개인 공간이 아니지만 이용 방식은 사람마다 다릅니다. 컵 정리, 남은 간식, 냉장고 사용처럼 작은 행동이 반복되면 불편도 쉽게 쌓입니다.</p>
+                    </td>
+                    <td class="text-center board-author">생활 게시판 메모</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">5,993</td>
+                  </tr>
+                  <tr data-category="info" data-rank-daily="" data-rank-weekly="">
+                    <td class="text-center board-number">13</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/중고거래-약속-장소를-고를-때-확인할-것/"><span class="label label-info">정보</span> 중고거래 약속 장소를 고를 때 확인할 것</a>
+                      <span class="comment-count">[60]</span>
+                      <p>중고거래는 가격 합의보다 만나는 장소와 시간이 실제 만족도를 좌우할 때가 많습니다. 사람이 너무 적은 곳, 밤에 어두운 곳, 급하게 바뀐 약속은 거래 전 다시 확인하는 편이 안전합니다.</p>
+                    </td>
+                    <td class="text-center board-author">정보 글 큐레이션</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">6,732</td>
+                  </tr>
+                  <tr data-category="funny" data-rank-daily="" data-rank-weekly="">
+                    <td class="text-center board-number">12</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/긴-제목이-클릭을-부르는-때와-피로하게-만드는-때/"><span class="label label-warning">유머</span> 긴 제목이 클릭을 부르는 때와 피로하게 만드는 때</a>
+                      <span class="comment-count">[67]</span>
+                      <p>긴 제목이 효과적인 경우는 독자가 클릭 전에 글의 성격을 충분히 예측할 수 있을 때입니다. 반대로 핵심 없이 수식어만 길어지면 내용보다 과장된 기대를 먼저 만들 수 있습니다.</p>
+                    </td>
+                    <td class="text-center board-author">생활 유머 관찰</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">7,471</td>
+                  </tr>
+                  <tr data-category="life" data-rank-daily="" data-rank-weekly="">
+                    <td class="text-center board-number">11</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/저녁-게시판에-농담-글이-몰리는-이유/"><span class="label label-success">자유</span> 저녁 게시판에 농담 글이 몰리는 이유</a>
+                      <span class="comment-count">[74]</span>
+                      <p>저녁 게시판은 하루 일과가 끝난 사람들이 가볍게 반응하기 쉬운 시간대입니다. 정보 탐색보다 기분 전환의 비중이 커져 짧은 농담, 경험담, 공감형 댓글이 빠르게 이어질 수 있습니다.</p>
+                    </td>
+                    <td class="text-center board-author">생활 게시판 메모</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">8,210</td>
+                  </tr>
+                  <tr data-category="info" data-rank-daily="" data-rank-weekly="1">
+                    <td class="text-center board-number">10</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/사소한-인증-글이-오래-회자되는-조건/"><span class="label label-info">정보</span> 사소한 인증 글이 오래 회자되는 조건</a>
+                      <span class="comment-count">[81]</span>
+                      <p>사소한 인증 글이 오래 회자되는 이유는 말보다 확인 가능한 단서가 먼저 보이기 때문입니다. 영수증, 시간, 장소, 물품 사진처럼 구체적인 정보는 독자가 상황을 빠르게 판단하게 만듭니다.</p>
+                    </td>
+                    <td class="text-center board-author">정보 글 큐레이션</td>
+                    <td class="text-center">06. 25</td>
+                    <td class="text-center">8,949</td>
+                  </tr>
+                  <tr data-category="life" data-rank-daily="" data-rank-weekly="2">
+                    <td class="text-center board-number">9</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/버스에서-들린-소리에-사람들이-보인-반응/"><span class="label label-success">자유</span> 버스에서 들린 소리에 사람들이 보인 반응</a>
+                      <span class="comment-count">[88]</span>
+                      <p>버스처럼 좁은 공공장소에서는 예상하지 못한 소리 하나에도 시선이 모입니다. 사람들은 원인을 찾기 전에 분위기부터 살피고, 그 반응이 다시 다음 행동을 결정하게 만듭니다.</p>
+                    </td>
+                    <td class="text-center board-author">생활 게시판 메모</td>
+                    <td class="text-center">06. 24</td>
+                    <td class="text-center">9,688</td>
+                  </tr>
+                  <tr data-category="issue" data-rank-daily="" data-rank-weekly="3">
+                    <td class="text-center board-number">8</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/베스트-글에서-반복되는-공통-구조/"><span class="label label-primary">사건</span> 베스트 글에서 반복되는 공통 구조</a>
+                      <span class="comment-count">[95]</span>
+                      <p>베스트 글에서 반복되는 구조는 대체로 명확한 상황 제시, 독자가 판단할 여지, 댓글로 이어질 질문을 갖고 있습니다. 단순히 자극적인 표현만으로 오래 읽히는 글은 많지 않습니다.</p>
+                    </td>
+                    <td class="text-center board-author">게시판 이슈 관찰</td>
+                    <td class="text-center">06. 24</td>
+                    <td class="text-center">10,427</td>
+                  </tr>
+                  <tr data-category="info" data-rank-daily="" data-rank-weekly="4">
+                    <td class="text-center board-number">7</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/동네-식당-후기에서-사람들이-먼저-보는-정보/"><span class="label label-info">정보</span> 동네 식당 후기에서 사람들이 먼저 보는 정보</a>
+                      <span class="comment-count">[6]</span>
+                      <p>식당 후기를 볼 때 사람들은 맛있다는 감상만 찾지 않습니다. 가격대, 대표 메뉴, 대기 시간, 혼밥 가능 여부, 주차나 포장 같은 실용 정보가 먼저 눈에 들어옵니다.</p>
+                    </td>
+                    <td class="text-center board-author">정보 글 큐레이션</td>
+                    <td class="text-center">06. 24</td>
+                    <td class="text-center">11,166</td>
+                  </tr>
+                  <tr data-category="empathy" data-rank-daily="" data-rank-weekly="5">
+                    <td class="text-center board-number">6</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/반려동물-사진-글을-과하게-설명하지-않아도-되는-이유/"><span class="label label-danger">웃썰</span> 반려동물 사진 글을 과하게 설명하지 않아도 되는 이유</a>
+                      <span class="comment-count">[13]</span>
+                      <p>반려동물 사진은 표정, 자세, 상황이 바로 보이기 때문에 긴 설명 없이도 공감을 얻습니다. 오히려 과한 해석을 붙이면 사진이 가진 자연스러운 매력이 줄어들 수 있습니다.</p>
+                    </td>
+                    <td class="text-center board-author">커뮤니티 공감 반응</td>
+                    <td class="text-center">06. 24</td>
+                    <td class="text-center">11,905</td>
+                  </tr>
+                  <tr data-category="funny" data-rank-daily="" data-rank-weekly="6">
+                    <td class="text-center board-number">5</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/커뮤니티-농담이-오해를-부르는-순간/"><span class="label label-warning">유머</span> 커뮤니티 농담이 오해를 부르는 순간</a>
+                      <span class="comment-count">[20]</span>
+                      <p>커뮤니티 농담은 같은 말을 아는 사람끼리 주고받을 때와 캡처로 떨어져 나왔을 때 전혀 다르게 읽힙니다. 친한 사이의 장난인지, 공개적으로 누군가를 겨냥한 말인지에 따라 반응이 달라집니다.</p>
+                    </td>
+                    <td class="text-center board-author">생활 유머 관찰</td>
+                    <td class="text-center">06. 24</td>
+                    <td class="text-center">12,644</td>
+                  </tr>
+                  <tr data-category="issue" data-rank-daily="" data-rank-weekly="7">
+                    <td class="text-center board-number">4</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/온라인-사과문이-받아들여지지-않는-이유/"><span class="label label-primary">사건</span> 온라인 사과문이 받아들여지지 않는 이유</a>
+                      <span class="comment-count">[27]</span>
+                      <p>온라인 사과문이 받아들여지지 않는 이유는 대개 감정 표현이 부족해서만은 아닙니다. 무엇을 잘못했는지, 누구에게 피해가 있었는지, 앞으로 어떻게 바꿀지 보이지 않으면 변명처럼 읽히기 쉽습니다.</p>
+                    </td>
+                    <td class="text-center board-author">게시판 이슈 관찰</td>
+                    <td class="text-center">06. 24</td>
+                    <td class="text-center">13,383</td>
+                  </tr>
+                  <tr data-category="life" data-rank-daily="" data-rank-weekly="8">
+                    <td class="text-center board-number">3</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/출근-준비-시간이-늘-부족한-사람들의-공통점/"><span class="label label-success">자유</span> 출근 준비 시간이 늘 부족한 사람들의 공통점</a>
+                      <span class="comment-count">[34]</span>
+                      <p>출근 전 시간이 부족한 사람들은 대체로 같은 지점에서 시간을 잃습니다. 옷 고르기, 충전기 찾기, 아침 메뉴 결정, 교통 상황 확인처럼 작은 선택이 누적되면 출발이 늦어집니다.</p>
+                    </td>
+                    <td class="text-center board-author">생활 게시판 메모</td>
+                    <td class="text-center">06. 24</td>
+                    <td class="text-center">14,122</td>
+                  </tr>
+                  <tr data-category="info" data-rank-daily="" data-rank-weekly="9">
+                    <td class="text-center board-number">2</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/링크만-던져진-글보다-한눈에-보이는-글이-편한-이유/"><span class="label label-info">정보</span> 링크만 던져진 글보다 한눈에 보이는 글이 편한 이유</a>
+                      <span class="comment-count">[41]</span>
+                      <p>링크만 던져진 글은 어디를 봐야 하는지부터 다시 판단해야 해서 피로감이 큽니다. 제목, 핵심 장면, 확인할 포인트가 함께 있으면 바쁜 사람도 필요한 정보를 빠르게 고를 수 있습니다.</p>
+                    </td>
+                    <td class="text-center board-author">정보 글 큐레이션</td>
+                    <td class="text-center">06. 24</td>
+                    <td class="text-center">14,861</td>
+                  </tr>
+                  <tr data-category="empathy" data-rank-daily="" data-rank-weekly="10">
+                    <td class="text-center board-number">1</td>
+                    <td class="board-title-cell">
+                      <a href="/posts/가벼운-농담-글이-댓글을-많이-받는-이유/"><span class="label label-danger">웃썰</span> 가벼운 농담 글이 댓글을 많이 받는 이유</a>
+                      <span class="comment-count">[48]</span>
+                      <p>가벼운 농담 글에 댓글이 많이 붙는 이유는 정답이 필요 없기 때문입니다. 독자는 긴 설명을 하지 않아도 자신의 경험, 짧은 반응, 비슷한 상황을 쉽게 덧붙일 수 있습니다.</p>
+                    </td>
+                    <td class="text-center board-author">커뮤니티 공감 반응</td>
+                    <td class="text-center">06. 24</td>
+                    <td class="text-center">15,600</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </section>
+          </div>
 
-          <section class="humor-ad" aria-label="소소타임 안내">
-            <div>
-              <strong>소소타임과 함께 즐거운 하루!</strong>
-              <span>일상 속 작은 웃음이 큰 쉼표가 됩니다.</span>
-            </div>
-            <em>AD</em>
-          </section>
-
-          <section class="category-popular" aria-labelledby="category-title">
-            <div class="section-heading section-title-row">
-              <h2 id="category-title">카테고리별 인기글</h2>
-              <a href="/">더보기</a>
-            </div>
-            <div class="category-board humor-category-board">
-              <article class="category-column yellow">
-                <div class="category-column-head">
-                  <h3><span>웃</span>유머</h3>
+          <div class="row board-section-grid">
+            <div class="col-sm-6">
+              <section class="panel panel-default mini-board">
+                <div class="panel-heading">
+                  <h2 class="panel-title">유머</h2>
                   <a href="/?category=funny" class="nav-tab" data-filter="funny">더보기</a>
                 </div>
-                <p>가볍게 웃을 수 있는 생활 속 장면과 반응</p>
-                <ol>
-                  <li><a href="/posts/긴-제목이-클릭을-부르는-때와-피로하게-만드는-때/"><span>1</span><strong>긴 제목이 클릭을 부르는 때와 피로하게 만드는 때</strong></a></li>
-                  <li><a href="/posts/cafe-order-mistake/"><span>2</span><strong>카페에서 들린 주문 실수에 모두가 웃은 이유</strong></a></li>
-                  <li><a href="/posts/편의점-앞에서-생긴-작은-착각/"><span>3</span><strong>편의점 앞에서 생긴 작은 착각</strong></a></li>
-                  <li><a href="/posts/커뮤니티-농담이-오해를-부르는-순간/"><span>4</span><strong>커뮤니티 농담이 오해를 부르는 순간</strong></a></li>
-                </ol>
-              </article>
-              <article class="category-column pink">
-                <div class="category-column-head">
-                  <h3><span>공</span>공감</h3>
+                <ul class="list-unstyled">
+                  <li><a href="/posts/긴-제목이-클릭을-부르는-때와-피로하게-만드는-때/">긴 제목이 클릭을 부르는 때와 피로하게 만드는 때</a><span>7,471</span></li>
+                  <li><a href="/posts/cafe-order-mistake/">카페에서 들린 주문 실수에 모두가 웃은 이유</a><span>7,420</span></li>
+                  <li><a href="/posts/편의점-앞에서-생긴-작은-착각/">편의점 앞에서 생긴 작은 착각</a><span>5,254</span></li>
+                  <li><a href="/posts/커뮤니티-농담이-오해를-부르는-순간/">커뮤니티 농담이 오해를 부르는 순간</a><span>12,644</span></li>
+                  <li><a href="/posts/마트-계산대-앞에서-생긴-작은-오해/">마트 계산대 앞에서 생긴 작은 오해</a><span>2,298</span></li>
+                </ul>
+              </section>
+            </div>
+            <div class="col-sm-6">
+              <section class="panel panel-default mini-board">
+                <div class="panel-heading">
+                  <h2 class="panel-title">웃썰</h2>
                   <a href="/?category=empathy" class="nav-tab" data-filter="empathy">더보기</a>
                 </div>
-                <p>퇴근길, 대화, 작은 배려처럼 누구나 아는 순간</p>
-                <ol>
-                  <li><a href="/posts/가벼운-농담-글이-댓글을-많이-받는-이유/"><span>1</span><strong>가벼운 농담 글이 댓글을 많이 받는 이유</strong></a></li>
-                  <li><a href="/posts/cat-box-takeover/"><span>2</span><strong>고양이가 박스 하나로 하루를 장악한 순간</strong></a></li>
-                  <li><a href="/posts/출근길-목격담이-댓글을-빠르게-모으는-이유/"><span>3</span><strong>출근길 목격담이 댓글을 빠르게 모으는 이유</strong></a></li>
-                  <li><a href="/posts/배달-도착-알림-하나로-하루-기분이-바뀌는-이유/"><span>4</span><strong>배달 도착 알림 하나로 하루 기분이 바뀌는 이유</strong></a></li>
-                </ol>
-              </article>
-              <article class="category-column blue">
-                <div class="category-column-head">
-                  <h3><span>잇</span>이슈</h3>
+                <ul class="list-unstyled">
+                  <li><a href="/posts/가벼운-농담-글이-댓글을-많이-받는-이유/">가벼운 농담 글이 댓글을 많이 받는 이유</a><span>15,600</span></li>
+                  <li><a href="/posts/cat-box-takeover/">고양이가 박스 하나로 하루를 장악한 순간</a><span>6,810</span></li>
+                  <li><a href="/posts/출근길-목격담이-댓글을-빠르게-모으는-이유/">출근길 목격담이 댓글을 빠르게 모으는 이유</a><span>5,930</span></li>
+                  <li><a href="/posts/배달-도착-알림-하나로-하루-기분이-바뀌는-이유/">배달 도착 알림 하나로 하루 기분이 바뀌는 이유</a><span>4,515</span></li>
+                  <li><a href="/posts/반려동물-사진-글을-과하게-설명하지-않아도-되는-이유/">반려동물 사진 글을 과하게 설명하지 않아도 되는 이유</a><span>11,905</span></li>
+                </ul>
+              </section>
+            </div>
+            <div class="col-sm-6">
+              <section class="panel panel-default mini-board">
+                <div class="panel-heading">
+                  <h2 class="panel-title">사건</h2>
                   <a href="/?category=issue" class="nav-tab" data-filter="issue">더보기</a>
                 </div>
-                <p>커뮤니티에서 의견이 갈린 장면의 맥락</p>
-                <ol>
-                  <li><a href="/posts/베스트-글에서-반복되는-공통-구조/"><span>1</span><strong>베스트 글에서 반복되는 공통 구조</strong></a></li>
-                  <li><a href="/posts/스포츠-장면-하나가-유머-글로-번지는-이유/"><span>2</span><strong>스포츠 장면 하나가 유머 글로 번지는 이유</strong></a></li>
-                  <li><a href="/posts/group-chat-emoticon/"><span>3</span><strong>단체방에서 이모티콘 하나가 분위기를 바꾼 이유</strong></a></li>
-                  <li><a href="/posts/온라인-사과문이-받아들여지지-않는-이유/"><span>4</span><strong>온라인 사과문이 받아들여지지 않는 이유</strong></a></li>
-                </ol>
-              </article>
-              <article class="category-column orange">
-                <div class="category-column-head">
-                  <h3><span>생</span>생활</h3>
+                <ul class="list-unstyled">
+                  <li><a href="/posts/베스트-글에서-반복되는-공통-구조/">베스트 글에서 반복되는 공통 구조</a><span>10,427</span></li>
+                  <li><a href="/posts/스포츠-장면-하나가-유머-글로-번지는-이유/">스포츠 장면 하나가 유머 글로 번지는 이유</a><span>6,840</span></li>
+                  <li><a href="/posts/group-chat-emoticon/">단체방에서 이모티콘 하나가 분위기를 바꾼 이유</a><span>5,960</span></li>
+                  <li><a href="/posts/온라인-사과문이-받아들여지지-않는-이유/">온라인 사과문이 받아들여지지 않는 이유</a><span>13,383</span></li>
+                  <li><a href="/posts/사진-한-장이-설명보다-빠르게-퍼지는-이유/">사진 한 장이 설명보다 빠르게 퍼지는 이유</a><span>3,776</span></li>
+                </ul>
+              </section>
+            </div>
+            <div class="col-sm-6">
+              <section class="panel panel-default mini-board">
+                <div class="panel-heading">
+                  <h2 class="panel-title">자유</h2>
                   <a href="/?category=life" class="nav-tab" data-filter="life">더보기</a>
                 </div>
-                <p>일상에서 헷갈리기 쉬운 기준과 선택 포인트</p>
-                <ol>
-                  <li><a href="/posts/버스에서-들린-소리에-사람들이-보인-반응/"><span>1</span><strong>버스에서 들린 소리에 사람들이 보인 반응</strong></a></li>
-                  <li><a href="/posts/저녁-게시판에-농담-글이-몰리는-이유/"><span>2</span><strong>저녁 게시판에 농담 글이 몰리는 이유</strong></a></li>
-                  <li><a href="/posts/직장-탕비실에서-입장이-갈리는-사소한-기준/"><span>3</span><strong>직장 탕비실에서 입장이 갈리는 사소한 기준</strong></a></li>
-                  <li><a href="/posts/subway-door-timing/"><span>4</span><strong>지하철 문 앞에서 모두가 눈치 본 작은 상황</strong></a></li>
-                </ol>
-              </article>
-              <article class="category-column green">
-                <div class="category-column-head">
-                  <h3><span>정</span>정보</h3>
+                <ul class="list-unstyled">
+                  <li><a href="/posts/버스에서-들린-소리에-사람들이-보인-반응/">버스에서 들린 소리에 사람들이 보인 반응</a><span>9,688</span></li>
+                  <li><a href="/posts/저녁-게시판에-농담-글이-몰리는-이유/">저녁 게시판에 농담 글이 몰리는 이유</a><span>8,210</span></li>
+                  <li><a href="/posts/직장-탕비실에서-입장이-갈리는-사소한-기준/">직장 탕비실에서 입장이 갈리는 사소한 기준</a><span>5,993</span></li>
+                  <li><a href="/posts/subway-door-timing/">지하철 문 앞에서 모두가 눈치 본 작은 상황</a><span>6,230</span></li>
+                  <li><a href="/posts/출근-준비-시간이-늘-부족한-사람들의-공통점/">출근 준비 시간이 늘 부족한 사람들의 공통점</a><span>14,122</span></li>
+                </ul>
+              </section>
+            </div>
+            <div class="col-sm-6">
+              <section class="panel panel-default mini-board">
+                <div class="panel-heading">
+                  <h2 class="panel-title">정보</h2>
                   <a href="/?category=info" class="nav-tab" data-filter="info">더보기</a>
                 </div>
-                <p>링크, 후기, 요약 글을 읽을 때 확인할 정보</p>
-                <ol>
-                  <li><a href="/posts/동네-식당-후기에서-사람들이-먼저-보는-정보/"><span>1</span><strong>동네 식당 후기에서 사람들이 먼저 보는 정보</strong></a></li>
-                  <li><a href="/posts/사소한-인증-글이-오래-회자되는-조건/"><span>2</span><strong>사소한 인증 글이 오래 회자되는 조건</strong></a></li>
-                  <li><a href="/posts/중고거래-약속-장소를-고를-때-확인할-것/"><span>3</span><strong>중고거래 약속 장소를 고를 때 확인할 것</strong></a></li>
-                  <li><a href="/posts/링크만-던져진-글보다-한눈에-보이는-글이-편한-이유/"><span>4</span><strong>링크만 던져진 글보다 한눈에 보이는 글이 편한 이유</strong></a></li>
-                </ol>
-              </article>
+                <ul class="list-unstyled">
+                  <li><a href="/posts/동네-식당-후기에서-사람들이-먼저-보는-정보/">동네 식당 후기에서 사람들이 먼저 보는 정보</a><span>11,166</span></li>
+                  <li><a href="/posts/사소한-인증-글이-오래-회자되는-조건/">사소한 인증 글이 오래 회자되는 조건</a><span>8,949</span></li>
+                  <li><a href="/posts/중고거래-약속-장소를-고를-때-확인할-것/">중고거래 약속 장소를 고를 때 확인할 것</a><span>6,732</span></li>
+                  <li><a href="/posts/링크만-던져진-글보다-한눈에-보이는-글이-편한-이유/">링크만 던져진 글보다 한눈에 보이는 글이 편한 이유</a><span>14,861</span></li>
+                  <li><a href="/posts/convenience-store-new-review/">편의점 신상품 후기에서 사람들이 먼저 보는 것</a><span>5,480</span></li>
+                </ul>
+              </section>
             </div>
-          </section>
+          </div>
+        </section>
 
-          <section class="humor-latest-section" aria-labelledby="latest-title">
-            <div class="section-heading section-title-row latest-tabs">
-              <h2 id="latest-title">최신 글</h2>
-              <a class="rank-button is-active" href="/" data-rank="latest">최신</a>
-              <a class="rank-button" href="/?rank=daily" data-rank="daily">인기</a>
-              <a class="rank-button" href="/?rank=weekly" data-rank="weekly">주간</a>
-              <a href="/">더보기</a>
-            </div>
-            <ol id="postList" class="collection-list humor-latest-list">
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill yellow">유머</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/cafe-order-mistake/">카페에서 들린 주문 실수에 모두가 웃은 이유</a></strong>
-                    <small>생활 유머 관찰 · 2분 전 · 조회 7,420</small>
-                  </div>
-                  <a href="/posts/cafe-order-mistake/" aria-label="카페에서 들린 주문 실수에 모두가 웃은 이유 게시글 보기">
-                    <img src="/assets/posts/post-23.webp" alt="카페에서 들린 주문 실수에 모두가 웃은 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill pink">공감</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/cat-box-takeover/">고양이가 박스 하나로 하루를 장악한 순간</a></strong>
-                    <small>커뮤니티 공감 반응 · 5분 전 · 조회 6,810</small>
-                  </div>
-                  <a href="/posts/cat-box-takeover/" aria-label="고양이가 박스 하나로 하루를 장악한 순간 게시글 보기">
-                    <img src="/assets/posts/post-24.webp" alt="고양이가 박스 하나로 하루를 장악한 순간 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill orange">생활</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/subway-door-timing/">지하철 문 앞에서 모두가 눈치 본 작은 상황</a></strong>
-                    <small>생활 게시판 메모 · 8분 전 · 조회 6,230</small>
-                  </div>
-                  <a href="/posts/subway-door-timing/" aria-label="지하철 문 앞에서 모두가 눈치 본 작은 상황 게시글 보기">
-                    <img src="/assets/posts/post-25.webp" alt="지하철 문 앞에서 모두가 눈치 본 작은 상황 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill blue">이슈</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/group-chat-emoticon/">단체방에서 이모티콘 하나가 분위기를 바꾼 이유</a></strong>
-                    <small>게시판 이슈 관찰 · 11분 전 · 조회 5,960</small>
-                  </div>
-                  <a href="/posts/group-chat-emoticon/" aria-label="단체방에서 이모티콘 하나가 분위기를 바꾼 이유 게시글 보기">
-                    <img src="/assets/posts/post-26.webp" alt="단체방에서 이모티콘 하나가 분위기를 바꾼 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill green">정보</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/convenience-store-new-review/">편의점 신상품 후기에서 사람들이 먼저 보는 것</a></strong>
-                    <small>정보 글 큐레이션 · 14분 전 · 조회 5,480</small>
-                  </div>
-                  <a href="/posts/convenience-store-new-review/" aria-label="편의점 신상품 후기에서 사람들이 먼저 보는 것 게시글 보기">
-                    <img src="/assets/posts/post-27.webp" alt="편의점 신상품 후기에서 사람들이 먼저 보는 것 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill blue">이슈</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/스포츠-장면-하나가-유머-글로-번지는-이유/">스포츠 장면 하나가 유머 글로 번지는 이유</a></strong>
-                    <small>에펨코리아 유머 인기 흐름 · 17분 전 · 조회 6,840</small>
-                  </div>
-                  <a href="/posts/스포츠-장면-하나가-유머-글로-번지는-이유/" aria-label="스포츠 장면 하나가 유머 글로 번지는 이유 게시글 보기">
-                    <img src="/assets/posts/post-21.webp" alt="스포츠 장면 하나가 유머 글로 번지는 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill pink">공감</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/출근길-목격담이-댓글을-빠르게-모으는-이유/">출근길 목격담이 댓글을 빠르게 모으는 이유</a></strong>
-                    <small>뽐뿌 유머/감동 인기 흐름 · 20분 전 · 조회 5,930</small>
-                  </div>
-                  <a href="/posts/출근길-목격담이-댓글을-빠르게-모으는-이유/" aria-label="출근길 목격담이 댓글을 빠르게 모으는 이유 게시글 보기">
-                    <img src="/assets/posts/post-22.webp" alt="출근길 목격담이 댓글을 빠르게 모으는 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill pink">공감</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/퇴근길-지하철에서-모두가-조용해진-순간/">퇴근길 지하철에서 모두가 조용해진 순간</a></strong>
-                    <small>커뮤니티 공감 반응 · 23분 전 · 조회 1,559</small>
-                  </div>
-                  <a href="/posts/퇴근길-지하철에서-모두가-조용해진-순간/" aria-label="퇴근길 지하철에서 모두가 조용해진 순간 게시글 보기">
-                    <img src="/assets/posts/post-01.webp" alt="퇴근길 지하철에서 모두가 조용해진 순간 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill yellow">유머</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/마트-계산대-앞에서-생긴-작은-오해/">마트 계산대 앞에서 생긴 작은 오해</a></strong>
-                    <small>생활 유머 관찰 · 26분 전 · 조회 2,298</small>
-                  </div>
-                  <a href="/posts/마트-계산대-앞에서-생긴-작은-오해/" aria-label="마트 계산대 앞에서 생긴 작은 오해 게시글 보기">
-                    <img src="/assets/posts/post-02.webp" alt="마트 계산대 앞에서 생긴 작은 오해 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill green">정보</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/질문-글이-답변을-많이-받는-방식/">질문 글이 답변을 많이 받는 방식</a></strong>
-                    <small>정보 글 큐레이션 · 29분 전 · 조회 3,037</small>
-                  </div>
-                  <a href="/posts/질문-글이-답변을-많이-받는-방식/" aria-label="질문 글이 답변을 많이 받는 방식 게시글 보기">
-                    <img src="/assets/posts/post-03.webp" alt="질문 글이 답변을 많이 받는 방식 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill blue">이슈</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/사진-한-장이-설명보다-빠르게-퍼지는-이유/">사진 한 장이 설명보다 빠르게 퍼지는 이유</a></strong>
-                    <small>게시판 이슈 관찰 · 32분 전 · 조회 3,776</small>
-                  </div>
-                  <a href="/posts/사진-한-장이-설명보다-빠르게-퍼지는-이유/" aria-label="사진 한 장이 설명보다 빠르게 퍼지는 이유 게시글 보기">
-                    <img src="/assets/posts/post-04.webp" alt="사진 한 장이 설명보다 빠르게 퍼지는 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill pink">공감</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/배달-도착-알림-하나로-하루-기분이-바뀌는-이유/">배달 도착 알림 하나로 하루 기분이 바뀌는 이유</a></strong>
-                    <small>커뮤니티 공감 반응 · 35분 전 · 조회 4,515</small>
-                  </div>
-                  <a href="/posts/배달-도착-알림-하나로-하루-기분이-바뀌는-이유/" aria-label="배달 도착 알림 하나로 하루 기분이 바뀌는 이유 게시글 보기">
-                    <img src="/assets/posts/post-05.webp" alt="배달 도착 알림 하나로 하루 기분이 바뀌는 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill yellow">유머</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/편의점-앞에서-생긴-작은-착각/">편의점 앞에서 생긴 작은 착각</a></strong>
-                    <small>생활 유머 관찰 · 38분 전 · 조회 5,254</small>
-                  </div>
-                  <a href="/posts/편의점-앞에서-생긴-작은-착각/" aria-label="편의점 앞에서 생긴 작은 착각 게시글 보기">
-                    <img src="/assets/posts/post-06.webp" alt="편의점 앞에서 생긴 작은 착각 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill orange">생활</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/직장-탕비실에서-입장이-갈리는-사소한-기준/">직장 탕비실에서 입장이 갈리는 사소한 기준</a></strong>
-                    <small>생활 게시판 메모 · 41분 전 · 조회 5,993</small>
-                  </div>
-                  <a href="/posts/직장-탕비실에서-입장이-갈리는-사소한-기준/" aria-label="직장 탕비실에서 입장이 갈리는 사소한 기준 게시글 보기">
-                    <img src="/assets/posts/post-07.webp" alt="직장 탕비실에서 입장이 갈리는 사소한 기준 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill green">정보</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/중고거래-약속-장소를-고를-때-확인할-것/">중고거래 약속 장소를 고를 때 확인할 것</a></strong>
-                    <small>정보 글 큐레이션 · 44분 전 · 조회 6,732</small>
-                  </div>
-                  <a href="/posts/중고거래-약속-장소를-고를-때-확인할-것/" aria-label="중고거래 약속 장소를 고를 때 확인할 것 게시글 보기">
-                    <img src="/assets/posts/post-08.webp" alt="중고거래 약속 장소를 고를 때 확인할 것 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill yellow">유머</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/긴-제목이-클릭을-부르는-때와-피로하게-만드는-때/">긴 제목이 클릭을 부르는 때와 피로하게 만드는 때</a></strong>
-                    <small>생활 유머 관찰 · 47분 전 · 조회 7,471</small>
-                  </div>
-                  <a href="/posts/긴-제목이-클릭을-부르는-때와-피로하게-만드는-때/" aria-label="긴 제목이 클릭을 부르는 때와 피로하게 만드는 때 게시글 보기">
-                    <img src="/assets/posts/post-09.webp" alt="긴 제목이 클릭을 부르는 때와 피로하게 만드는 때 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill orange">생활</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/저녁-게시판에-농담-글이-몰리는-이유/">저녁 게시판에 농담 글이 몰리는 이유</a></strong>
-                    <small>생활 게시판 메모 · 50분 전 · 조회 8,210</small>
-                  </div>
-                  <a href="/posts/저녁-게시판에-농담-글이-몰리는-이유/" aria-label="저녁 게시판에 농담 글이 몰리는 이유 게시글 보기">
-                    <img src="/assets/posts/post-10.webp" alt="저녁 게시판에 농담 글이 몰리는 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill green">정보</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/사소한-인증-글이-오래-회자되는-조건/">사소한 인증 글이 오래 회자되는 조건</a></strong>
-                    <small>정보 글 큐레이션 · 53분 전 · 조회 8,949</small>
-                  </div>
-                  <a href="/posts/사소한-인증-글이-오래-회자되는-조건/" aria-label="사소한 인증 글이 오래 회자되는 조건 게시글 보기">
-                    <img src="/assets/posts/post-11.webp" alt="사소한 인증 글이 오래 회자되는 조건 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill orange">생활</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/버스에서-들린-소리에-사람들이-보인-반응/">버스에서 들린 소리에 사람들이 보인 반응</a></strong>
-                    <small>생활 게시판 메모 · 56분 전 · 조회 9,688</small>
-                  </div>
-                  <a href="/posts/버스에서-들린-소리에-사람들이-보인-반응/" aria-label="버스에서 들린 소리에 사람들이 보인 반응 게시글 보기">
-                    <img src="/assets/posts/post-12.webp" alt="버스에서 들린 소리에 사람들이 보인 반응 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill blue">이슈</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/베스트-글에서-반복되는-공통-구조/">베스트 글에서 반복되는 공통 구조</a></strong>
-                    <small>게시판 이슈 관찰 · 59분 전 · 조회 10,427</small>
-                  </div>
-                  <a href="/posts/베스트-글에서-반복되는-공통-구조/" aria-label="베스트 글에서 반복되는 공통 구조 게시글 보기">
-                    <img src="/assets/posts/post-13.webp" alt="베스트 글에서 반복되는 공통 구조 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill green">정보</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/동네-식당-후기에서-사람들이-먼저-보는-정보/">동네 식당 후기에서 사람들이 먼저 보는 정보</a></strong>
-                    <small>정보 글 큐레이션 · 62분 전 · 조회 11,166</small>
-                  </div>
-                  <a href="/posts/동네-식당-후기에서-사람들이-먼저-보는-정보/" aria-label="동네 식당 후기에서 사람들이 먼저 보는 정보 게시글 보기">
-                    <img src="/assets/posts/post-14.webp" alt="동네 식당 후기에서 사람들이 먼저 보는 정보 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill pink">공감</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/반려동물-사진-글을-과하게-설명하지-않아도-되는-이유/">반려동물 사진 글을 과하게 설명하지 않아도 되는 이유</a></strong>
-                    <small>커뮤니티 공감 반응 · 65분 전 · 조회 11,905</small>
-                  </div>
-                  <a href="/posts/반려동물-사진-글을-과하게-설명하지-않아도-되는-이유/" aria-label="반려동물 사진 글을 과하게 설명하지 않아도 되는 이유 게시글 보기">
-                    <img src="/assets/posts/post-15.webp" alt="반려동물 사진 글을 과하게 설명하지 않아도 되는 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill yellow">유머</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/커뮤니티-농담이-오해를-부르는-순간/">커뮤니티 농담이 오해를 부르는 순간</a></strong>
-                    <small>생활 유머 관찰 · 68분 전 · 조회 12,644</small>
-                  </div>
-                  <a href="/posts/커뮤니티-농담이-오해를-부르는-순간/" aria-label="커뮤니티 농담이 오해를 부르는 순간 게시글 보기">
-                    <img src="/assets/posts/post-16.webp" alt="커뮤니티 농담이 오해를 부르는 순간 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill blue">이슈</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/온라인-사과문이-받아들여지지-않는-이유/">온라인 사과문이 받아들여지지 않는 이유</a></strong>
-                    <small>게시판 이슈 관찰 · 71분 전 · 조회 13,383</small>
-                  </div>
-                  <a href="/posts/온라인-사과문이-받아들여지지-않는-이유/" aria-label="온라인 사과문이 받아들여지지 않는 이유 게시글 보기">
-                    <img src="/assets/posts/post-17.webp" alt="온라인 사과문이 받아들여지지 않는 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill orange">생활</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/출근-준비-시간이-늘-부족한-사람들의-공통점/">출근 준비 시간이 늘 부족한 사람들의 공통점</a></strong>
-                    <small>생활 게시판 메모 · 74분 전 · 조회 14,122</small>
-                  </div>
-                  <a href="/posts/출근-준비-시간이-늘-부족한-사람들의-공통점/" aria-label="출근 준비 시간이 늘 부족한 사람들의 공통점 게시글 보기">
-                    <img src="/assets/posts/post-18.webp" alt="출근 준비 시간이 늘 부족한 사람들의 공통점 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill green">정보</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/링크만-던져진-글보다-한눈에-보이는-글이-편한-이유/">링크만 던져진 글보다 한눈에 보이는 글이 편한 이유</a></strong>
-                    <small>정보 글 큐레이션 · 77분 전 · 조회 14,861</small>
-                  </div>
-                  <a href="/posts/링크만-던져진-글보다-한눈에-보이는-글이-편한-이유/" aria-label="링크만 던져진 글보다 한눈에 보이는 글이 편한 이유 게시글 보기">
-                    <img src="/assets/posts/post-19.webp" alt="링크만 던져진 글보다 한눈에 보이는 글이 편한 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-              <li>
-                <article class="latest-row">
-                  <span class="category-pill pink">공감</span>
-                  <div class="latest-copy">
-                    <strong><a href="/posts/가벼운-농담-글이-댓글을-많이-받는-이유/">가벼운 농담 글이 댓글을 많이 받는 이유</a></strong>
-                    <small>커뮤니티 공감 반응 · 80분 전 · 조회 15,600</small>
-                  </div>
-                  <a href="/posts/가벼운-농담-글이-댓글을-많이-받는-이유/" aria-label="가벼운 농담 글이 댓글을 많이 받는 이유 게시글 보기">
-                    <img src="/assets/posts/post-20.webp" alt="가벼운 농담 글이 댓글을 많이 받는 이유 대표 이미지" loading="lazy" />
-                  </a>
-                </article>
-              </li>
-            </ol>
-          </section>
-        </div>
-
-        <aside class="humor-sidebar" aria-label="사이드 콘텐츠">
-          <section class="sidebar-card" aria-labelledby="daily-title">
-            <div class="section-title-row">
-              <h2 id="daily-title">실시간 인기</h2>
-              <a href="/?rank=daily">더보기</a>
-            </div>
-            <ol id="dailyBest" class="best-list rank-list humor-rank-list">
-              <li>
+        <aside class="col-md-4 board-sidebar" aria-label="사이드 콘텐츠">
+          <section class="panel panel-danger">
+            <div class="panel-heading"><h2 class="panel-title">일일 베스트 10</h2></div>
+            <ol id="dailyBest" class="list-group rank-list">
+              <li class="list-group-item">
                 <a href="/posts/cafe-order-mistake/">
-                  <span class="best-rank">1</span>
+                  <span class="rank-badge">1</span>
                   <strong>카페에서 들린 주문 실수에 모두가 웃은 이유</strong>
                   <em>1,298</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/cat-box-takeover/">
-                  <span class="best-rank">2</span>
+                  <span class="rank-badge">2</span>
                   <strong>고양이가 박스 하나로 하루를 장악한 순간</strong>
                   <em>1,262</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/subway-door-timing/">
-                  <span class="best-rank">3</span>
+                  <span class="rank-badge">3</span>
                   <strong>지하철 문 앞에서 모두가 눈치 본 작은 상황</strong>
                   <em>1,112</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/group-chat-emoticon/">
-                  <span class="best-rank">4</span>
+                  <span class="rank-badge">4</span>
                   <strong>단체방에서 이모티콘 하나가 분위기를 바꾼 이유</strong>
                   <em>1,067</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/convenience-store-new-review/">
-                  <span class="best-rank">5</span>
+                  <span class="rank-badge">5</span>
                   <strong>편의점 신상품 후기에서 사람들이 먼저 보는 것</strong>
                   <em>942</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/스포츠-장면-하나가-유머-글로-번지는-이유/">
-                  <span class="best-rank">6</span>
+                  <span class="rank-badge">6</span>
                   <strong>스포츠 장면 하나가 유머 글로 번지는 이유</strong>
                   <em>1,184</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/출근길-목격담이-댓글을-빠르게-모으는-이유/">
-                  <span class="best-rank">7</span>
+                  <span class="rank-badge">7</span>
                   <strong>출근길 목격담이 댓글을 빠르게 모으는 이유</strong>
                   <em>1,054</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/퇴근길-지하철에서-모두가-조용해진-순간/">
-                  <span class="best-rank">8</span>
+                  <span class="rank-badge">8</span>
                   <strong>퇴근길 지하철에서 모두가 조용해진 순간</strong>
                   <em>364</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/마트-계산대-앞에서-생긴-작은-오해/">
-                  <span class="best-rank">9</span>
+                  <span class="rank-badge">9</span>
                   <strong>마트 계산대 앞에서 생긴 작은 오해</strong>
                   <em>523</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/질문-글이-답변을-많이-받는-방식/">
-                  <span class="best-rank">10</span>
+                  <span class="rank-badge">10</span>
                   <strong>질문 글이 답변을 많이 받는 방식</strong>
                   <em>682</em>
                 </a>
@@ -625,140 +565,159 @@
             </ol>
           </section>
 
-          <section class="sidebar-card" aria-labelledby="editor-title">
-            <div class="section-title-row">
-              <h2 id="editor-title">에디터 추천</h2>
-              <a href="/policy/editorial">더보기</a>
-            </div>
-            <a class="editor-main-pick" href="/posts/cat-box-takeover/">
-              <img src="/assets/posts/post-24.webp" alt="고양이가 박스 하나로 하루를 장악한 순간 대표 이미지" loading="lazy" />
-              <span>BEST</span>
-              <strong>고양이가 박스 하나로 하루를 장악한 순간</strong>
-              <small>추천 221 · 조회 6,810</small>
-            </a>
-            <div class="editor-list">
-              <a href="/posts/subway-door-timing/">
-                <img src="/assets/posts/post-25.webp" alt="지하철 문 앞에서 모두가 눈치 본 작은 상황 대표 이미지" loading="lazy" />
-                <div>
-                  <em>PICK</em>
-                  <strong>지하철 문 앞에서 모두가 눈치 본 작은 상황</strong>
-                  <small>추천 196 · 조회 6,230</small>
-                </div>
-              </a>
-              <a href="/posts/group-chat-emoticon/">
-                <img src="/assets/posts/post-26.webp" alt="단체방에서 이모티콘 하나가 분위기를 바꾼 이유 대표 이미지" loading="lazy" />
-                <div>
-                  <em>PICK</em>
-                  <strong>단체방에서 이모티콘 하나가 분위기를 바꾼 이유</strong>
-                  <small>추천 183 · 조회 5,960</small>
-                </div>
-              </a>
-            </div>
-          </section>
-
-          <section class="sidebar-card" aria-labelledby="weekly-title">
-            <div class="section-title-row">
-              <h2 id="weekly-title">주간 반응</h2>
-              <a href="/?rank=weekly">더보기</a>
-            </div>
-            <ol id="weeklyBest" class="best-list rank-list humor-rank-list">
-              <li>
+          <section class="panel panel-default">
+            <div class="panel-heading"><h2 class="panel-title">주간 베스트 10</h2></div>
+            <ol id="weeklyBest" class="list-group rank-list">
+              <li class="list-group-item">
                 <a href="/posts/사소한-인증-글이-오래-회자되는-조건/">
-                  <span class="best-rank">1</span>
+                  <span class="rank-badge">1</span>
                   <strong>사소한 인증 글이 오래 회자되는 조건</strong>
                   <em>1,955</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/버스에서-들린-소리에-사람들이-보인-반응/">
-                  <span class="best-rank">2</span>
+                  <span class="rank-badge">2</span>
                   <strong>버스에서 들린 소리에 사람들이 보인 반응</strong>
                   <em>2,115</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/베스트-글에서-반복되는-공통-구조/">
-                  <span class="best-rank">3</span>
+                  <span class="rank-badge">3</span>
                   <strong>베스트 글에서 반복되는 공통 구조</strong>
                   <em>2,274</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/동네-식당-후기에서-사람들이-먼저-보는-정보/">
-                  <span class="best-rank">4</span>
+                  <span class="rank-badge">4</span>
                   <strong>동네 식당 후기에서 사람들이 먼저 보는 정보</strong>
                   <em>2,145</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/반려동물-사진-글을-과하게-설명하지-않아도-되는-이유/">
-                  <span class="best-rank">5</span>
+                  <span class="rank-badge">5</span>
                   <strong>반려동물 사진 글을 과하게 설명하지 않아도 되는 이유</strong>
                   <em>624</em>
                 </a>
               </li>
-              <li>
+              <li class="list-group-item">
                 <a href="/posts/커뮤니티-농담이-오해를-부르는-순간/">
-                  <span class="best-rank">6</span>
+                  <span class="rank-badge">6</span>
                   <strong>커뮤니티 농담이 오해를 부르는 순간</strong>
                   <em>783</em>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="/posts/온라인-사과문이-받아들여지지-않는-이유/">
+                  <span class="rank-badge">7</span>
+                  <strong>온라인 사과문이 받아들여지지 않는 이유</strong>
+                  <em>942</em>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="/posts/출근-준비-시간이-늘-부족한-사람들의-공통점/">
+                  <span class="rank-badge">8</span>
+                  <strong>출근 준비 시간이 늘 부족한 사람들의 공통점</strong>
+                  <em>1,102</em>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="/posts/링크만-던져진-글보다-한눈에-보이는-글이-편한-이유/">
+                  <span class="rank-badge">9</span>
+                  <strong>링크만 던져진 글보다 한눈에 보이는 글이 편한 이유</strong>
+                  <em>1,261</em>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="/posts/가벼운-농담-글이-댓글을-많이-받는-이유/">
+                  <span class="rank-badge">10</span>
+                  <strong>가벼운 농담 글이 댓글을 많이 받는 이유</strong>
+                  <em>1,420</em>
                 </a>
               </li>
             </ol>
           </section>
 
-          <section class="sidebar-card" aria-labelledby="gallery-title">
-            <div class="section-title-row">
-              <h2 id="gallery-title">오늘의 짤</h2>
-              <a href="/?category=funny">더보기</a>
-            </div>
-            <div class="mini-gallery">
-              <a href="/posts/동네-식당-후기에서-사람들이-먼저-보는-정보/"><img src="/assets/posts/post-14.webp" alt="동네 식당 후기에서 사람들이 먼저 보는 정보" loading="lazy" /></a>
-              <a href="/posts/베스트-글에서-반복되는-공통-구조/"><img src="/assets/posts/post-13.webp" alt="베스트 글에서 반복되는 공통 구조" loading="lazy" /></a>
-              <a href="/posts/버스에서-들린-소리에-사람들이-보인-반응/"><img src="/assets/posts/post-12.webp" alt="버스에서 들린 소리에 사람들이 보인 반응" loading="lazy" /></a>
-              <a href="/posts/사소한-인증-글이-오래-회자되는-조건/"><img src="/assets/posts/post-11.webp" alt="사소한 인증 글이 오래 회자되는 조건" loading="lazy" /></a>
-              <a href="/posts/저녁-게시판에-농담-글이-몰리는-이유/"><img src="/assets/posts/post-10.webp" alt="저녁 게시판에 농담 글이 몰리는 이유" loading="lazy" /></a>
-              <a href="/posts/긴-제목이-클릭을-부르는-때와-피로하게-만드는-때/"><img src="/assets/posts/post-09.webp" alt="긴 제목이 클릭을 부르는 때와 피로하게 만드는 때" loading="lazy" /></a>
+          <section class="panel panel-default">
+            <div class="panel-heading"><h2 class="panel-title">추천글</h2></div>
+            <div class="list-group hot-list">
+              <a class="list-group-item hot-item" href="/posts/베스트-글에서-반복되는-공통-구조/">
+                <img src="/assets/posts/post-13.webp" alt="베스트 글에서 반복되는 공통 구조 대표 이미지" loading="lazy" />
+                <span>
+                  <b>베스트 글에서 반복되는 공통 구조</b>
+                  <small><span class="label label-primary">사건</span> 추천 419</small>
+                </span>
+              </a>
+              <a class="list-group-item hot-item" href="/posts/동네-식당-후기에서-사람들이-먼저-보는-정보/">
+                <img src="/assets/posts/post-14.webp" alt="동네 식당 후기에서 사람들이 먼저 보는 정보 대표 이미지" loading="lazy" />
+                <span>
+                  <b>동네 식당 후기에서 사람들이 먼저 보는 정보</b>
+                  <small><span class="label label-info">정보</span> 추천 448</small>
+                </span>
+              </a>
+              <a class="list-group-item hot-item" href="/posts/버스에서-들린-소리에-사람들이-보인-반응/">
+                <img src="/assets/posts/post-12.webp" alt="버스에서 들린 소리에 사람들이 보인 반응 대표 이미지" loading="lazy" />
+                <span>
+                  <b>버스에서 들린 소리에 사람들이 보인 반응</b>
+                  <small><span class="label label-success">자유</span> 추천 390</small>
+                </span>
+              </a>
+              <a class="list-group-item hot-item" href="/posts/사소한-인증-글이-오래-회자되는-조건/">
+                <img src="/assets/posts/post-11.webp" alt="사소한 인증 글이 오래 회자되는 조건 대표 이미지" loading="lazy" />
+                <span>
+                  <b>사소한 인증 글이 오래 회자되는 조건</b>
+                  <small><span class="label label-info">정보</span> 추천 361</small>
+                </span>
+              </a>
+              <a class="list-group-item hot-item" href="/posts/저녁-게시판에-농담-글이-몰리는-이유/">
+                <img src="/assets/posts/post-10.webp" alt="저녁 게시판에 농담 글이 몰리는 이유 대표 이미지" loading="lazy" />
+                <span>
+                  <b>저녁 게시판에 농담 글이 몰리는 이유</b>
+                  <small><span class="label label-success">자유</span> 추천 332</small>
+                </span>
+              </a>
             </div>
           </section>
 
-          <section class="sidebar-card" aria-labelledby="tag-title">
-            <div class="section-title-row">
-              <h2 id="tag-title">인기 태그</h2>
+          <section class="panel panel-default">
+            <div class="panel-heading"><h2 class="panel-title">오늘의 짤</h2></div>
+            <div class="panel-body">
+              <div class="board-gallery">
+                <a href="/posts/동네-식당-후기에서-사람들이-먼저-보는-정보/"><img src="/assets/posts/post-14.webp" alt="동네 식당 후기에서 사람들이 먼저 보는 정보" loading="lazy" /></a>
+                <a href="/posts/베스트-글에서-반복되는-공통-구조/"><img src="/assets/posts/post-13.webp" alt="베스트 글에서 반복되는 공통 구조" loading="lazy" /></a>
+                <a href="/posts/버스에서-들린-소리에-사람들이-보인-반응/"><img src="/assets/posts/post-12.webp" alt="버스에서 들린 소리에 사람들이 보인 반응" loading="lazy" /></a>
+                <a href="/posts/사소한-인증-글이-오래-회자되는-조건/"><img src="/assets/posts/post-11.webp" alt="사소한 인증 글이 오래 회자되는 조건" loading="lazy" /></a>
+                <a href="/posts/저녁-게시판에-농담-글이-몰리는-이유/"><img src="/assets/posts/post-10.webp" alt="저녁 게시판에 농담 글이 몰리는 이유" loading="lazy" /></a>
+                <a href="/posts/긴-제목이-클릭을-부르는-때와-피로하게-만드는-때/"><img src="/assets/posts/post-09.webp" alt="긴 제목이 클릭을 부르는 때와 피로하게 만드는 때" loading="lazy" /></a>
+                <a href="/posts/중고거래-약속-장소를-고를-때-확인할-것/"><img src="/assets/posts/post-08.webp" alt="중고거래 약속 장소를 고를 때 확인할 것" loading="lazy" /></a>
+                <a href="/posts/직장-탕비실에서-입장이-갈리는-사소한-기준/"><img src="/assets/posts/post-07.webp" alt="직장 탕비실에서 입장이 갈리는 사소한 기준" loading="lazy" /></a>
+              </div>
             </div>
-            <div class="tag-cloud">
-              <a href="/?q=%ED%87%B4%EA%B7%BC%EA%B8%B8">#퇴근길</a>
-              <a href="/?q=%EB%B0%B0%EB%A0%A4">#배려</a>
-              <a href="/?q=%EA%B3%B5%EA%B0%90">#공감</a>
-              <a href="/?q=%EB%A7%88%ED%8A%B8">#마트</a>
-              <a href="/?q=%EC%98%A4%ED%95%B4">#오해</a>
-              <a href="/?q=%EC%83%9D%ED%99%9C%EC%9C%A0%EB%A8%B8">#생활유머</a>
-              <a href="/?q=%EC%A7%88%EB%AC%B8%EA%B8%80">#질문글</a>
-              <a href="/?q=%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0">#커뮤니티</a>
-              <a href="/?q=%EA%B8%80%EC%93%B0%EA%B8%B0">#글쓰기</a>
-              <a href="/?q=%EC%9D%B4%EB%AF%B8%EC%A7%80">#이미지</a>
-            </div>
-          </section>
-
-          <section class="rule-card humor-rule-card" aria-labelledby="rule-title">
-            <h2 id="rule-title">안심하고 읽는 기준</h2>
-            <p>핵심 장면은 짧게, 자세한 반응은 출처에서 확인할 수 있게 정리해 독자가 부담 없이 읽도록 돕습니다.</p>
-            <a href="/policy/editorial">자세히 보기</a>
           </section>
         </aside>
       </div>
     </main>
 
-    <footer class="board-footer humor-footer">
-      <a href="/about">소소타임 소개</a>
-      <a href="/policy/editorial">운영 안내</a>
-      <a href="/report">신고/삭제요청</a>
-      <a href="/upload">글 제보</a>
-      <a href="/contact">문의하기</a>
-      <a href="/policy/privacy">개인정보처리방침</a>
-      <a href="/policy/terms">이용약관</a>
+    <footer class="board-footer">
+      <div class="container">
+        <ul class="list-inline">
+          <li><a href="/about">사이트 소개</a></li>
+          <li><a href="/policy/editorial">운영 안내</a></li>
+          <li><a href="/report">신고/삭제요청</a></li>
+          <li><a href="/upload">후기 제보</a></li>
+          <li><a href="/contact">문의하기</a></li>
+          <li><a href="/policy/privacy">개인정보처리방침</a></li>
+          <li><a href="/policy/terms">이용약관</a></li>
+        </ul>
+        <p>원문 전체를 복제하지 않고 공개 목록 메타와 자체 요약 중심으로 큐레이션합니다.</p>
+      </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="module" src="/app.js"></script>
   </body>
 </html>

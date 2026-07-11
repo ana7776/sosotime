@@ -2,25 +2,22 @@ const state = {
   posts: [],
   category: "all",
   rank: "latest",
-  query: ""
+  query: "",
 };
 
 const categoryMeta = {
-  funny: { label: "유머", tone: "yellow" },
-  empathy: { label: "공감", tone: "pink" },
-  issue: { label: "이슈", tone: "blue" },
-  life: { label: "생활", tone: "orange" },
-  info: { label: "정보", tone: "green" }
+  funny: { label: "유머", tone: "warning" },
+  empathy: { label: "웃썰", tone: "danger" },
+  issue: { label: "사건", tone: "primary" },
+  life: { label: "자유", tone: "success" },
+  info: { label: "정보", tone: "info" },
 };
 
 const els = {
   postList: document.querySelector("#postList"),
   dailyBest: document.querySelector("#dailyBest"),
   weeklyBest: document.querySelector("#weeklyBest"),
-  dailyCount: document.querySelector("#dailyCount"),
-  weeklyCount: document.querySelector("#weeklyCount"),
-  topCards: document.querySelector("#topCards"),
-  searchInput: document.querySelector("#searchInput")
+  searchInput: document.querySelector("#searchInput"),
 };
 
 const numberFormat = new Intl.NumberFormat("ko-KR");
@@ -35,16 +32,20 @@ async function boot() {
 
 function bindEvents() {
   document.querySelectorAll(".nav-tab").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.category = button.dataset.filter || "all";
-      setActive(".nav-tab", button);
+    button.addEventListener("click", (event) => {
+      const category = button.dataset.filter;
+      if (!category) return;
+      event.preventDefault();
+      state.category = category;
+      setNavActive(button);
       updateListUrl();
       render();
     });
   });
 
   document.querySelectorAll(".rank-button").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
       state.rank = button.dataset.rank || "latest";
       setActive(".rank-button", button);
       updateListUrl();
@@ -59,9 +60,15 @@ function bindEvents() {
   });
 }
 
+function setNavActive(selected) {
+  document.querySelectorAll(".board-nav li").forEach((item) => item.classList.remove("active"));
+  selected.closest("li")?.classList.add("active");
+}
+
 function setActive(selector, selected) {
   document.querySelectorAll(selector).forEach((button) => {
     button.classList.toggle("is-active", button === selected);
+    button.classList.toggle("active", button === selected);
   });
 }
 
@@ -71,13 +78,8 @@ function applyStateFromUrl() {
   const rank = params.get("rank");
   const query = params.get("q") || "";
 
-  if (category === "all" || categoryMeta[category]) {
-    state.category = category;
-  }
-
-  if (["latest", "daily", "weekly"].includes(rank)) {
-    state.rank = rank;
-  }
+  if (category === "all" || categoryMeta[category]) state.category = category;
+  if (["latest", "daily", "weekly"].includes(rank)) state.rank = rank;
 
   if (query) {
     state.query = query.trim().toLowerCase();
@@ -86,7 +88,7 @@ function applyStateFromUrl() {
 
   const selectedCategory = document.querySelector(`.nav-tab[data-filter="${state.category}"]`);
   const selectedRank = document.querySelector(`.rank-button[data-rank="${state.rank}"]`);
-  if (selectedCategory) setActive(".nav-tab", selectedCategory);
+  if (selectedCategory) setNavActive(selectedCategory);
   if (selectedRank) setActive(".rank-button", selectedRank);
 }
 
@@ -108,13 +110,11 @@ function updateListUrl() {
 function filteredPosts() {
   let posts = [...state.posts];
 
-  if (state.category !== "all") {
-    posts = posts.filter((post) => post.category === state.category);
-  }
+  if (state.category !== "all") posts = posts.filter((post) => post.category === state.category);
 
   if (state.query) {
     posts = posts.filter((post) => {
-      const haystack = `${post.title} ${post.summary} ${post.curatorComment} ${post.tags.join(" ")}`.toLowerCase();
+      const haystack = `${post.title} ${post.summary} ${post.curatorComment} ${(post.tags || []).join(" ")}`.toLowerCase();
       return haystack.includes(state.query);
     });
   }
@@ -132,91 +132,69 @@ function filteredPosts() {
 
 function render() {
   const posts = filteredPosts();
-  renderTopCards();
   renderPostList(posts);
   renderDailyBest();
   renderWeeklyBest();
-}
-
-function renderTopCards() {
-  if (!els.topCards) return;
-  const daily = state.posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 6);
-  els.topCards.replaceChildren(...daily.map(createStoryCard));
 }
 
 function renderPostList(posts) {
   if (!els.postList) return;
 
   if (!posts.length) {
-    const empty = document.createElement("li");
-    empty.className = "empty-row";
-    empty.textContent = "조건에 맞는 글이 없습니다.";
-    els.postList.replaceChildren(empty);
+    els.postList.innerHTML = `<tr><td class="empty-row" colspan="5">조건에 맞는 글이 없습니다.</td></tr>`;
     return;
   }
 
-  els.postList.replaceChildren(...posts.map(createLatestRow));
+  els.postList.replaceChildren(...posts.map((post, index) => createBoardRow(post, posts.length - index)));
 }
 
 function renderDailyBest() {
   const daily = state.posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 10);
-  if (els.dailyCount) els.dailyCount.textContent = daily.length;
   if (els.dailyBest) els.dailyBest.replaceChildren(...daily.map((post) => createRankItem(post, post.dailyRank)));
 }
 
 function renderWeeklyBest() {
   const weekly = state.posts.filter((post) => post.weeklyRank).sort((a, b) => a.weeklyRank - b.weeklyRank).slice(0, 10);
-  if (els.weeklyCount) els.weeklyCount.textContent = weekly.length;
   if (els.weeklyBest) els.weeklyBest.replaceChildren(...weekly.map((post) => createRankItem(post, post.weeklyRank)));
 }
 
-function createStoryCard(post) {
-  const meta = categoryMeta[post.category];
-  const item = document.createElement("article");
-  item.className = "story-card humor-story-card";
-  item.innerHTML = `
-    <a href="${post.path}">
-      <span class="category-pill ${meta.tone}">${escapeHtml(meta.label)}</span>
-      <img src="${post.image}" alt="${escapeHtml(post.title)}" loading="lazy">
-      <strong>${escapeHtml(post.title)}</strong>
-      <small>조회 ${numberFormat.format(post.views)} · 추천 ${numberFormat.format(post.likes)} · 댓글 ${numberFormat.format(post.comments)}</small>
-    </a>
+function createBoardRow(post, number) {
+  const meta = categoryMeta[post.category] || categoryMeta.funny;
+  const row = document.createElement("tr");
+  row.dataset.category = post.category;
+  row.innerHTML = `
+    <td class="text-center board-number">${number}</td>
+    <td class="board-title-cell">
+      <a href="${post.path}"><span class="label label-${meta.tone}">${escapeHtml(meta.label)}</span> ${escapeHtml(post.title)}</a>
+      <span class="comment-count">[${numberFormat.format(post.comments || 0)}]</span>
+      <p>${escapeHtml(post.summary)}</p>
+    </td>
+    <td class="text-center board-author">${escapeHtml(post.sourceName)}</td>
+    <td class="text-center">${formatDate(post.publishedAt)}</td>
+    <td class="text-center">${numberFormat.format(post.views || 0)}</td>
   `;
-  return item;
-}
-
-function createLatestRow(post) {
-  const meta = categoryMeta[post.category];
-  const item = document.createElement("li");
-  item.innerHTML = `
-    <article class="latest-row">
-      <span class="category-pill ${meta.tone}">${escapeHtml(meta.label)}</span>
-      <div class="latest-copy">
-        <strong><a href="${post.path}">${escapeHtml(post.title)}</a></strong>
-        <small>${escapeHtml(post.sourceName)} · 조회 ${numberFormat.format(post.views)} · 추천 ${numberFormat.format(post.likes)}</small>
-      </div>
-      <a href="${post.path}" aria-label="${escapeHtml(post.title)} 게시글 보기">
-        <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="lazy">
-      </a>
-    </article>
-  `;
-  return item;
+  return row;
 }
 
 function createRankItem(post, rank) {
   const item = document.createElement("li");
+  item.className = "list-group-item";
   item.innerHTML = `
     <a href="${post.path}">
-      <span class="best-rank">${rank}</span>
+      <span class="rank-badge">${rank}</span>
       <strong>${escapeHtml(post.title)}</strong>
-      <em>${numberFormat.format(post.score)}</em>
+      <em>${numberFormat.format(post.score || 0)}</em>
     </a>
   `;
   return item;
 }
 
+function formatDate(value) {
+  return new Intl.DateTimeFormat("ko-KR", { month: "2-digit", day: "2-digit" }).format(new Date(value)).replace(/\.$/, "");
+}
+
 function escapeHtml(value) {
-  return String(value)
+  return String(value ?? "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
