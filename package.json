@@ -1,13 +1,11 @@
 {
-  "name": "harusoso-board",
+  "name": "sosotime-blog",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "node scripts/dev-server.js",
     "build": "node scripts/generate-post-images.js && node scripts/generate-index-page.js && node scripts/generate-post-pages.js && node scripts/generate-sitemap.js",
-    "seed": "node scripts/generate-seed-posts.js",
-    "crawl:plan": "node scripts/crawl-curation.js --dry-run",
     "image:generate": "node scripts/generate-post-images.js",
     "image:fetch": "node scripts/fetch-r2-image.js",
     "image:upload": "node scripts/upload-r2-image.js"

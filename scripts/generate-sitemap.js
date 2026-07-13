@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 
 const siteUrl = (process.env.SITE_URL || "https://sosotime.com").replace(/\/$/, "");
 const posts = JSON.parse(await readFile("public/data/posts.json", "utf8")).filter((post) => post.status === "published");
-const staticPaths = ["/", "/about", "/contact", "/upload", "/report", "/policy/editorial", "/policy/privacy", "/policy/terms"];
+const staticPaths = ["/", "/about", "/contact", "/report", "/policy/editorial", "/policy/privacy", "/policy/terms"];
 
 const urls = [
   ...staticPaths.map((path) => ({
@@ -26,6 +26,7 @@ ${urls.map(renderUrl).join("\n")}
 
 const robots = `User-agent: Googlebot
 Allow: /
+Disallow: /*?
 
 User-agent: Googlebot-Image
 Allow: /
@@ -38,6 +39,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /*?
 
 Sitemap: ${siteUrl}/sitemap.xml
 `;

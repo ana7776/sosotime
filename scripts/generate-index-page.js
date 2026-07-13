@@ -6,48 +6,36 @@ const adsenseClient = process.env.ADSENSE_CLIENT || "ca-pub-5804969457082424";
 
 const categoryMeta = {
   funny: {
-    label: "유머",
+    label: "웃음",
     icon: "웃",
     tone: "yellow",
-    navLabel: "유머",
-    description: "가볍게 웃을 수 있는 생활 속 장면과 반응",
+    description: "웃음이 났던 일상의 장면과 작은 소동들",
   },
   empathy: {
     label: "공감",
     icon: "공",
     tone: "pink",
-    navLabel: "공감",
-    description: "퇴근길, 대화, 작은 배려처럼 누구나 아는 순간",
-  },
-  issue: {
-    label: "이슈",
-    icon: "잇",
-    tone: "blue",
-    navLabel: "이슈",
-    description: "커뮤니티에서 의견이 갈린 장면의 맥락",
+    description: "출퇴근길, 사무실, 대화 속 누구나 아는 순간",
   },
   life: {
     label: "생활",
     icon: "생",
     tone: "orange",
-    navLabel: "생활",
-    description: "일상에서 헷갈리기 쉬운 기준과 선택 포인트",
+    description: "직접 해 보고 정리한 생활 습관과 소비 이야기",
   },
   info: {
     label: "정보",
     icon: "정",
     tone: "green",
-    navLabel: "정보",
-    description: "링크, 후기, 요약 글을 읽을 때 확인할 정보",
+    description: "경험에서 정리한 실전 팁과 체크 포인트",
   },
 };
 
 const sortedLatest = [...posts].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-const daily = posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 10);
-const weekly = posts.filter((post) => post.weeklyRank).sort((a, b) => a.weeklyRank - b.weeklyRank).slice(0, 10);
-const topStories = daily.slice(0, 6);
-const editorPicks = sortedLatest.slice(1, 4);
-const gallery = [...sortedLatest].sort((a, b) => b.likes - a.likes).slice(0, 6);
+const featured = posts.filter((post) => post.featured);
+const heroPost = featured[0] || sortedLatest[0];
+const editorPicks = (featured.length ? featured : sortedLatest).slice(0, 3);
+const topStories = sortedLatest.slice(0, 6);
 const categorySummaries = Object.entries(categoryMeta)
   .map(([category, meta]) => ({
     category,
@@ -55,14 +43,14 @@ const categorySummaries = Object.entries(categoryMeta)
     count: posts.filter((post) => post.category === category).length,
     posts: posts
       .filter((post) => post.category === category)
-      .sort((a, b) => b.score - a.score)
+      .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
       .slice(0, 4),
   }))
   .filter((entry) => entry.count > 0);
 
-const pageTitle = "소소타임 - 웃음과 공감이 있는 커뮤니티";
+const pageTitle = "소소타임 - 공감 상황극과 짧은 유머 썰";
 const pageDescription =
-  "소소타임은 커뮤니티에서 반응이 좋은 생활 유머, 공감 이야기, 이슈 글을 처음 보는 독자도 편하게 읽을 수 있도록 핵심 장면과 확인 포인트로 정리합니다.";
+  "소소타임은 누구나 한 번쯤 겪어 본 일상의 순간을 공감 상황극과 짧은 유머 썰로 풀어내는 오리지널 유머 사이트입니다.";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -72,11 +60,6 @@ const jsonLd = {
   inLanguage: "ko-KR",
   description: pageDescription,
   publisher: { "@type": "Organization", name: "소소타임", url: siteUrl },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${siteUrl}/?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
 };
 
 const html = `<!doctype html>
@@ -107,25 +90,21 @@ const html = `<!doctype html>
       <div class="humor-header-top">
         <a class="humor-logo" href="/" aria-label="소소타임 홈">
           <strong>SOSO TIME</strong>
-          <small>웃음과 공감이 있는 커뮤니티</small>
+          <small>공감 상황극과 유머 썰</small>
         </a>
         <form class="humor-search" action="/" role="search">
           <label class="visually-hidden" for="searchInput">검색어 입력</label>
-          <input id="searchInput" name="q" type="search" placeholder="검색어를 입력하세요" />
+          <input id="searchInput" name="q" type="search" placeholder="글 제목이나 주제를 검색해 보세요" />
         </form>
         <nav class="humor-actions" aria-label="바로가기">
-          <a href="/?rank=daily" class="rank-button" data-rank="daily">인기글</a>
-          <a class="submit-action" href="/upload">제보하기</a>
-          <a href="/policy/editorial">운영안내</a>
+          <a href="/about">소개</a>
+          <a href="/policy/editorial">작성 원칙</a>
         </nav>
       </div>
       <nav class="humor-nav" aria-label="카테고리">
         <div class="humor-nav-inner">
           <a class="nav-tab is-active" href="/" data-filter="all">전체</a>
           ${categorySummaries.map(renderNavTab).join("\n          ")}
-          <a href="/policy/editorial">베스트</a>
-          <a href="/report">커뮤니티</a>
-          <span class="menu-mark" aria-hidden="true">☰</span>
         </div>
       </nav>
     </header>
@@ -135,39 +114,26 @@ const html = `<!doctype html>
         <div class="humor-main">
           <section class="home-hero-card humor-hero" aria-labelledby="home-title">
             <img class="home-hero-image" src="/assets/site/hero-community.webp" alt="휴대폰을 보며 웃는 소소타임 캐릭터" loading="eager" />
-            <button class="hero-arrow left" type="button" aria-label="이전 추천">‹</button>
-            <button class="hero-arrow right" type="button" aria-label="다음 추천">›</button>
             <div class="home-hero-copy">
-              <p class="eyebrow">오늘의 웃음 큐레이션</p>
-              <h1 id="home-title">오늘, 당신을 웃게 할<br /><span>한 편의 이야기</span></h1>
-              <p>생활 유머, 공감 사연, 이슈 글을 처음 보는 사람도 빠르게 이해할 수 있도록 장면과 반응 중심으로 정리합니다.</p>
-              <a class="hero-action" href="/?rank=daily">오늘의 인기글 보러가기</a>
-              <div class="hero-dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+              <p class="eyebrow">오리지널 유머</p>
+              <h1 id="home-title">웃기고 공감되는<br /><span>일상의 그 순간</span></h1>
+              <p>누구나 한 번쯤 겪어 본 상황을 공감 상황극과 짧은 유머 썰로 풀어냅니다. 모두 직접 쓴 오리지널 글입니다.</p>
+              <a class="hero-action" href="${heroPost.path}">최근 이야기 읽어보기</a>
             </div>
           </section>
 
           <section class="humor-card-section" aria-labelledby="top-title">
             <div class="section-heading section-title-row">
-              <h2 id="top-title">오늘의 인기글</h2>
-              <a href="/?rank=daily">더보기</a>
+              <h2 id="top-title">최근 올라온 글</h2>
             </div>
             <div id="topCards" class="story-card-grid humor-story-grid">
               ${topStories.map(renderStoryCard).join("\n              ")}
             </div>
           </section>
 
-          <section class="humor-ad" aria-label="소소타임 안내">
-            <div>
-              <strong>소소타임과 함께 즐거운 하루!</strong>
-              <span>일상 속 작은 웃음이 큰 쉼표가 됩니다.</span>
-            </div>
-            <em>AD</em>
-          </section>
-
           <section class="category-popular" aria-labelledby="category-title">
             <div class="section-heading section-title-row">
-              <h2 id="category-title">카테고리별 인기글</h2>
-              <a href="/">더보기</a>
+              <h2 id="category-title">카테고리별 모아보기</h2>
             </div>
             <div class="category-board humor-category-board">
               ${categorySummaries.map(renderCategoryColumn).join("\n              ")}
@@ -176,11 +142,7 @@ const html = `<!doctype html>
 
           <section class="humor-latest-section" aria-labelledby="latest-title">
             <div class="section-heading section-title-row latest-tabs">
-              <h2 id="latest-title">최신 글</h2>
-              <a class="rank-button is-active" href="/" data-rank="latest">최신</a>
-              <a class="rank-button" href="/?rank=daily" data-rank="daily">인기</a>
-              <a class="rank-button" href="/?rank=weekly" data-rank="weekly">주간</a>
-              <a href="/">더보기</a>
+              <h2 id="latest-title">전체 글</h2>
             </div>
             <ol id="postList" class="collection-list humor-latest-list">
               ${sortedLatest.map(renderLatestItem).join("\n              ")}
@@ -189,20 +151,9 @@ const html = `<!doctype html>
         </div>
 
         <aside class="humor-sidebar" aria-label="사이드 콘텐츠">
-          <section class="sidebar-card" aria-labelledby="daily-title">
-            <div class="section-title-row">
-              <h2 id="daily-title">실시간 인기</h2>
-              <a href="/?rank=daily">더보기</a>
-            </div>
-            <ol id="dailyBest" class="best-list rank-list humor-rank-list">
-              ${daily.map((post) => renderBestItem(post, post.dailyRank)).join("\n              ")}
-            </ol>
-          </section>
-
           <section class="sidebar-card" aria-labelledby="editor-title">
             <div class="section-title-row">
-              <h2 id="editor-title">에디터 추천</h2>
-              <a href="/policy/editorial">더보기</a>
+              <h2 id="editor-title">에디터가 아끼는 글</h2>
             </div>
             ${renderEditorMain(editorPicks[0])}
             <div class="editor-list">
@@ -210,29 +161,9 @@ const html = `<!doctype html>
             </div>
           </section>
 
-          <section class="sidebar-card" aria-labelledby="weekly-title">
-            <div class="section-title-row">
-              <h2 id="weekly-title">주간 반응</h2>
-              <a href="/?rank=weekly">더보기</a>
-            </div>
-            <ol id="weeklyBest" class="best-list rank-list humor-rank-list">
-              ${weekly.slice(0, 6).map((post) => renderBestItem(post, post.weeklyRank)).join("\n              ")}
-            </ol>
-          </section>
-
-          <section class="sidebar-card" aria-labelledby="gallery-title">
-            <div class="section-title-row">
-              <h2 id="gallery-title">오늘의 짤</h2>
-              <a href="/?category=funny">더보기</a>
-            </div>
-            <div class="mini-gallery">
-              ${gallery.map(renderGalleryImage).join("\n              ")}
-            </div>
-          </section>
-
           <section class="sidebar-card" aria-labelledby="tag-title">
             <div class="section-title-row">
-              <h2 id="tag-title">인기 태그</h2>
+              <h2 id="tag-title">자주 다루는 주제</h2>
             </div>
             <div class="tag-cloud">
               ${renderTagCloud()}
@@ -240,8 +171,8 @@ const html = `<!doctype html>
           </section>
 
           <section class="rule-card humor-rule-card" aria-labelledby="rule-title">
-            <h2 id="rule-title">안심하고 읽는 기준</h2>
-            <p>핵심 장면은 짧게, 자세한 반응은 출처에서 확인할 수 있게 정리해 독자가 부담 없이 읽도록 돕습니다.</p>
+            <h2 id="rule-title">소소타임의 글쓰기</h2>
+            <p>모든 글은 운영자가 직접 쓴 오리지널 유머입니다. 다른 사이트의 글이나 이미지를 가져오지 않습니다.</p>
             <a href="/policy/editorial">자세히 보기</a>
           </section>
         </aside>
@@ -249,10 +180,9 @@ const html = `<!doctype html>
     </main>
 
     <footer class="board-footer humor-footer">
-      <a href="/about">소소타임 소개</a>
-      <a href="/policy/editorial">운영 안내</a>
-      <a href="/report">신고/삭제요청</a>
-      <a href="/upload">글 제보</a>
+      <a href="/about">사이트 소개</a>
+      <a href="/policy/editorial">작성 원칙</a>
+      <a href="/report">수정·삭제 요청</a>
       <a href="/contact">문의하기</a>
       <a href="/policy/privacy">개인정보처리방침</a>
       <a href="/policy/terms">이용약관</a>
@@ -264,10 +194,10 @@ const html = `<!doctype html>
 `;
 
 await writeFile("public/index.html", html, "utf8");
-console.log(`Generated humor portal index page with ${posts.length} posts`);
+console.log(`Generated blog index page with ${posts.length} posts`);
 
 function renderNavTab(entry) {
-  return `<a class="nav-tab" href="/?category=${entry.category}" data-filter="${entry.category}">${escapeHtml(entry.navLabel)}</a>`;
+  return `<a class="nav-tab" href="/?category=${entry.category}" data-filter="${entry.category}">${escapeHtml(entry.label)}</a>`;
 }
 
 function renderStoryCard(post) {
@@ -277,7 +207,7 @@ function renderStoryCard(post) {
                   <span class="category-pill ${meta.tone}">${escapeHtml(meta.label)}</span>
                   <img src="${post.image}" alt="${escapeHtml(post.title)}" loading="lazy" />
                   <strong>${escapeHtml(post.title)}</strong>
-                  <small>조회 ${numberFormat(post.views)} · 추천 ${numberFormat(post.likes)} · 댓글 ${numberFormat(post.comments)}</small>
+                  <small>${formatDate(post.publishedAt)}</small>
                 </a>
               </article>`;
 }
@@ -306,22 +236,13 @@ function renderLatestItem(post) {
                   <span class="category-pill ${meta.tone}">${escapeHtml(meta.label)}</span>
                   <div class="latest-copy">
                     <strong><a href="${post.path}">${escapeHtml(post.title)}</a></strong>
-                    <small>${escapeHtml(post.sourceName)} · ${relativeMinutes(post)}분 전 · 조회 ${numberFormat(post.views)}</small>
+                    <small>${escapeHtml(post.description)}</small>
+                    <small><time datetime="${post.publishedAt}">${formatDate(post.publishedAt)}</time></small>
                   </div>
-                  <a href="${post.path}" aria-label="${escapeHtml(post.title)} 게시글 보기">
+                  <a href="${post.path}" aria-label="${escapeHtml(post.title)} 글 보기">
                     <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="lazy" />
                   </a>
                 </article>
-              </li>`;
-}
-
-function renderBestItem(post, rank) {
-  return `<li>
-                <a href="${post.path}">
-                  <span class="best-rank">${rank}</span>
-                  <strong>${escapeHtml(post.title)}</strong>
-                  <em>${numberFormat(post.score)}</em>
-                </a>
               </li>`;
 }
 
@@ -329,9 +250,9 @@ function renderEditorMain(post) {
   if (!post) return "";
   return `<a class="editor-main-pick" href="${post.path}">
               <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="lazy" />
-              <span>BEST</span>
+              <span>PICK</span>
               <strong>${escapeHtml(post.title)}</strong>
-              <small>추천 ${numberFormat(post.likes)} · 조회 ${numberFormat(post.views)}</small>
+              <small>${escapeHtml(getCategory(post).label)} · ${formatDate(post.publishedAt)}</small>
             </a>`;
 }
 
@@ -341,33 +262,24 @@ function renderEditorItem(post) {
                 <div>
                   <em>PICK</em>
                   <strong>${escapeHtml(post.title)}</strong>
-                  <small>추천 ${numberFormat(post.likes)} · 조회 ${numberFormat(post.views)}</small>
+                  <small>${escapeHtml(getCategory(post).label)} · ${formatDate(post.publishedAt)}</small>
                 </div>
               </a>`;
-}
-
-function renderGalleryImage(post) {
-  return `<a href="${post.path}"><img src="${post.image}" alt="${escapeHtml(post.title)}" loading="lazy" /></a>`;
 }
 
 function renderTagCloud() {
   const tags = [...new Set(posts.flatMap((post) => post.tags || []))]
     .filter(Boolean)
-    .slice(0, 10);
+    .slice(0, 12);
   return tags.map((tag) => `<a href="/?q=${encodeURIComponent(tag)}">#${escapeHtml(tag)}</a>`).join("\n              ");
 }
 
 function getCategory(post) {
-  return categoryMeta[post.category] || categoryMeta.funny;
+  return categoryMeta[post.category] || categoryMeta.life;
 }
 
-function relativeMinutes(post) {
-  const index = sortedLatest.findIndex((item) => item.slug === post.slug);
-  return Math.max(2, index * 3 + 2);
-}
-
-function numberFormat(value) {
-  return new Intl.NumberFormat("ko-KR").format(value);
+function formatDate(value) {
+  return new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(value));
 }
 
 function safeJson(value) {

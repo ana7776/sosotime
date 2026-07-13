@@ -1,33 +1,32 @@
 const state = {
   posts: [],
   category: "all",
-  rank: "latest",
   query: ""
 };
 
 const categoryMeta = {
-  funny: { label: "유머", tone: "yellow" },
+  funny: { label: "웃음", tone: "yellow" },
   empathy: { label: "공감", tone: "pink" },
-  issue: { label: "이슈", tone: "blue" },
   life: { label: "생활", tone: "orange" },
   info: { label: "정보", tone: "green" }
 };
 
 const els = {
   postList: document.querySelector("#postList"),
-  dailyBest: document.querySelector("#dailyBest"),
-  weeklyBest: document.querySelector("#weeklyBest"),
-  dailyCount: document.querySelector("#dailyCount"),
-  weeklyCount: document.querySelector("#weeklyCount"),
   topCards: document.querySelector("#topCards"),
   searchInput: document.querySelector("#searchInput")
 };
 
-const numberFormat = new Intl.NumberFormat("ko-KR");
+const dateFormat = new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" });
 
 async function boot() {
-  const response = await fetch("/data/posts.json");
-  state.posts = (await response.json()).filter((post) => post.status === "published");
+  try {
+    const response = await fetch("/data/posts.json");
+    const data = await response.json();
+    state.posts = data.filter((post) => post.status === "published");
+  } catch (error) {
+    state.posts = [];
+  }
   applyStateFromUrl();
   bindEvents();
   render();
@@ -35,18 +34,11 @@ async function boot() {
 
 function bindEvents() {
   document.querySelectorAll(".nav-tab").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.category = button.dataset.filter || "all";
+    button.addEventListener("click", (event) => {
+      if (!button.dataset.filter) return;
+      event.preventDefault();
+      state.category = button.dataset.filter;
       setActive(".nav-tab", button);
-      updateListUrl();
-      render();
-    });
-  });
-
-  document.querySelectorAll(".rank-button").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.rank = button.dataset.rank || "latest";
-      setActive(".rank-button", button);
       updateListUrl();
       render();
     });
@@ -68,15 +60,10 @@ function setActive(selector, selected) {
 function applyStateFromUrl() {
   const params = new URLSearchParams(window.location.search);
   const category = params.get("category");
-  const rank = params.get("rank");
   const query = params.get("q") || "";
 
   if (category === "all" || categoryMeta[category]) {
     state.category = category;
-  }
-
-  if (["latest", "daily", "weekly"].includes(rank)) {
-    state.rank = rank;
   }
 
   if (query) {
@@ -85,9 +72,7 @@ function applyStateFromUrl() {
   }
 
   const selectedCategory = document.querySelector(`.nav-tab[data-filter="${state.category}"]`);
-  const selectedRank = document.querySelector(`.rank-button[data-rank="${state.rank}"]`);
   if (selectedCategory) setActive(".nav-tab", selectedCategory);
-  if (selectedRank) setActive(".rank-button", selectedRank);
 }
 
 function updateListUrl() {
@@ -95,9 +80,6 @@ function updateListUrl() {
 
   if (state.category === "all") url.searchParams.delete("category");
   else url.searchParams.set("category", state.category);
-
-  if (state.rank === "latest") url.searchParams.delete("rank");
-  else url.searchParams.set("rank", state.rank);
 
   if (state.query) url.searchParams.set("q", state.query);
   else url.searchParams.delete("q");
@@ -114,19 +96,12 @@ function filteredPosts() {
 
   if (state.query) {
     posts = posts.filter((post) => {
-      const haystack = `${post.title} ${post.summary} ${post.curatorComment} ${post.tags.join(" ")}`.toLowerCase();
+      const haystack = `${post.title} ${post.summary} ${post.description} ${(post.tags || []).join(" ")}`.toLowerCase();
       return haystack.includes(state.query);
     });
   }
 
-  if (state.rank === "daily") {
-    posts = posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank);
-  } else if (state.rank === "weekly") {
-    posts = posts.filter((post) => post.weeklyRank).sort((a, b) => a.weeklyRank - b.weeklyRank);
-  } else {
-    posts.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-  }
-
+  posts.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
   return posts;
 }
 
@@ -134,14 +109,14 @@ function render() {
   const posts = filteredPosts();
   renderTopCards();
   renderPostList(posts);
-  renderDailyBest();
-  renderWeeklyBest();
 }
 
 function renderTopCards() {
   if (!els.topCards) return;
-  const daily = state.posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 6);
-  els.topCards.replaceChildren(...daily.map(createStoryCard));
+  const latest = [...state.posts]
+    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+    .slice(0, 6);
+  els.topCards.replaceChildren(...latest.map(createStoryCard));
 }
 
 function renderPostList(posts) {
@@ -158,20 +133,8 @@ function renderPostList(posts) {
   els.postList.replaceChildren(...posts.map(createLatestRow));
 }
 
-function renderDailyBest() {
-  const daily = state.posts.filter((post) => post.dailyRank).sort((a, b) => a.dailyRank - b.dailyRank).slice(0, 10);
-  if (els.dailyCount) els.dailyCount.textContent = daily.length;
-  if (els.dailyBest) els.dailyBest.replaceChildren(...daily.map((post) => createRankItem(post, post.dailyRank)));
-}
-
-function renderWeeklyBest() {
-  const weekly = state.posts.filter((post) => post.weeklyRank).sort((a, b) => a.weeklyRank - b.weeklyRank).slice(0, 10);
-  if (els.weeklyCount) els.weeklyCount.textContent = weekly.length;
-  if (els.weeklyBest) els.weeklyBest.replaceChildren(...weekly.map((post) => createRankItem(post, post.weeklyRank)));
-}
-
 function createStoryCard(post) {
-  const meta = categoryMeta[post.category];
+  const meta = categoryMeta[post.category] || categoryMeta.life;
   const item = document.createElement("article");
   item.className = "story-card humor-story-card";
   item.innerHTML = `
@@ -179,23 +142,24 @@ function createStoryCard(post) {
       <span class="category-pill ${meta.tone}">${escapeHtml(meta.label)}</span>
       <img src="${post.image}" alt="${escapeHtml(post.title)}" loading="lazy">
       <strong>${escapeHtml(post.title)}</strong>
-      <small>조회 ${numberFormat.format(post.views)} · 추천 ${numberFormat.format(post.likes)} · 댓글 ${numberFormat.format(post.comments)}</small>
+      <small>${formatDate(post.publishedAt)}</small>
     </a>
   `;
   return item;
 }
 
 function createLatestRow(post) {
-  const meta = categoryMeta[post.category];
+  const meta = categoryMeta[post.category] || categoryMeta.life;
   const item = document.createElement("li");
   item.innerHTML = `
     <article class="latest-row">
       <span class="category-pill ${meta.tone}">${escapeHtml(meta.label)}</span>
       <div class="latest-copy">
         <strong><a href="${post.path}">${escapeHtml(post.title)}</a></strong>
-        <small>${escapeHtml(post.sourceName)} · 조회 ${numberFormat.format(post.views)} · 추천 ${numberFormat.format(post.likes)}</small>
+        <small>${escapeHtml(post.description)}</small>
+        <small><time datetime="${post.publishedAt}">${formatDate(post.publishedAt)}</time></small>
       </div>
-      <a href="${post.path}" aria-label="${escapeHtml(post.title)} 게시글 보기">
+      <a href="${post.path}" aria-label="${escapeHtml(post.title)} 글 보기">
         <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="lazy">
       </a>
     </article>
@@ -203,16 +167,8 @@ function createLatestRow(post) {
   return item;
 }
 
-function createRankItem(post, rank) {
-  const item = document.createElement("li");
-  item.innerHTML = `
-    <a href="${post.path}">
-      <span class="best-rank">${rank}</span>
-      <strong>${escapeHtml(post.title)}</strong>
-      <em>${numberFormat.format(post.score)}</em>
-    </a>
-  `;
-  return item;
+function formatDate(value) {
+  return dateFormat.format(new Date(value));
 }
 
 function escapeHtml(value) {
