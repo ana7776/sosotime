@@ -6,9 +6,8 @@ const outputDir = "public/assets/posts";
 const posts = JSON.parse(await readFile(postsFile, "utf8"));
 
 const categoryStyles = {
-  funny: { label: "유머", bg: "#f8efe7", ink: "#34251d", accent: "#c4492d" },
+  funny: { label: "웃음", bg: "#f8efe7", ink: "#34251d", accent: "#c4492d" },
   empathy: { label: "공감", bg: "#eaf5f1", ink: "#1f332e", accent: "#1f6f5b" },
-  issue: { label: "이슈", bg: "#eef2f8", ink: "#222b3a", accent: "#3b5b92" },
   life: { label: "생활", bg: "#f6f3e8", ink: "#302b1f", accent: "#8a6f2a" },
   info: { label: "정보", bg: "#edf5fb", ink: "#1f2e37", accent: "#2d6f8f" }
 };
@@ -18,7 +17,7 @@ await mkdir(outputDir, { recursive: true });
 let changed = false;
 for (const post of posts) {
   const style = categoryStyles[post.category] || categoryStyles.info;
-  const imagePath = `/assets/posts/post-${String(post.id).padStart(2, "0")}.webp`;
+  const imagePath = `/assets/posts/${post.slug}.webp`;
   const svg = renderSvg(post, style);
   await sharp(Buffer.from(svg)).webp({ quality: 86 }).toFile(`public${imagePath}`);
 
@@ -53,10 +52,10 @@ function renderSvg(post, style) {
   <rect x="46" y="46" width="1108" height="583" rx="28" fill="#ffffff" opacity="0.72" />
   <rect x="86" y="92" width="146" height="56" rx="12" fill="${style.accent}" />
   <text x="159" y="130" text-anchor="middle" class="label">${escapeXml(style.label)}</text>
-  <text x="260" y="131" class="brand">소소타임 큐레이션</text>
+  <text x="260" y="131" class="brand">소소타임</text>
   ${titleSvg}
   <text x="86" y="548" class="tags">${escapeXml(tags)}</text>
-  <text x="86" y="595" class="caption">웃긴 장면과 공감 포인트를 가볍게 모은 글</text>
+  <text x="86" y="595" class="caption">공감 상황극과 짧은 유머 썰</text>
   <rect x="1036" y="496" width="74" height="74" rx="16" fill="${style.accent}" opacity="0.95" />
   <text x="1073" y="543" text-anchor="middle" class="label">${String(post.id).padStart(2, "0")}</text>
 </svg>`;
