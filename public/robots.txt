@@ -1,8 +1,4 @@
-User-agent: Googlebot
-Allow: /
-Disallow: /*?
-
-User-agent: Googlebot-Image
+User-agent: *
 Allow: /
 
 User-agent: Mediapartners-Google
@@ -10,9 +6,5 @@ Allow: /
 
 User-agent: AdsBot-Google
 Allow: /
-
-User-agent: *
-Allow: /
-Disallow: /*?
 
 Sitemap: https://sosotime.com/sitemap.xml

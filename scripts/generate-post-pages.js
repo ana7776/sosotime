@@ -1,18 +1,22 @@
-import { rm, mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
+import {
+  absoluteUrl,
+  author,
+  canonicalUrl,
+  categoryMeta,
+  escapeHtml,
+  formatDate,
+  formatShortDate,
+  loadPosts,
+  renderHead,
+  renderSiteFooter,
+  renderSiteHeader,
+  safeJson,
+  siteUrl,
+  slugifyTag,
+} from "./site-helpers.js";
 
-const siteUrl = process.env.SITE_URL || "https://sosotime.com";
-const posts = JSON.parse(await readFile("public/data/posts.json", "utf8")).filter((post) => post.status === "published");
-const categoryLabels = {
-  funny: "웃음",
-  empathy: "공감",
-  life: "생활",
-  info: "정보"
-};
-const categoryEntries = Object.entries(categoryLabels)
-  .map(([category, label]) => ({ category, label, count: posts.filter((post) => post.category === category).length }))
-  .filter((entry) => entry.count > 0);
-const adsenseClient = process.env.ADSENSE_CLIENT || "ca-pub-5804969457082424";
-const authorName = "김안나";
+const posts = await loadPosts();
 
 await rm("public/posts", { recursive: true, force: true });
 
@@ -25,139 +29,130 @@ for (const post of posts) {
 console.log(`Generated ${posts.length} static post pages`);
 
 function renderPost(post) {
-  const canonical = `${siteUrl}${post.path}`;
-  const categoryLabel = categoryLabels[post.category];
-  const pageTitle = `${post.title} - 소소타임`;
-  const imageUrl = absoluteUrl(post.image);
-  const wordCount = post.body.reduce(
-    (total, section) => total + section.paragraphs.reduce((sum, paragraph) => sum + paragraph.length, 0),
-    0
-  );
+  const canonical = canonicalUrl(post.path);
+  const category = categoryMeta[post.category];
+  const related = relatedPosts(post, 3);
+  const inlineRelated = relatedPosts(post, 2);
+  const { previous, next } = previousNext(post);
+  const pageTitle = `${post.title} | 소소타임`;
+  const pageDescription = post.description;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "BlogPosting",
+        "@type": "Article",
         headline: post.title,
-        description: post.description,
-        image: imageUrl,
-        inLanguage: "ko-KR",
+        description: pageDescription,
+        image: absoluteUrl(post.image),
         datePublished: post.publishedAt,
         dateModified: post.updatedAt || post.publishedAt,
-        articleSection: categoryLabel,
-        wordCount,
+        inLanguage: "ko-KR",
+        articleSection: category?.label || "글",
         author: {
           "@type": "Person",
-          name: authorName,
-          url: `${siteUrl}/about`
+          name: author.name,
+          url: `${siteUrl}${author.path}`,
+          email: author.email,
         },
         publisher: {
           "@type": "Organization",
           name: "소소타임",
-          url: siteUrl
+          url: siteUrl,
         },
-        mainEntityOfPage: canonical
+        mainEntityOfPage: canonical,
       },
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "홈",
-            item: `${siteUrl}/`
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: categoryLabel,
-            item: `${siteUrl}/?category=${post.category}`
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: post.title,
-            item: canonical
-          }
-        ]
-      }
-    ]
+          { "@type": "ListItem", position: 1, name: "홈", item: siteUrl },
+          { "@type": "ListItem", position: 2, name: category?.label || "글", item: `${siteUrl}/category/${post.category}/` },
+          { "@type": "ListItem", position: 3, name: post.title, item: canonical },
+        ],
+      },
+    ],
   };
 
   return `<!doctype html>
 <html lang="ko">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>${escapeHtml(pageTitle)}</title>
-    <meta name="description" content="${escapeHtml(post.description)}" />
-    <meta name="author" content="${escapeHtml(authorName)}" />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
-    <link rel="canonical" href="${canonical}" />
-    <link rel="stylesheet" href="/styles.css" />
-    <meta property="og:type" content="article" />
-    <meta property="og:site_name" content="소소타임" />
-    <meta property="og:title" content="${escapeHtml(pageTitle)}" />
-    <meta property="og:description" content="${escapeHtml(post.description)}" />
-    <meta property="og:url" content="${canonical}" />
-    <meta property="og:image" content="${imageUrl}" />
+${renderHead({
+  title: pageTitle,
+  description: pageDescription,
+  canonicalPath: post.path,
+  image: post.image,
+  type: "article",
+  jsonLd,
+})}
     <meta property="article:published_time" content="${post.publishedAt}" />
     <meta property="article:modified_time" content="${post.updatedAt || post.publishedAt}" />
-    <meta property="article:author" content="${escapeHtml(authorName)}" />
-    <meta property="article:section" content="${escapeHtml(categoryLabel)}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${escapeHtml(pageTitle)}" />
-    <meta name="twitter:description" content="${escapeHtml(post.description)}" />
-    <meta name="twitter:image" content="${imageUrl}" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}" crossorigin="anonymous"></script>
-    <script type="application/ld+json">${safeJson(jsonLd)}</script>
+    <meta property="article:section" content="${escapeHtml(category?.label || "글")}" />
   </head>
   <body>
-    ${siteHeader()}
+    ${renderSiteHeader()}
     <main class="page-shell article-shell">
       <article class="article-page">
         <nav class="breadcrumb" aria-label="현재 위치">
           <a href="/">홈</a>
           <span>›</span>
-          <a href="/?category=${post.category}">${escapeHtml(categoryLabel)}</a>
+          <a href="/category/${post.category}/">${escapeHtml(category?.label || "글")}</a>
+          <span>›</span>
+          <span>${escapeHtml(post.title)}</span>
         </nav>
+
         <header class="article-header">
-          <p class="eyebrow">${escapeHtml(categoryLabel)}</p>
+          <p class="eyebrow">${escapeHtml(category?.label || "글")}</p>
           <h1>${escapeHtml(post.title)}</h1>
           <p class="article-description">${escapeHtml(post.summary)}</p>
-          <dl class="article-meta">
-            <div><dt>글</dt><dd>${escapeHtml(authorName)}</dd></div>
-            <div><dt>발행</dt><dd><time datetime="${post.publishedAt}">${formatDate(post.publishedAt)}</time></dd></div>
-            <div><dt>분류</dt><dd>${escapeHtml(categoryLabel)}</dd></div>
-          </dl>
+          <div class="article-meta">
+            <div><dt>발행일</dt><dd>${formatDate(post.publishedAt)}</dd></div>
+            <div><dt>글쓴이</dt><dd><a href="${author.path}">${author.name}</a></dd></div>
+            <div><dt>분류</dt><dd>${escapeHtml(category?.label || "글")}</dd></div>
+          </div>
         </header>
 
         <figure class="article-figure">
           <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="eager" />
+          <figcaption>${escapeHtml(post.title)}의 분위기를 먼저 떠올릴 수 있도록 만든 대표 이미지입니다.</figcaption>
         </figure>
 
-        ${post.body.map(renderSection).join("\n")}
-
-        <section class="article-tags" aria-label="태그">
-          ${post.tags.map((tag) => `<span>#${escapeHtml(tag)}</span>`).join("")}
+        <section class="reader-brief" aria-labelledby="summary-title">
+          <h2 id="summary-title">먼저 읽으면 좋은 포인트</h2>
+          <ul>
+            <li>${escapeHtml(post.summary)}</li>
+            <li>${escapeHtml(post.curatorComment)}</li>
+            <li>${escapeHtml(post.body?.[2]?.paragraphs?.[0] || "장면 자체보다 왜 그런 반응이 생겼는지까지 같이 보면 훨씬 오래 남습니다.")}</li>
+          </ul>
         </section>
 
-        <section class="author-note" aria-label="글쓴이">
-          <p><strong>${escapeHtml(authorName)}</strong> · 직접 쓴 공감 상황극과 유머 썰을 올립니다. 글에 대한 의견이나 수정 요청은 <a href="/contact">문의하기</a>로 보내 주세요.</p>
+        ${post.body
+          .map((section, index) => `${renderSection(section)}${index === 1 ? renderInlineRelated(inlineRelated) : ""}`)
+          .join("\n")}
+
+        <section class="author-note" aria-labelledby="author-note-title">
+          <h2 id="author-note-title">글쓴이 메모</h2>
+          <p><strong>${author.name}</strong> · 비슷한 일 겪으셨다면 반갑습니다. 의견이나 수정 요청은 <a href="/contact/">문의하기</a>로 보내 주세요.</p>
         </section>
+
+        <nav class="article-pager" aria-label="이전 다음 글">
+          ${previous ? `<a href="${previous.path}"><small>이전 글</small><strong>${escapeHtml(previous.title)}</strong></a>` : `<span></span>`}
+          ${next ? `<a href="${next.path}"><small>다음 글</small><strong>${escapeHtml(next.title)}</strong></a>` : `<span></span>`}
+        </nav>
 
         <section class="related-posts" aria-labelledby="related-title">
           <h2 id="related-title">같이 읽으면 좋은 글</h2>
           <div>
-            ${relatedPosts(post).map(renderRelatedPost).join("\n            ")}
+            ${related.map(renderRelatedPost).join("\n            ")}
           </div>
+        </section>
+
+        <section class="article-tags" aria-label="태그">
+          ${post.tags.map((tag) => `<a href="/tag/${encodeURIComponent(slugifyTag(tag))}/">#${escapeHtml(tag)}</a>`).join("")}
         </section>
       </article>
     </main>
-    ${siteFooter()}
+    ${renderSiteFooter()}
   </body>
-</html>
-`;
+</html>`;
 }
 
 function renderSection(section) {
@@ -167,10 +162,27 @@ function renderSection(section) {
         </section>`;
 }
 
-function relatedPosts(post) {
+function renderInlineRelated(items) {
+  if (!items.length) return "";
+  return `<aside class="inline-related" aria-label="본문 중간 추천 글">
+          <p>이 장면이 익숙했다면 아래 글도 함께 읽어 보세요.</p>
+          <div>
+            ${items.map((post) => `<a href="${post.path}">${escapeHtml(post.title)}</a>`).join("")}
+          </div>
+        </aside>`;
+}
+
+function relatedPosts(post, count) {
   const sameCategory = posts.filter((item) => item.id !== post.id && item.category === post.category);
+  const sameTag = posts.filter(
+    (item) => item.id !== post.id && item.category !== post.category && item.tags.some((tag) => post.tags.includes(tag)),
+  );
   const fallback = posts.filter((item) => item.id !== post.id && item.category !== post.category);
-  return [...sameCategory, ...fallback].slice(0, 3);
+  return [...sameCategory, ...sameTag, ...fallback].filter(uniqueById).slice(0, count);
+}
+
+function uniqueById(post, index, list) {
+  return list.findIndex((item) => item.id === post.id) === index;
 }
 
 function renderRelatedPost(post) {
@@ -178,57 +190,15 @@ function renderRelatedPost(post) {
               <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="lazy" />
               <span>
                 <strong>${escapeHtml(post.title)}</strong>
-                <small>${escapeHtml(categoryLabels[post.category])} · ${formatDate(post.publishedAt)}</small>
+                <small>${escapeHtml(categoryMeta[post.category]?.label || "글")} · ${formatShortDate(post.publishedAt)}</small>
               </span>
             </a>`;
 }
 
-function siteHeader() {
-  return `<header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="/" aria-label="소소타임 홈">
-          <span class="brand-mark">소소</span>
-          <span>
-            <strong>소소타임</strong>
-            <small>공감 상황극과 유머 썰</small>
-          </span>
-        </a>
-        <nav class="top-nav" aria-label="주요 분류">
-          ${categoryEntries.map(({ category, label }) => `<a class="nav-tab" href="/?category=${category}">${label}</a>`).join("\n          ")}
-        </nav>
-      </div>
-    </header>`;
-}
-
-function siteFooter() {
-  return `<footer class="site-footer">
-      <a href="/about">사이트 소개</a>
-      <a href="/policy/editorial">작성 원칙</a>
-      <a href="/report">수정·삭제 요청</a>
-      <a href="/policy/privacy">개인정보처리방침</a>
-      <a href="/contact">문의하기</a>
-      <a href="/policy/terms">이용약관</a>
-    </footer>`;
-}
-
-function formatDate(value) {
-  return new Intl.DateTimeFormat("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(value));
-}
-
-function safeJson(value) {
-  return JSON.stringify(value).replaceAll("<", "\\u003c");
-}
-
-function absoluteUrl(value) {
-  if (/^https?:\/\//.test(value)) return value;
-  return `${siteUrl}${value.startsWith("/") ? value : `/${value}`}`;
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+function previousNext(post) {
+  const index = posts.findIndex((item) => item.id === post.id);
+  return {
+    previous: index < posts.length - 1 ? posts[index + 1] : null,
+    next: index > 0 ? posts[index - 1] : null,
+  };
 }

@@ -1,6 +1,18 @@
-# Retired pages
-/upload /contact 301
-/upload/ /contact 301
-
-# Canonical host
+# legacy post redirects
+/posts/댓글-분위기가-글의-인상을-바꾸는-순간/ /posts/group-chat-emoticon/ 301
+/posts/긴-제목이-클릭을-부르는-때와-피로하게-만드는-때/ / 301
+/posts/링크만-던져진-글보다-한눈에-보이는-글이-편한-이유/ / 301
+/posts/베스트-글에서-반복되는-공통-구조/ / 301
+/posts/사소한-인증-글이-오래-회자되는-조건/ / 301
+/posts/사진-한-장이-설명보다-빠르게-퍼지는-이유/ / 301
+/posts/스포츠-장면-하나가-유머-글로-번지는-이유/ / 301
+/posts/저녁-게시판에-농담-글이-몰리는-이유/ / 301
+/posts/출근길-목격담이-댓글을-빠르게-모으는-이유/ / 301
+/about /about/ 301
+/contact /contact/ 301
+/upload /upload/ 301
+/report /report/ 301
+/policy/editorial /policy/editorial/ 301
+/policy/privacy /policy/privacy/ 301
+/policy/terms /policy/terms/ 301
 https://www.sosotime.com/* https://sosotime.com/:splat 301
