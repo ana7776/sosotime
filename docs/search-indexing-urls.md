@@ -1,6 +1,6 @@
 # 검색 색인 신청 주소 정리
 
-최종 정리일: 2026-08-13  
+최종 정리일: 2026-08-13 (2차)  
 대표 도메인: `https://sosotime.com`
 
 ## 제출 원칙
@@ -20,7 +20,7 @@ https://sosotime.com/
 
 ## Google Search Console에서 먼저 요청할 URL
 
-2026-08-13에 새로 추가한 10편을 우선 제출합니다.
+2026-08-13에 두 차례에 걸쳐 새로 추가한 20편을 우선 제출합니다.
 
 ```text
 https://sosotime.com/
@@ -34,6 +34,16 @@ https://sosotime.com/posts/vacation-return-desk-pile-feeling/
 https://sosotime.com/posts/shared-umbrella-rainy-season-awkwardness/
 https://sosotime.com/posts/group-chat-typo-laugh-moment/
 https://sosotime.com/posts/office-dinner-boss-joke-laugh-timing/
+https://sosotime.com/posts/seasonal-cold-prevention-first-check/
+https://sosotime.com/posts/seasonal-closet-reorganize-delay-reason/
+https://sosotime.com/posts/evening-mart-discount-corner-habit/
+https://sosotime.com/posts/trending-search-issue-temperature-gap/
+https://sosotime.com/posts/short-clip-all-day-talk-reason/
+https://sosotime.com/posts/community-verification-post-doubt-comment-pattern/
+https://sosotime.com/posts/reunion-friend-conversation-topic-moment/
+https://sosotime.com/posts/moving-day-new-neighborhood-store-feeling/
+https://sosotime.com/posts/meeting-mic-mute-forget-moment/
+https://sosotime.com/posts/delivery-driver-short-chat-laugh-point/
 ```
 
 ## 기본 페이지
@@ -97,6 +107,16 @@ https://sosotime.com/posts/rainy-season-shoe-care-morning-time/
 https://sosotime.com/posts/summer-fridge-reorganize-standard/
 https://sosotime.com/posts/vacation-delivery-delay-notice-checklist/
 https://sosotime.com/posts/heat-wave-alert-text-first-check/
+https://sosotime.com/posts/delivery-driver-short-chat-laugh-point/
+https://sosotime.com/posts/meeting-mic-mute-forget-moment/
+https://sosotime.com/posts/moving-day-new-neighborhood-store-feeling/
+https://sosotime.com/posts/reunion-friend-conversation-topic-moment/
+https://sosotime.com/posts/community-verification-post-doubt-comment-pattern/
+https://sosotime.com/posts/short-clip-all-day-talk-reason/
+https://sosotime.com/posts/trending-search-issue-temperature-gap/
+https://sosotime.com/posts/evening-mart-discount-corner-habit/
+https://sosotime.com/posts/seasonal-closet-reorganize-delay-reason/
+https://sosotime.com/posts/seasonal-cold-prevention-first-check/
 ```
 
 ## Google Search Console 제출 순서
