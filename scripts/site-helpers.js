@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { buildMascot } from "./lib/mascot.js";
 
 export const siteUrl = (process.env.SITE_URL || "https://sosotime.com").replace(/\/$/, "");
 export const adsenseClient = process.env.ADSENSE_CLIENT || "ca-pub-5804969457082424";
@@ -13,30 +14,40 @@ export const categoryMeta = {
   funny: {
     label: "웃음",
     shortLabel: "유머",
+    accent: "#c4492d",
+    blurb: "빵빵 터지는 생활 웃음",
     intro:
       "웃음 카테고리는 하루 중 딱 한 번이라도 피식하게 만드는 생활 장면을 모읍니다. 누군가를 놀리거나 과장된 자극을 쫓기보다, 우리 모두 한 번쯤 겪었을 법한 민망함과 타이밍의 어긋남에서 웃음이 어떻게 생기는지 풀어냅니다. 짧은 해프닝도 맥락을 살려 읽으면 훨씬 오래 남기 때문에, 제목보다 장면과 감정의 결을 차분하게 짚는 글을 중심에 둡니다.",
   },
   empathy: {
     label: "공감",
     shortLabel: "공감",
+    accent: "#1f6f5b",
+    blurb: "괜히 오래 남는 순간들",
     intro:
       "공감 카테고리는 별일 아닌데 이상하게 오래 기억나는 순간들을 다룹니다. 출근길, 집에 돌아온 저녁, 반려동물과 보내는 시간처럼 큰 사건은 아니어도 누구에게나 자기 이야기를 겹쳐 볼 틈이 있는 장면을 고릅니다. 읽고 나서 정보를 외우는 대신 '나도 비슷했다'는 감각이 남도록, 감정의 흐름과 생활 감각을 구체적으로 풀어 쓰는 데 집중합니다.",
   },
   issue: {
     label: "이야기",
     shortLabel: "이야기",
+    accent: "#3b5b92",
+    blurb: "화제가 된 장면 다시 보기",
     intro:
       "이야기 카테고리는 온라인에서 화제가 된 장면을 그대로 따라가기보다, 왜 사람들이 그 지점에서 멈춰 서서 말하게 되는지 해석해 보는 공간입니다. 반응이 빨리 붙는 이슈일수록 단정적인 판단보다 장면의 조건과 받아들이는 방식이 더 중요합니다. 그래서 자극적인 결론 대신, 읽는 사람이 스스로 맥락을 분리해 볼 수 있도록 생활 언어로 다시 정리합니다.",
   },
   life: {
     label: "생활",
     shortLabel: "생활",
+    accent: "#8a6f2a",
+    blurb: "바로 써먹는 생활 기준",
     intro:
       "생활 카테고리는 일상에서 바로 써먹을 수 있는 작은 기준을 다룹니다. 출근길 동선, 공공장소의 눈치, 더운 날과 늦은 밤의 생활 리듬처럼 사소하지만 반복되는 문제를 다루기 때문에 한 번 읽고 지나가도 실제 선택에 남는 것이 있어야 합니다. 거창한 팁보다도 상황을 읽는 법과 스스로 조절할 수 있는 기준을 차분하게 정리합니다.",
   },
   info: {
     label: "정보",
     shortLabel: "정보",
+    accent: "#2d6f8f",
+    blurb: "헷갈리는 순간 먼저 정리",
     intro:
       "정보 카테고리는 생활에 바로 닿는 판단 기준을 가볍지만 빈약하지 않게 설명합니다. 제품 후기나 서비스 안내, 계절 이슈처럼 누구나 한 번쯤 마주치는 소재를 다루되 숫자나 문구를 그대로 나열하지 않고 무엇을 먼저 확인하면 덜 헷갈리는지에 초점을 맞춥니다. 읽고 나면 '그래서 나는 무엇부터 보면 되는가'가 남도록 구성한 글만 모아 둡니다.",
   },
@@ -121,7 +132,7 @@ export function canonicalUrl(path) {
 
 export function renderHead({ title, description, canonicalPath, image, type = "website", jsonLd }) {
   const canonical = canonicalUrl(canonicalPath);
-  const imageUrl = image ? absoluteUrl(image) : undefined;
+  const imageUrl = absoluteUrl(image || "/assets/site/og-image.webp");
   return `    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${escapeHtml(title)}</title>
@@ -129,15 +140,21 @@ export function renderHead({ title, description, canonicalPath, image, type = "w
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href="${canonical}" />
     <link rel="alternate" type="application/rss+xml" title="소소타임 RSS" href="/rss.xml" />
+    <link rel="icon" href="/assets/site/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/site/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/assets/site/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/assets/site/apple-touch-icon.png" />
     <link rel="stylesheet" href="/styles.css" />
     <meta property="og:type" content="${type}" />
     <meta property="og:site_name" content="소소타임" />
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
-    <meta property="og:url" content="${canonical}" />${imageUrl ? `\n    <meta property="og:image" content="${imageUrl}" />` : ""}
-    <meta name="twitter:card" content="${imageUrl ? "summary_large_image" : "summary"}" />
+    <meta property="og:url" content="${canonical}" />
+    <meta property="og:image" content="${imageUrl}" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(title)}" />
-    <meta name="twitter:description" content="${escapeHtml(description)}" />${imageUrl ? `\n    <meta name="twitter:image" content="${imageUrl}" />` : ""}
+    <meta name="twitter:description" content="${escapeHtml(description)}" />
+    <meta name="twitter:image" content="${imageUrl}" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}" crossorigin="anonymous"></script>
     <script type="application/ld+json">${safeJson(jsonLd)}</script>`;
 }
@@ -195,6 +212,45 @@ export function renderPostCard(post) {
           <small>${escapeHtml(categoryMeta[post.category]?.label || "글")} · ${formatShortDate(post.publishedAt)}</small>
           <p>${escapeHtml(post.description)}</p>
         </span>
+      </a>
+    </article>`;
+}
+
+export function renderComicHero() {
+  const mascot = `<svg class="comic-hero-mascot" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    ${buildMascot(120, 130, 82, { cheer: true })}
+  </svg>`;
+
+  const cards = Object.entries(categoryMeta)
+    .map(
+      ([category, meta]) => `<a class="comic-hero-card" href="/category/${category}/" style="--accent:${meta.accent}">
+        <span class="comic-hero-card-icon">${escapeHtml(meta.label.slice(0, 1))}</span>
+        <span>#${escapeHtml(meta.shortLabel)}</span>
+      </a>`,
+    )
+    .join("\n        ");
+
+  return `<section class="comic-hero" aria-label="소소타임 소개">
+      <div class="comic-hero-inner">
+        <div class="comic-hero-bubble comic-hero-bubble--left">ㅋㅋㅋ 너무<br /><strong>웃겨!</strong></div>
+        <div class="comic-hero-bubble comic-hero-bubble--kkk">ㅋㅋㅋ</div>
+        <div class="comic-hero-bubble comic-hero-bubble--right">오늘도<br /><strong>꿀잼 보장!</strong></div>
+        ${mascot}
+        <p class="comic-hero-title">오늘도 웃다가<br /><span>시간 순삭!<i></i></span></p>
+        <div class="comic-hero-cards">
+          ${cards}
+        </div>
+      </div>
+    </section>`;
+}
+
+export function renderPhotoCard(post) {
+  return `<article class="photo-card">
+      <a href="${post.path}">
+        <span class="photo-card-media">
+          <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="lazy" />
+        </span>
+        <strong>${escapeHtml(post.title)}</strong>
       </a>
     </article>`;
 }
