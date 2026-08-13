@@ -151,10 +151,6 @@ const staticPages = [
 for (const page of staticPages) {
   const html = renderStaticPage(page);
   await writePage(`public${page.path}index.html`, html);
-  await writeFile(`public/${page.key}.html`, html, "utf8");
-  if (page.path.startsWith("/policy/")) {
-    await writeFile(`public${page.path.slice(0, -1)}.html`, html, "utf8");
-  }
 }
 
 console.log(`Generated static pages, ${Object.keys(categoryMeta).length} categories, ${eligibleTags.length} tags, author page, RSS, redirects, and 404`);
@@ -353,12 +349,22 @@ function renderRedirects() {
 /posts/저녁-게시판에-농담-글이-몰리는-이유/ / 301
 /posts/출근길-목격담이-댓글을-빠르게-모으는-이유/ / 301
 /about /about/ 301
+/about.html /about/ 301
 /contact /contact/ 301
+/contact.html /contact/ 301
 /upload /upload/ 301
+/upload.html /upload/ 301
 /report /report/ 301
+/report.html /report/ 301
 /policy/editorial /policy/editorial/ 301
+/policy/editorial.html /policy/editorial/ 301
+/editorial.html /policy/editorial/ 301
 /policy/privacy /policy/privacy/ 301
+/policy/privacy.html /policy/privacy/ 301
+/privacy.html /policy/privacy/ 301
 /policy/terms /policy/terms/ 301
+/policy/terms.html /policy/terms/ 301
+/terms.html /policy/terms/ 301
 https://www.sosotime.com/* https://sosotime.com/:splat 301
 `;
 }
