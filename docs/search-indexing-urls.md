@@ -1,6 +1,6 @@
 # 검색 색인 신청 주소 정리
 
-최종 정리일: 2026-07-11  
+최종 정리일: 2026-08-13  
 대표 도메인: `https://sosotime.com`
 
 ## 제출 원칙
@@ -20,15 +20,20 @@ https://sosotime.com/
 
 ## Google Search Console에서 먼저 요청할 URL
 
+2026-08-13에 새로 추가한 10편을 우선 제출합니다.
+
 ```text
 https://sosotime.com/
-https://sosotime.com/posts/cafe-order-mistake/
-https://sosotime.com/posts/cat-box-takeover/
-https://sosotime.com/posts/subway-door-timing/
-https://sosotime.com/posts/group-chat-emoticon/
-https://sosotime.com/posts/convenience-store-new-review/
-https://sosotime.com/posts/스포츠-장면-하나가-유머-글로-번지는-이유/
-https://sosotime.com/posts/출근길-목격담이-댓글을-빠르게-모으는-이유/
+https://sosotime.com/posts/heat-wave-alert-text-first-check/
+https://sosotime.com/posts/vacation-delivery-delay-notice-checklist/
+https://sosotime.com/posts/summer-fridge-reorganize-standard/
+https://sosotime.com/posts/rainy-season-shoe-care-morning-time/
+https://sosotime.com/posts/realtime-rank-post-drop-speed/
+https://sosotime.com/posts/review-star-rating-mood-shift/
+https://sosotime.com/posts/vacation-return-desk-pile-feeling/
+https://sosotime.com/posts/shared-umbrella-rainy-season-awkwardness/
+https://sosotime.com/posts/group-chat-typo-laugh-moment/
+https://sosotime.com/posts/office-dinner-boss-joke-laugh-timing/
 ```
 
 ## 기본 페이지
@@ -74,13 +79,31 @@ https://sosotime.com/posts/cat-box-takeover/
 https://sosotime.com/posts/subway-door-timing/
 https://sosotime.com/posts/group-chat-emoticon/
 https://sosotime.com/posts/convenience-store-new-review/
+https://sosotime.com/posts/old-hof-vibe-reactions/
+https://sosotime.com/posts/shorts-fatigue-long-posts/
+https://sosotime.com/posts/subway-ac-reaction-points/
+https://sosotime.com/posts/single-delivery-checkpoints/
+https://sosotime.com/posts/heatwave-ice-cup-checkpoints/
+https://sosotime.com/posts/summer-power-demand-reading-points/
+https://sosotime.com/posts/tropical-night-alert-reading-points/
+https://sosotime.com/posts/daytime-match-convenience-store-pattern/
+https://sosotime.com/posts/office-dinner-boss-joke-laugh-timing/
+https://sosotime.com/posts/group-chat-typo-laugh-moment/
+https://sosotime.com/posts/shared-umbrella-rainy-season-awkwardness/
+https://sosotime.com/posts/vacation-return-desk-pile-feeling/
+https://sosotime.com/posts/review-star-rating-mood-shift/
+https://sosotime.com/posts/realtime-rank-post-drop-speed/
+https://sosotime.com/posts/rainy-season-shoe-care-morning-time/
+https://sosotime.com/posts/summer-fridge-reorganize-standard/
+https://sosotime.com/posts/vacation-delivery-delay-notice-checklist/
+https://sosotime.com/posts/heat-wave-alert-text-first-check/
 ```
 
 ## Google Search Console 제출 순서
 
 1. `Sitemaps` 메뉴에서 `https://sosotime.com/sitemap.xml` 제출
 2. URL 검사에서 `https://sosotime.com/` 색인 생성 요청
-3. 최신 게시글 5개와 2026-07-04/2026-07-03 게시글을 URL 검사로 색인 요청
+3. 위 "Google Search Console에서 먼저 요청할 URL" 목록(2026-08-13 추가 10편)을 URL 검사로 색인 요청
 4. 나머지 게시글은 사이트맵 수집을 기다리고, 중요한 글만 추가로 URL 검사 요청
 
 ## Naver Search Advisor 제출 순서
