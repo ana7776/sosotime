@@ -3,11 +3,10 @@ import {
   author,
   categoryMeta,
   escapeHtml,
-  formatShortDate,
   loadPosts,
   renderComicHero,
   renderHead,
-  renderPostCard,
+  renderPhotoCard,
   renderSiteFooter,
   renderSiteHeader,
   renderTagLinks,
@@ -17,6 +16,7 @@ import {
 
 const posts = await loadPosts();
 const featured = posts[0];
+const mosaicRest = posts.slice(1, 5);
 const latest = posts.slice(0, 12);
 const categoryBlocks = Object.entries(categoryMeta)
   .map(([category, meta]) => ({
@@ -68,41 +68,27 @@ ${renderHead({
     ${renderSiteHeader({ currentPath: "/" })}
     ${renderComicHero()}
     <main class="page-shell">
-      <section class="home-hero-card">
-        <div>
-          <p class="eyebrow">MONDAY NOTES</p>
-          <h1>생활 속에서 웃기고, 민망하고, 괜히 오래 남는 순간을 차분하게 기록합니다.</h1>
-          <p>
-            소소타임은 김안나가 직접 겪었거나 주변에서 자주 마주치는 장면을 바탕으로 쓴 생활형 글을 모읍니다.
-            짧게 웃고 끝나는 이야기라도 상황과 감정의 결을 같이 남겨, 다시 읽어도 얇지 않게 정리하는 쪽을 택합니다.
-          </p>
-        </div>
-        <div class="home-hero-side">
-          <strong>${posts.length}</strong>
-          <span>현재 공개 글 수</span>
-          <a href="${author.path}">글쓴이 소개 보기</a>
-        </div>
-      </section>
-
-      <section class="feature-section">
+      <section class="photo-mosaic-section">
         <div class="section-heading">
           <div>
             <p class="eyebrow">LATEST PICK</p>
-            <h2>최근 올라온 글</h2>
+            <h1>사진으로 먼저 보는 소소타임</h1>
           </div>
-          <span>${featured ? formatShortDate(featured.publishedAt) : ""}</span>
         </div>
         ${
           featured
-            ? `<article class="feature-card">
-          <img src="${featured.image}" alt="${escapeHtml(featured.title)} 대표 이미지" loading="eager" />
-          <div>
-            <small>${escapeHtml(categoryMeta[featured.category]?.label || "글")}</small>
-            <h3><a href="${featured.path}">${escapeHtml(featured.title)}</a></h3>
-            <p>${escapeHtml(featured.summary)}</p>
-            <a class="primary-link" href="${featured.path}">이 글 읽기</a>
-          </div>
-        </article>`
+            ? `<div class="photo-mosaic">
+          <a class="photo-mosaic-main" href="${featured.path}">
+            <img src="${featured.image}" alt="${escapeHtml(featured.title)} 대표 이미지" loading="eager" />
+          </a>
+          ${mosaicRest
+            .map(
+              (post) => `<a class="photo-mosaic-item" href="${post.path}">
+            <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="lazy" />
+          </a>`,
+            )
+            .join("\n          ")}
+        </div>`
             : ""
         }
       </section>
@@ -114,21 +100,12 @@ ${renderHead({
             <h2>카테고리별로 둘러보기</h2>
           </div>
         </div>
-        <div class="category-grid">
+        <div class="category-tiles">
           ${categoryBlocks
             .map(
-              ({ category, meta, posts: items }) => `<article class="category-panel">
-              <h3><a href="/category/${category}/">${escapeHtml(meta.label)}</a></h3>
-              <p>${escapeHtml(meta.intro)}</p>
-              <ul>
-                ${items
-                  .map(
-                    (post) =>
-                      `<li><a href="${post.path}">${escapeHtml(post.title)}</a><span>${formatShortDate(post.publishedAt)}</span></li>`,
-                  )
-                  .join("\n                ")}
-              </ul>
-            </article>`,
+              ({ category, meta, posts: items }) => `<a class="category-tile" href="/category/${category}/" style="--accent:${meta.accent}">
+              <img src="${items[0].image}" alt="${escapeHtml(meta.label)} 카테고리 대표 이미지" loading="lazy" />
+            </a>`,
             )
             .join("\n          ")}
         </div>
@@ -141,8 +118,8 @@ ${renderHead({
             <h2>최신 글 모음</h2>
           </div>
         </div>
-        <div class="collection-grid">
-          ${latest.map(renderPostCard).join("\n          ")}
+        <div class="photo-grid">
+          ${latest.map(renderPhotoCard).join("\n          ")}
         </div>
       </section>
 

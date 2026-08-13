@@ -4269,6 +4269,7 @@ p {
 .latest-section,
 .feature-section,
 .category-guide,
+.photo-mosaic-section,
 .author-note,
 .article-pager,
 .inline-related {
@@ -4282,7 +4283,8 @@ p {
 .feature-section,
 .category-guide,
 .latest-section,
-.tag-section {
+.tag-section,
+.photo-mosaic-section {
   margin-bottom: 20px;
   padding: 24px;
 }
@@ -4613,20 +4615,8 @@ p {
   filter: drop-shadow(0 10px 16px rgba(20, 20, 20, 0.22));
 }
 
-.comic-hero-eyebrow {
-  display: inline-block;
-  margin: 0 0 14px;
-  padding: 7px 18px;
-  border: 3px solid #141414;
-  border-radius: 999px;
-  background: #ffffff;
-  color: #141414;
-  font-weight: 800;
-  font-size: 14px;
-}
-
 .comic-hero-title {
-  margin: 0 0 14px;
+  margin: 0 0 22px;
   font-size: 46px;
   line-height: 1.18;
   font-weight: 900;
@@ -4636,15 +4626,6 @@ p {
 
 .comic-hero-title span {
   color: #e6273f;
-}
-
-.comic-hero-sub {
-  max-width: 620px;
-  margin: 0 auto 26px;
-  color: #3a2f10;
-  font-weight: 600;
-  line-height: 1.65;
-  font-size: 15px;
 }
 
 .comic-hero-cards {
@@ -4658,12 +4639,14 @@ p {
   display: flex;
   align-items: center;
   gap: 10px;
-  min-width: 188px;
-  padding: 10px 16px;
+  padding: 8px 18px 8px 8px;
   background: #ffffff;
   border: 3px solid #141414;
-  border-radius: 16px;
+  border-radius: 999px;
   box-shadow: 4px 4px 0 rgba(20, 20, 20, 0.18);
+  font-weight: 800;
+  font-size: 15px;
+  color: #141414;
   transition: transform 0.15s ease;
 }
 
@@ -4675,36 +4658,13 @@ p {
   display: grid;
   place-items: center;
   flex: none;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: var(--accent);
   color: #ffffff;
   font-weight: 800;
-  font-size: 17px;
-}
-
-.comic-hero-card-copy {
-  text-align: left;
-}
-
-.comic-hero-card-copy strong {
-  display: block;
-  font-size: 15px;
-  color: #141414;
-}
-
-.comic-hero-card-copy small {
-  display: block;
-  margin-top: 2px;
-  font-size: 12.5px;
-  color: #5b5040;
-}
-
-.comic-hero-signoff {
-  margin: 28px 0 0;
-  font-weight: 700;
-  color: #141414;
+  font-size: 16px;
 }
 
 .comic-hero-bubble {
@@ -4784,9 +4744,130 @@ p {
   .comic-hero-title {
     font-size: 32px;
   }
+}
 
-  .comic-hero-card {
-    min-width: 0;
-    width: 100%;
+.photo-mosaic {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.photo-mosaic-main {
+  grid-column: span 4;
+}
+
+.photo-mosaic-main,
+.photo-mosaic-item {
+  display: block;
+  overflow: hidden;
+  border-radius: 10px;
+  aspect-ratio: 16 / 9;
+}
+
+.photo-mosaic-main img,
+.photo-mosaic-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.photo-mosaic-main:hover img,
+.photo-mosaic-item:hover img {
+  transform: scale(1.04);
+}
+
+.category-tiles {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.category-tile {
+  display: block;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 3px solid var(--accent);
+  aspect-ratio: 16 / 9;
+}
+
+.category-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.category-tile:hover img {
+  transform: scale(1.05);
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.photo-card a {
+  display: block;
+}
+
+.photo-card-media {
+  display: block;
+  overflow: hidden;
+  border-radius: 10px;
+  aspect-ratio: 16 / 9;
+}
+
+.photo-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.photo-card a:hover .photo-card-media img {
+  transform: scale(1.05);
+}
+
+.photo-card strong {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 8px;
+  color: #111827;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (max-width: 860px) {
+  .category-tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .photo-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .photo-mosaic {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .photo-mosaic-main {
+    grid-column: span 2;
+  }
+
+  .category-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

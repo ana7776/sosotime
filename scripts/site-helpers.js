@@ -236,10 +236,7 @@ export function renderComicHero() {
     .map(
       ([category, meta]) => `<a class="comic-hero-card" href="/category/${category}/" style="--accent:${meta.accent}">
         <span class="comic-hero-card-icon">${escapeHtml(meta.label.slice(0, 1))}</span>
-        <span class="comic-hero-card-copy">
-          <strong>#${escapeHtml(meta.shortLabel)}</strong>
-          <small>${escapeHtml(meta.blurb)}</small>
-        </span>
+        <span>#${escapeHtml(meta.shortLabel)}</span>
       </a>`,
     )
     .join("\n        ");
@@ -250,15 +247,23 @@ export function renderComicHero() {
         <div class="comic-hero-bubble comic-hero-bubble--kkk">ㅋㅋㅋ</div>
         <div class="comic-hero-bubble comic-hero-bubble--right">오늘도<br /><strong>피식피식!</strong></div>
         ${mascot}
-        <p class="comic-hero-eyebrow">생활 속 웃음과 공감을 직접 쓰는 글</p>
         <p class="comic-hero-title">오늘도 웃다가<br /><span>시간 순삭!</span></p>
-        <p class="comic-hero-sub">소소타임은 김안나가 생활 속 웃음, 공감, 이야기, 생활 정보 주제를 직접 정리해 올리는 오리지널 글 아카이브입니다.</p>
         <div class="comic-hero-cards">
           ${cards}
         </div>
       </div>
-      <p class="comic-hero-signoff">오늘도 웃고 가세요 🙂</p>
     </section>`;
+}
+
+export function renderPhotoCard(post) {
+  return `<article class="photo-card">
+      <a href="${post.path}">
+        <span class="photo-card-media">
+          <img src="${post.image}" alt="${escapeHtml(post.title)} 대표 이미지" loading="lazy" />
+        </span>
+        <strong>${escapeHtml(post.title)}</strong>
+      </a>
+    </article>`;
 }
 
 export function renderTagLinks(posts) {
