@@ -1,18 +1,14 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import sharp from "sharp";
+import { buildMascot } from "./lib/mascot.js";
 
 const outputDir = "public/assets/site";
-const brand = "#1f6f5b";
-const brandDark = "#164e42";
-const ink = "#20242a";
-const bg = "#f4f6f8";
-const soft = "#eaf5f1";
 
 await mkdir(outputDir, { recursive: true });
 
 const faviconSvg = `<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <rect width="256" height="256" rx="52" fill="${brand}" />
-  <text x="128" y="158" text-anchor="middle" font-family="Arial, 'Malgun Gothic', sans-serif" font-weight="800" font-size="104" fill="#ffffff">소소</text>
+  <rect width="256" height="256" rx="56" fill="#ffc700" />
+  ${buildMascot(128, 132, 92)}
 </svg>`;
 
 await writeFile(`${outputDir}/favicon.svg`, faviconSvg, "utf8");
@@ -89,11 +85,12 @@ function speechBubble(x, y, w, h, tailX, tailSide, lines, { fill = "#ffffff", st
   </g>`;
 }
 
-function outlinedText(x, y, tspans, { fontSize = 90, anchor = "middle", weight = 900, spacing = -2 } = {}) {
+function outlinedText(x, y, tspans, { fontSize = 90, anchor = "middle", weight = 900, spacing = -2, strokeWidth } = {}) {
+  const sw = strokeWidth ?? Math.max(3, Math.round(fontSize * 0.13));
   const attrs = `x="${x}" y="${y}" text-anchor="${anchor}" font-family="Arial, 'Noto Sans KR', sans-serif" font-weight="${weight}" font-size="${fontSize}" letter-spacing="${spacing}"`;
   const plain = tspans.map((t) => `<tspan>${t.text}</tspan>`).join("");
   const colored = tspans.map((t) => `<tspan fill="${t.color}">${t.text}</tspan>`).join("");
-  return `<text ${attrs} fill="#1a1a1a" stroke="#1a1a1a" stroke-width="15" stroke-linejoin="round">${plain}</text>
+  return `<text ${attrs} fill="#1a1a1a" stroke="#1a1a1a" stroke-width="${sw}" stroke-linejoin="round">${plain}</text>
     <text ${attrs}>${colored}</text>`;
 }
 
@@ -106,12 +103,19 @@ function hashtagPill(cx, y, text, fill, textColor) {
   </g>`;
 }
 
+function underline(cx, y, width, thickness, color) {
+  const x1 = cx - width / 2;
+  const x2 = cx + width / 2;
+  const dip = thickness * 1.6;
+  return `<path d="M ${x1.toFixed(1)} ${y.toFixed(1)} Q ${cx.toFixed(1)} ${(y + dip).toFixed(1)} ${x2.toFixed(1)} ${(y - dip * 0.3).toFixed(1)}" stroke="${color}" stroke-width="${thickness}" fill="none" stroke-linecap="round" />`;
+}
+
 function buildComicBanner() {
   const width = 1200;
   const height = 630;
   const cx = 600;
-  const cy = 224;
-  const faceR = 150;
+  const cy = 214;
+  const faceR = 132;
 
   const sunburst = buildSunburst(cx, cy, 60, 900, 28, "#ffc700", "#ffa700");
   const stars = [
@@ -120,39 +124,11 @@ function buildComicBanner() {
     star(1130, 380, 16, "#ffffff", 20),
   ].join("");
 
-  const spike = (angleDeg, len) => {
-    const a = (angleDeg * Math.PI) / 180;
-    const baseX = cx + Math.cos(a) * (faceR - 6);
-    const baseY = cy + Math.sin(a) * (faceR - 6);
-    const tipX = cx + Math.cos(a) * (faceR + len);
-    const tipY = cy + Math.sin(a) * (faceR + len);
-    const spreadA = a - 0.05;
-    const spreadB = a + 0.05;
-    const sideX = cx + Math.cos(spreadA) * (faceR + len * 0.55);
-    const sideY = cy + Math.sin(spreadA) * (faceR + len * 0.55);
-    const side2X = cx + Math.cos(spreadB) * (faceR + len * 0.55);
-    const side2Y = cy + Math.sin(spreadB) * (faceR + len * 0.55);
-    return `<path d="M ${baseX.toFixed(1)} ${baseY.toFixed(1)} L ${sideX.toFixed(1)} ${sideY.toFixed(1)} L ${tipX.toFixed(1)} ${tipY.toFixed(1)} L ${side2X.toFixed(1)} ${side2Y.toFixed(1)} Z" fill="#1a1a1a" />`;
-  };
-  const spikes = [-140, -158, -175, 165].map((deg) => spike(deg, 46)).join("");
-
-  const face = `<g>
-    ${spikes}
-    <circle cx="${cx}" cy="${cy}" r="${faceR}" fill="#ffffff" stroke="#1a1a1a" stroke-width="11" />
-    <path d="M ${cx - 82} ${cy - 17} L ${cx - 47} ${cy - 53} L ${cx - 13} ${cy - 17}" stroke="#1a1a1a" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M ${cx + 13} ${cy - 17} L ${cx + 47} ${cy - 53} L ${cx + 82} ${cy - 17}" stroke="#1a1a1a" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-    <ellipse cx="${cx}" cy="${cy + 58}" rx="86" ry="50" fill="#141414" />
-    <ellipse cx="${cx}" cy="${cy + 55}" rx="74" ry="42" fill="#e6273f" />
-    <clipPath id="mouthClip"><ellipse cx="${cx}" cy="${cy + 55}" rx="74" ry="42" /></clipPath>
-    <g clip-path="url(#mouthClip)">
-      <rect x="${cx - 78}" y="${cy + 14}" width="156" height="20" fill="#ffffff" />
-      <ellipse cx="${cx}" cy="${cy + 88}" rx="42" ry="20" fill="#ff8fa3" />
-    </g>
-  </g>`;
+  const mascot = buildMascot(cx, cy, faceR, { cheer: true });
 
   const wordmark = outlinedText(
     cx,
-    412,
+    404,
     [
       { text: "SOSO", color: "#ffffff" },
       { text: "TIME", color: "#ffe000" },
@@ -161,31 +137,35 @@ function buildComicBanner() {
     { fontSize: 84, spacing: -2 },
   );
 
-  const taglineBar = `<g>
-    <rect x="190" y="446" width="820" height="84" rx="18" fill="#141414" />
-    <text x="${cx}" y="502" text-anchor="middle" xml:space="preserve" font-family="Arial, 'Noto Sans KR', sans-serif" font-weight="800" font-size="46" letter-spacing="-1"><tspan fill="#ffffff">웃다가 </tspan><tspan fill="#ffe000">시간 순삭!</tspan></text>
+  const taglineLine1 = outlinedText(cx, 452, [{ text: "오늘도 웃다가", color: "#1a1a1a" }], { fontSize: 38, weight: 800, spacing: -1 });
+  const taglineLine2 = outlinedText(cx, 522, [{ text: "시간 순삭!", color: "#ff5a3c" }], { fontSize: 62, weight: 900, spacing: -1 });
+  const tagline = `<g>
+    ${taglineLine1}
+    ${underline(cx, 466, 300, 5, "#1a1a1a")}
+    ${taglineLine2}
+    ${underline(cx, 540, 340, 9, "#ff5a3c")}
   </g>`;
 
   const pills = [
-    hashtagPill(345, 552, "#꿀잼", "#2ea3e8", "#ffffff"),
-    hashtagPill(555, 552, "#유머", "#ffffff", "#1a1a1a"),
-    hashtagPill(760, 552, "#웃긴글", "#ffe000", "#1a1a1a"),
-    hashtagPill(975, 552, "#공감", "#ff8fc0", "#1a1a1a"),
+    hashtagPill(345, 556, "#유머", "#ff7a1a", "#ffffff"),
+    hashtagPill(545, 556, "#웃긴글", "#ffffff", "#1a1a1a"),
+    hashtagPill(760, 556, "#공감", "#ffe000", "#1a1a1a"),
+    hashtagPill(960, 556, "#꿀잼", "#ffffff", "#1a1a1a"),
   ].join("");
 
   const bubbles = [
-    speechBubble(40, 34, 250, 108, 130, "left", [
-      { text: "빵빵 터지는", color: "#1a1a1a" },
-      { text: "유머 맛집!", color: "#e6273f" },
+    speechBubble(40, 30, 240, 108, 130, "left", [
+      { text: "ㅋㅋㅋ 너무", color: "#1a1a1a" },
+      { text: "웃겨!", color: "#e6273f" },
     ]),
-    speechBubble(910, 34, 250, 108, 995, "right", [
+    speechBubble(918, 30, 242, 108, 998, "right", [
       { text: "오늘도", color: "#1a1a1a" },
-      { text: "피식피식!", color: "#e6273f" },
+      { text: "꿀잼 보장!", color: "#e6273f" },
     ]),
-    speechBubble(420, 20, 112, 60, 462, "left", [{ text: "ㅋㅋㅋ", color: "#1a1a1a" }]),
+    speechBubble(420, 14, 112, 58, 462, "left", [{ text: "ㅋㅋㅋ", color: "#1a1a1a" }]),
   ].join("");
 
-  const emojis = [laughEmoji(108, 290, 60, { crying: true }), laughEmoji(1092, 270, 56)].join("");
+  const emojis = [laughEmoji(102, 280, 58, { crying: true }), laughEmoji(1096, 260, 54)].join("");
 
   return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
     <rect width="${width}" height="${height}" fill="#ffb703" />
@@ -194,9 +174,9 @@ function buildComicBanner() {
     ${stars}
     ${bubbles}
     ${emojis}
-    ${face}
+    ${mascot}
     ${wordmark}
-    ${taglineBar}
+    ${tagline}
     ${pills}
   </svg>`;
 }

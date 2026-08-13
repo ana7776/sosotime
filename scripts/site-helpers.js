@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { buildMascot } from "./lib/mascot.js";
 
 export const siteUrl = (process.env.SITE_URL || "https://sosotime.com").replace(/\/$/, "");
 export const adsenseClient = process.env.ADSENSE_CLIENT || "ca-pub-5804969457082424";
@@ -216,20 +217,8 @@ export function renderPostCard(post) {
 }
 
 export function renderComicHero() {
-  const mascot = `<svg class="comic-hero-mascot" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M 42 78 L 33 46 L 60 66 Z" fill="#1a1a1a" />
-    <path d="M 62 60 L 62 26 L 84 54 Z" fill="#1a1a1a" />
-    <path d="M 88 58 L 100 28 L 108 62 Z" fill="#1a1a1a" />
-    <circle cx="110" cy="110" r="98" fill="#ffffff" stroke="#1a1a1a" stroke-width="9" />
-    <path d="M 62 96 L 84 68 L 106 96" stroke="#1a1a1a" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-    <path d="M 114 96 L 136 68 L 158 96" stroke="#1a1a1a" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-    <ellipse cx="110" cy="148" rx="56" ry="33" fill="#141414" />
-    <ellipse cx="110" cy="145" rx="48" ry="27" fill="#e6273f" />
-    <clipPath id="heroMouthClip"><ellipse cx="110" cy="145" rx="48" ry="27" /></clipPath>
-    <g clip-path="url(#heroMouthClip)">
-      <rect x="62" y="120" width="96" height="13" fill="#ffffff" />
-      <ellipse cx="110" cy="167" rx="27" ry="13" fill="#ff8fa3" />
-    </g>
+  const mascot = `<svg class="comic-hero-mascot" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    ${buildMascot(120, 130, 82, { cheer: true })}
   </svg>`;
 
   const cards = Object.entries(categoryMeta)
@@ -243,11 +232,11 @@ export function renderComicHero() {
 
   return `<section class="comic-hero" aria-label="소소타임 소개">
       <div class="comic-hero-inner">
-        <div class="comic-hero-bubble comic-hero-bubble--left">빵빵 터지는<br /><strong>생활 이야기!</strong></div>
+        <div class="comic-hero-bubble comic-hero-bubble--left">ㅋㅋㅋ 너무<br /><strong>웃겨!</strong></div>
         <div class="comic-hero-bubble comic-hero-bubble--kkk">ㅋㅋㅋ</div>
-        <div class="comic-hero-bubble comic-hero-bubble--right">오늘도<br /><strong>피식피식!</strong></div>
+        <div class="comic-hero-bubble comic-hero-bubble--right">오늘도<br /><strong>꿀잼 보장!</strong></div>
         ${mascot}
-        <p class="comic-hero-title">오늘도 웃다가<br /><span>시간 순삭!</span></p>
+        <p class="comic-hero-title">오늘도 웃다가<br /><span>시간 순삭!<i></i></span></p>
         <div class="comic-hero-cards">
           ${cards}
         </div>

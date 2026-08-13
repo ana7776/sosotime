@@ -4609,9 +4609,9 @@ p {
 }
 
 .comic-hero-mascot {
-  width: 176px;
-  height: 176px;
-  margin-bottom: 10px;
+  width: 208px;
+  height: 208px;
+  margin-bottom: 4px;
   filter: drop-shadow(0 10px 16px rgba(20, 20, 20, 0.22));
 }
 
@@ -4625,7 +4625,20 @@ p {
 }
 
 .comic-hero-title span {
-  color: #e6273f;
+  position: relative;
+  display: inline-block;
+  color: #ff5a3c;
+}
+
+.comic-hero-title span i {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: -10px;
+  height: 7px;
+  border-radius: 999px;
+  background: #ff5a3c;
+  font-style: normal;
 }
 
 .comic-hero-cards {
