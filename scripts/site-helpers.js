@@ -121,7 +121,7 @@ export function canonicalUrl(path) {
 
 export function renderHead({ title, description, canonicalPath, image, type = "website", jsonLd }) {
   const canonical = canonicalUrl(canonicalPath);
-  const imageUrl = image ? absoluteUrl(image) : undefined;
+  const imageUrl = absoluteUrl(image || "/assets/site/og-image.webp");
   return `    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${escapeHtml(title)}</title>
@@ -129,15 +129,21 @@ export function renderHead({ title, description, canonicalPath, image, type = "w
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href="${canonical}" />
     <link rel="alternate" type="application/rss+xml" title="소소타임 RSS" href="/rss.xml" />
+    <link rel="icon" href="/assets/site/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/site/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/assets/site/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="/assets/site/apple-touch-icon.png" />
     <link rel="stylesheet" href="/styles.css" />
     <meta property="og:type" content="${type}" />
     <meta property="og:site_name" content="소소타임" />
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
-    <meta property="og:url" content="${canonical}" />${imageUrl ? `\n    <meta property="og:image" content="${imageUrl}" />` : ""}
-    <meta name="twitter:card" content="${imageUrl ? "summary_large_image" : "summary"}" />
+    <meta property="og:url" content="${canonical}" />
+    <meta property="og:image" content="${imageUrl}" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(title)}" />
-    <meta name="twitter:description" content="${escapeHtml(description)}" />${imageUrl ? `\n    <meta name="twitter:image" content="${imageUrl}" />` : ""}
+    <meta name="twitter:description" content="${escapeHtml(description)}" />
+    <meta name="twitter:image" content="${imageUrl}" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}" crossorigin="anonymous"></script>
     <script type="application/ld+json">${safeJson(jsonLd)}</script>`;
 }
