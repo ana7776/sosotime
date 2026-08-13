@@ -2,87 +2,183 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sosotime.com/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://sosotime.com/about/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://sosotime.com/contact/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sosotime.com/upload/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://sosotime.com/report/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://sosotime.com/policy/editorial/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sosotime.com/policy/privacy/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sosotime.com/policy/terms/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://sosotime.com/author/kimanna/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://sosotime.com/category/funny/</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://sosotime.com/category/empathy/</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://sosotime.com/category/issue/</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://sosotime.com/category/life/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://sosotime.com/category/info/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%ED%99%98%EC%A0%88%EA%B8%B0/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EC%83%9D%ED%99%9C%EC%A0%95%EB%B3%B4/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EB%A7%88%ED%8A%B8/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EC%9D%B4%EC%8A%88/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EC%A7%A7%EC%9D%80%EC%98%81%EC%83%81/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EC%A7%81%EC%9E%A5%EC%83%9D%ED%99%9C/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%ED%83%9D%EB%B0%B0/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EC%83%9D%ED%99%9C%EC%9C%A0%EB%A8%B8/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%ED%8F%AD%EC%97%BC%ED%8A%B9%EB%B3%B4/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EC%97%AC%EB%A6%84%EC%B2%A0/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EC%9E%A5%EB%A7%88/</loc>
+    <lastmod>2026-08-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EB%B0%98%EC%9D%91/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EC%B6%9C%EA%B7%BC/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EC%83%9D%ED%99%9C%EA%B3%B5%EA%B0%90/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/tag/%EB%88%88%EC%B9%98/</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://sosotime.com/tag/%ED%8E%B8%EC%9D%98%EC%A0%90/</loc>
@@ -92,12 +188,6 @@
   </url>
   <url>
     <loc>https://sosotime.com/tag/%ED%8F%AD%EC%97%BC/</loc>
-    <lastmod>2026-07-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://sosotime.com/tag/%EC%83%9D%ED%99%9C%EC%A0%95%EB%B3%B4/</loc>
     <lastmod>2026-07-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -115,12 +205,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sosotime.com/tag/%EC%83%9D%ED%99%9C%EC%9C%A0%EB%A8%B8/</loc>
-    <lastmod>2026-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://sosotime.com/tag/%EB%B0%98%EB%A0%A4%EB%8F%99%EB%AC%BC/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -134,12 +218,6 @@
   </url>
   <url>
     <loc>https://sosotime.com/tag/%EC%83%9D%ED%99%9C/</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://sosotime.com/tag/%EB%B0%98%EC%9D%91/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -163,16 +241,130 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sosotime.com/tag/%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0/</loc>
+    <loc>https://sosotime.com/tag/%EB%86%8D%EB%8B%B4/</loc>
     <lastmod>2026-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sosotime.com/tag/%EB%86%8D%EB%8B%B4/</loc>
-    <lastmod>2026-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://sosotime.com/posts/seasonal-cold-prevention-first-check/</loc>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/seasonal-closet-reorganize-delay-reason/</loc>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/evening-mart-discount-corner-habit/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/trending-search-issue-temperature-gap/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/short-clip-all-day-talk-reason/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/community-verification-post-doubt-comment-pattern/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/reunion-friend-conversation-topic-moment/</loc>
+    <lastmod>2026-08-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/moving-day-new-neighborhood-store-feeling/</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/meeting-mic-mute-forget-moment/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/delivery-driver-short-chat-laugh-point/</loc>
+    <lastmod>2026-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/heat-wave-alert-text-first-check/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/vacation-delivery-delay-notice-checklist/</loc>
+    <lastmod>2026-08-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/summer-fridge-reorganize-standard/</loc>
+    <lastmod>2026-08-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/rainy-season-shoe-care-morning-time/</loc>
+    <lastmod>2026-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/realtime-rank-post-drop-speed/</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/review-star-rating-mood-shift/</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/vacation-return-desk-pile-feeling/</loc>
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/shared-umbrella-rainy-season-awkwardness/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/group-chat-typo-laugh-moment/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sosotime.com/posts/office-dinner-boss-joke-laugh-timing/</loc>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sosotime.com/posts/daytime-match-convenience-store-pattern/</loc>
