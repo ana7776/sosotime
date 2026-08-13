@@ -36,6 +36,7 @@ for (const [category, meta] of Object.entries(categoryMeta)) {
     heading: `${meta.label} - 생활 속에서 오래 남는 장면들`,
     intro: meta.intro,
     currentPath: `/category/${category}/`,
+    image: `/assets/site/og-${category}.webp`,
     posts: items,
     jsonLd: {
       "@context": "https://schema.org",
@@ -155,11 +156,11 @@ for (const page of staticPages) {
 
 console.log(`Generated static pages, ${Object.keys(categoryMeta).length} categories, ${eligibleTags.length} tags, author page, RSS, redirects, and 404`);
 
-function renderCollectionPage({ title, description, canonicalPath, heading, intro, currentPath, posts, jsonLd }) {
+function renderCollectionPage({ title, description, canonicalPath, heading, intro, currentPath, posts, jsonLd, image }) {
   return `<!doctype html>
 <html lang="ko">
   <head>
-${renderHead({ title, description, canonicalPath, jsonLd })}
+${renderHead({ title, description, canonicalPath, jsonLd, image })}
   </head>
   <body>
     ${renderSiteHeader({ currentPath })}

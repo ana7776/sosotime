@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import sharp from "sharp";
 import { buildMascot } from "./lib/mascot.js";
+import { categoryMeta } from "./site-helpers.js";
 
 const outputDir = "public/assets/site";
 
@@ -19,10 +20,19 @@ await sharp(faviconBuffer).resize(16, 16).png().toFile(`${outputDir}/favicon-16.
 await sharp(faviconBuffer).resize(180, 180).png().toFile(`${outputDir}/apple-touch-icon.png`);
 
 const ogSvg = buildComicBanner();
-
 await sharp(Buffer.from(ogSvg)).webp({ quality: 90 }).toFile(`${outputDir}/og-image.webp`);
 
-console.log("Generated site favicon and OG image assets");
+for (const [category, meta] of Object.entries(categoryMeta)) {
+  const categorySvg = buildComicBanner({
+    accent: meta.accent,
+    taglineTop: `${meta.label} 카테고리`,
+    taglineBottom: meta.blurb,
+    tagLabel: meta.label,
+  });
+  await sharp(Buffer.from(categorySvg)).webp({ quality: 90 }).toFile(`${outputDir}/og-${category}.webp`);
+}
+
+console.log(`Generated site favicon, OG image, and ${Object.keys(categoryMeta).length} category OG images`);
 
 function buildSunburst(cx, cy, rInner, rOuter, count, colorA, colorB) {
   const wedges = [];
@@ -110,12 +120,19 @@ function underline(cx, y, width, thickness, color) {
   return `<path d="M ${x1.toFixed(1)} ${y.toFixed(1)} Q ${cx.toFixed(1)} ${(y + dip).toFixed(1)} ${x2.toFixed(1)} ${(y - dip * 0.3).toFixed(1)}" stroke="${color}" stroke-width="${thickness}" fill="none" stroke-linecap="round" />`;
 }
 
-function buildComicBanner() {
+function buildComicBanner({
+  accent = "#ffe000",
+  taglineTop = "오늘도 웃다가",
+  taglineBottom = "시간 순삭!",
+  tagLabel = "유머",
+} = {}) {
   const width = 1200;
   const height = 630;
   const cx = 600;
   const cy = 214;
   const faceR = 132;
+  const bottomFontSize = taglineBottom.length > 7 ? 40 : 62;
+  const bottomUnderlineWidth = Math.min(560, taglineBottom.length * 34 + 60);
 
   const sunburst = buildSunburst(cx, cy, 60, 900, 28, "#ffc700", "#ffa700");
   const stars = [
@@ -131,26 +148,26 @@ function buildComicBanner() {
     404,
     [
       { text: "SOSO", color: "#ffffff" },
-      { text: "TIME", color: "#ffe000" },
+      { text: "TIME", color: accent },
       { text: ".COM", color: "#ffffff" },
     ],
     { fontSize: 84, spacing: -2 },
   );
 
-  const taglineLine1 = outlinedText(cx, 452, [{ text: "오늘도 웃다가", color: "#1a1a1a" }], { fontSize: 38, weight: 800, spacing: -1 });
-  const taglineLine2 = outlinedText(cx, 522, [{ text: "시간 순삭!", color: "#ff5a3c" }], { fontSize: 62, weight: 900, spacing: -1 });
+  const taglineLine1 = outlinedText(cx, 452, [{ text: taglineTop, color: "#1a1a1a" }], { fontSize: 38, weight: 800, spacing: -1 });
+  const taglineLine2 = outlinedText(cx, 522, [{ text: taglineBottom, color: accent }], { fontSize: bottomFontSize, weight: 900, spacing: -1 });
   const tagline = `<g>
     ${taglineLine1}
     ${underline(cx, 466, 300, 5, "#1a1a1a")}
     ${taglineLine2}
-    ${underline(cx, 540, 340, 9, "#ff5a3c")}
+    ${underline(cx, 540, bottomUnderlineWidth, 9, accent)}
   </g>`;
 
   const pills = [
-    hashtagPill(345, 556, "#유머", "#ff7a1a", "#ffffff"),
-    hashtagPill(545, 556, "#웃긴글", "#ffffff", "#1a1a1a"),
-    hashtagPill(760, 556, "#공감", "#ffe000", "#1a1a1a"),
-    hashtagPill(960, 556, "#꿀잼", "#ffffff", "#1a1a1a"),
+    hashtagPill(345, 556, `#${tagLabel}`, accent, "#ffffff"),
+    hashtagPill(545, 556, "#소소타임", "#ffffff", "#1a1a1a"),
+    hashtagPill(760, 556, "#생활글", accent, "#ffffff"),
+    hashtagPill(960, 556, "#오늘의픽", "#ffffff", "#1a1a1a"),
   ].join("");
 
   const bubbles = [
