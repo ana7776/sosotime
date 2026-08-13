@@ -5,6 +5,7 @@ import {
   escapeHtml,
   formatShortDate,
   loadPosts,
+  renderComicHero,
   renderHead,
   renderPostCard,
   renderSiteFooter,
@@ -65,6 +66,7 @@ ${renderHead({
   </head>
   <body class="soso-home-body">
     ${renderSiteHeader({ currentPath: "/" })}
+    ${renderComicHero()}
     <main class="page-shell">
       <section class="home-hero-card">
         <div>

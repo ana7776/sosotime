@@ -4577,3 +4577,216 @@ p {
     grid-template-columns: 1fr;
   }
 }
+
+.comic-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 52px 16px 62px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 44%),
+    repeating-conic-gradient(from 0deg at 50% 14%, #ffc700 0deg 6.43deg, #ffab00 6.43deg 12.86deg);
+}
+
+.comic-hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30px;
+  background-image: radial-gradient(circle at 15px 30px, var(--bg) 15px, transparent 16px);
+  background-size: 30px 30px;
+  background-repeat: repeat-x;
+}
+
+.comic-hero-inner {
+  position: relative;
+  width: min(1180px, calc(100% - 16px));
+  margin: 0 auto;
+}
+
+.comic-hero-mascot {
+  width: 176px;
+  height: 176px;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 10px 16px rgba(20, 20, 20, 0.22));
+}
+
+.comic-hero-eyebrow {
+  display: inline-block;
+  margin: 0 0 14px;
+  padding: 7px 18px;
+  border: 3px solid #141414;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #141414;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.comic-hero-title {
+  margin: 0 0 14px;
+  font-size: 46px;
+  line-height: 1.18;
+  font-weight: 900;
+  color: #141414;
+  text-shadow: 3px 3px 0 rgba(255, 255, 255, 0.55);
+}
+
+.comic-hero-title span {
+  color: #e6273f;
+}
+
+.comic-hero-sub {
+  max-width: 620px;
+  margin: 0 auto 26px;
+  color: #3a2f10;
+  font-weight: 600;
+  line-height: 1.65;
+  font-size: 15px;
+}
+
+.comic-hero-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.comic-hero-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 188px;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 3px solid #141414;
+  border-radius: 16px;
+  box-shadow: 4px 4px 0 rgba(20, 20, 20, 0.18);
+  transition: transform 0.15s ease;
+}
+
+.comic-hero-card:hover {
+  transform: translateY(-3px);
+}
+
+.comic-hero-card-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 17px;
+}
+
+.comic-hero-card-copy {
+  text-align: left;
+}
+
+.comic-hero-card-copy strong {
+  display: block;
+  font-size: 15px;
+  color: #141414;
+}
+
+.comic-hero-card-copy small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.5px;
+  color: #5b5040;
+}
+
+.comic-hero-signoff {
+  margin: 28px 0 0;
+  font-weight: 700;
+  color: #141414;
+}
+
+.comic-hero-bubble {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .comic-hero-bubble {
+    position: absolute;
+    display: block;
+    padding: 10px 16px;
+    background: #ffffff;
+    border: 3px solid #141414;
+    border-radius: 16px;
+    box-shadow: 4px 4px 0 rgba(20, 20, 20, 0.18);
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 1.35;
+    color: #141414;
+  }
+
+  .comic-hero-bubble strong {
+    color: #e6273f;
+  }
+
+  .comic-hero-bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -14px;
+    left: 24px;
+    border: 10px solid transparent;
+    border-top-color: #141414;
+  }
+
+  .comic-hero-bubble--left {
+    top: 20px;
+    left: max(12px, calc(50% - 560px));
+  }
+
+  .comic-hero-bubble--right {
+    top: 20px;
+    right: max(12px, calc(50% - 560px));
+  }
+
+  .comic-hero-bubble--right::after {
+    left: auto;
+    right: 24px;
+  }
+
+  .comic-hero-bubble--kkk {
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #141414;
+    color: #ffffff;
+    border-color: #141414;
+    font-size: 16px;
+  }
+
+  .comic-hero-bubble--kkk::after {
+    border-top-color: #141414;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 560px) {
+  .comic-hero {
+    padding: 40px 14px 52px;
+  }
+
+  .comic-hero-mascot {
+    width: 128px;
+    height: 128px;
+  }
+
+  .comic-hero-title {
+    font-size: 32px;
+  }
+
+  .comic-hero-card {
+    min-width: 0;
+    width: 100%;
+  }
+}

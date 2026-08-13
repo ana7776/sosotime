@@ -13,30 +13,40 @@ export const categoryMeta = {
   funny: {
     label: "웃음",
     shortLabel: "유머",
+    accent: "#c4492d",
+    blurb: "빵빵 터지는 생활 웃음",
     intro:
       "웃음 카테고리는 하루 중 딱 한 번이라도 피식하게 만드는 생활 장면을 모읍니다. 누군가를 놀리거나 과장된 자극을 쫓기보다, 우리 모두 한 번쯤 겪었을 법한 민망함과 타이밍의 어긋남에서 웃음이 어떻게 생기는지 풀어냅니다. 짧은 해프닝도 맥락을 살려 읽으면 훨씬 오래 남기 때문에, 제목보다 장면과 감정의 결을 차분하게 짚는 글을 중심에 둡니다.",
   },
   empathy: {
     label: "공감",
     shortLabel: "공감",
+    accent: "#1f6f5b",
+    blurb: "괜히 오래 남는 순간들",
     intro:
       "공감 카테고리는 별일 아닌데 이상하게 오래 기억나는 순간들을 다룹니다. 출근길, 집에 돌아온 저녁, 반려동물과 보내는 시간처럼 큰 사건은 아니어도 누구에게나 자기 이야기를 겹쳐 볼 틈이 있는 장면을 고릅니다. 읽고 나서 정보를 외우는 대신 '나도 비슷했다'는 감각이 남도록, 감정의 흐름과 생활 감각을 구체적으로 풀어 쓰는 데 집중합니다.",
   },
   issue: {
     label: "이야기",
     shortLabel: "이야기",
+    accent: "#3b5b92",
+    blurb: "화제가 된 장면 다시 보기",
     intro:
       "이야기 카테고리는 온라인에서 화제가 된 장면을 그대로 따라가기보다, 왜 사람들이 그 지점에서 멈춰 서서 말하게 되는지 해석해 보는 공간입니다. 반응이 빨리 붙는 이슈일수록 단정적인 판단보다 장면의 조건과 받아들이는 방식이 더 중요합니다. 그래서 자극적인 결론 대신, 읽는 사람이 스스로 맥락을 분리해 볼 수 있도록 생활 언어로 다시 정리합니다.",
   },
   life: {
     label: "생활",
     shortLabel: "생활",
+    accent: "#8a6f2a",
+    blurb: "바로 써먹는 생활 기준",
     intro:
       "생활 카테고리는 일상에서 바로 써먹을 수 있는 작은 기준을 다룹니다. 출근길 동선, 공공장소의 눈치, 더운 날과 늦은 밤의 생활 리듬처럼 사소하지만 반복되는 문제를 다루기 때문에 한 번 읽고 지나가도 실제 선택에 남는 것이 있어야 합니다. 거창한 팁보다도 상황을 읽는 법과 스스로 조절할 수 있는 기준을 차분하게 정리합니다.",
   },
   info: {
     label: "정보",
     shortLabel: "정보",
+    accent: "#2d6f8f",
+    blurb: "헷갈리는 순간 먼저 정리",
     intro:
       "정보 카테고리는 생활에 바로 닿는 판단 기준을 가볍지만 빈약하지 않게 설명합니다. 제품 후기나 서비스 안내, 계절 이슈처럼 누구나 한 번쯤 마주치는 소재를 다루되 숫자나 문구를 그대로 나열하지 않고 무엇을 먼저 확인하면 덜 헷갈리는지에 초점을 맞춥니다. 읽고 나면 '그래서 나는 무엇부터 보면 되는가'가 남도록 구성한 글만 모아 둡니다.",
   },
@@ -203,6 +213,52 @@ export function renderPostCard(post) {
         </span>
       </a>
     </article>`;
+}
+
+export function renderComicHero() {
+  const mascot = `<svg class="comic-hero-mascot" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M 42 78 L 33 46 L 60 66 Z" fill="#1a1a1a" />
+    <path d="M 62 60 L 62 26 L 84 54 Z" fill="#1a1a1a" />
+    <path d="M 88 58 L 100 28 L 108 62 Z" fill="#1a1a1a" />
+    <circle cx="110" cy="110" r="98" fill="#ffffff" stroke="#1a1a1a" stroke-width="9" />
+    <path d="M 62 96 L 84 68 L 106 96" stroke="#1a1a1a" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 114 96 L 136 68 L 158 96" stroke="#1a1a1a" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <ellipse cx="110" cy="148" rx="56" ry="33" fill="#141414" />
+    <ellipse cx="110" cy="145" rx="48" ry="27" fill="#e6273f" />
+    <clipPath id="heroMouthClip"><ellipse cx="110" cy="145" rx="48" ry="27" /></clipPath>
+    <g clip-path="url(#heroMouthClip)">
+      <rect x="62" y="120" width="96" height="13" fill="#ffffff" />
+      <ellipse cx="110" cy="167" rx="27" ry="13" fill="#ff8fa3" />
+    </g>
+  </svg>`;
+
+  const cards = Object.entries(categoryMeta)
+    .map(
+      ([category, meta]) => `<a class="comic-hero-card" href="/category/${category}/" style="--accent:${meta.accent}">
+        <span class="comic-hero-card-icon">${escapeHtml(meta.label.slice(0, 1))}</span>
+        <span class="comic-hero-card-copy">
+          <strong>#${escapeHtml(meta.shortLabel)}</strong>
+          <small>${escapeHtml(meta.blurb)}</small>
+        </span>
+      </a>`,
+    )
+    .join("\n        ");
+
+  return `<section class="comic-hero" aria-label="소소타임 소개">
+      <div class="comic-hero-inner">
+        <div class="comic-hero-bubble comic-hero-bubble--left">빵빵 터지는<br /><strong>생활 이야기!</strong></div>
+        <div class="comic-hero-bubble comic-hero-bubble--kkk">ㅋㅋㅋ</div>
+        <div class="comic-hero-bubble comic-hero-bubble--right">오늘도<br /><strong>피식피식!</strong></div>
+        ${mascot}
+        <p class="comic-hero-eyebrow">생활 속 웃음과 공감을 직접 쓰는 글</p>
+        <p class="comic-hero-title">오늘도 웃다가<br /><span>시간 순삭!</span></p>
+        <p class="comic-hero-sub">소소타임은 김안나가 생활 속 웃음, 공감, 이야기, 생활 정보 주제를 직접 정리해 올리는 오리지널 글 아카이브입니다.</p>
+        <div class="comic-hero-cards">
+          ${cards}
+        </div>
+      </div>
+      <p class="comic-hero-signoff">오늘도 웃고 가세요 🙂</p>
+    </section>`;
 }
 
 export function renderTagLinks(posts) {
